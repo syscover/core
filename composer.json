@@ -1,0 +1,22 @@
+{
+    "name": "syscover/core",
+    "description": "Core package",
+    "keywords": ["syscover","pulsar","laravel","syscover","intranet","core"],
+    "authors": [
+        {
+            "name": "SYSCOVER GROUP SL",
+            "email": "info@syscover.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Syscover\\Core\\": "src/Syscover/Core"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}
