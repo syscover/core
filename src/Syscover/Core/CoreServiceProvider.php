@@ -11,7 +11,10 @@ class CoreServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-
+        // publish angular application
+        $this->publishes([
+            __DIR__ . '/../../../angular'	=> public_path('/packages/syscover/core')
+        ]);
 	}
 
 	/**
