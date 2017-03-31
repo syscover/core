@@ -17,7 +17,7 @@ class CoreServiceProvider extends ServiceProvider
 
         // publish angular application
         $this->publishes([
-            __DIR__ . '/../../../angular'	=> public_path('/pulsar')
+            __DIR__ . '/../../../angular' => public_path('/pulsar')
         ]);
 	}
 
