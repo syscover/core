@@ -1,5 +1,5 @@
 {
-    "name": "syscover/core",
+    "name": "syscover/pulsar-core",
     "description": "Core package",
     "keywords": ["syscover","pulsar","laravel","syscover","intranet","core"],
     "authors": [
