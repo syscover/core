@@ -135,14 +135,35 @@ abstract class CoreController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param   string  $id
-     * @return  \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $object = call_user_func($this->model . '::builder')->find($id);
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
 
-        $object->delete();
+        $query = call_user_func($this->model . '::builder');
+
+        if(isset($parameters['lang']))
+        {
+            $model = new $this->model;
+            $table = $model->getTable();
+
+            $object = $query
+                ->where($table . '.lang_id', $parameters['lang'])
+                ->where($table . '.id', $parameters['id'])
+                ->first();
+
+            call_user_func($this->model . '::deleteTranslationRecord', $parameters);
+        }
+        else
+        {
+            $object = $query->find($parameters['id']);
+            $object->delete();
+        }
+
+
 
         $response['status'] = "success";
         $response['data']   = $object;

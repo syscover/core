@@ -30,6 +30,22 @@ abstract class CoreModel extends BaseModel
     }
 
     /**
+     * @access	public
+     * @param   array       $parameters             [id, lang]
+     * @param   boolean     $deleteLangDataRecord
+     * @return	void
+     */
+    public static function deleteTranslationRecord($parameters, $deleteLangDataRecord = true)
+    {
+        $instance = new static;
+
+        $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_id', $parameters['lang'])->delete();
+
+        if($deleteLangDataRecord)
+            $instance::deleteLangDataRecord($parameters);
+    }
+
+    /**
      * Function to add lang record from json field
      *
      * @access	public
