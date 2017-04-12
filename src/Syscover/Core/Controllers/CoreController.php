@@ -64,26 +64,39 @@ abstract class CoreController extends BaseController
         // build query
         $query = call_user_func($this->model . '::builder');
 
+        // build model and get properties
+        $model = new $this->model;
+        $table = $model->getTable();
 
         foreach ($parameters['parameters'] as $param)
         {
             if(! isset($param['command']))
-                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter');
+                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($param));
 
-            if(! isset($param['field']))
-                throw new ParameterNotFoundException('Parameter field not found in request, please set field parameter');
+            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['column']))
+                throw new ParameterNotFoundException('Parameter column not found in request, please set column parameter in ' . json_encode($param));
 
-            if(! isset($param['operator']))
-                throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter');
+            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['operator']))
+                throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($param));
 
-            if(! isset($param['value']))
-                throw new ParameterNotFoundException('Parameter value not found in request, please set value parameter');
+            if($param['command'] !== "orderBy" && ! isset($param['value']))
+                throw new ParameterNotFoundException('Parameter value not found in request, please set value parameter in: ' . json_encode($param));
 
 
             switch ($param['command']) {
                 case 'where':
-                    $query->where($param['field'], $param['operator'], $param['value']);
+                    $query->where($table . '.' . $param['column'], $param['operator'], $param['value']);
                     break;
+                case 'offset':
+                    $query->skip($param['value']);
+                    break;
+                case 'limit':
+                    $query->take($param['value']);
+                    break;
+                case 'orderBy':
+                    $query->orderBy($param['column'], $param['operator']);
+                    break;
+
                 default:
                     throw new ParameterValueException('command parameter has a incorrect value, must to be where');
             }
@@ -92,8 +105,12 @@ abstract class CoreController extends BaseController
 
         $objects = $query->get();
 
-        $response['status'] = "success";
-        $response['data'] = $objects;
+        $response['status']     = "success";
+        $response['data']       = $objects;
+
+        // additional information
+        $query = call_user_func($this->model . '::builder');
+        $response['total']      = $query->count();
 
         return response()->json($response);
     }
