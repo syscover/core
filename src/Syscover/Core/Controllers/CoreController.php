@@ -64,28 +64,40 @@ abstract class CoreController extends BaseController
         // build query
         $query = call_user_func($this->model . '::builder');
 
-        // build model and get properties
-        $model = new $this->model;
-        $table = $model->getTable();
+        // filter all data by lang
+        if(isset($parameters['lang']))
+        {
+            $query
+                ->where('lang_id', $parameters['lang'])
+                ->where(function ($query) use ($parameters){
+                    $this->setQueries($query, $parameters);
+                });
+        }
+        else
+        {
+            $query = $this->setQueries($query, $parameters);
+        }
 
+
+        $filtered = $query->count();
+
+
+        // commands for pagination
         foreach ($parameters['parameters'] as $param)
         {
             if(! isset($param['command']))
                 throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($param));
 
-            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['column']))
-                throw new ParameterNotFoundException('Parameter column not found in request, please set column parameter in ' . json_encode($param));
-
-            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['operator']))
-                throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($param));
-
             if($param['command'] !== "orderBy" && ! isset($param['value']))
                 throw new ParameterNotFoundException('Parameter value not found in request, please set value parameter in: ' . json_encode($param));
 
-
             switch ($param['command']) {
                 case 'where':
-                    $query->where($table . '.' . $param['column'], $param['operator'], $param['value']);
+                case 'orWhere';
+                    // commands not accepted
+                    break;
+                case 'orderBy':
+                    $query->orderBy($param['column'], $param['operator']);
                     break;
                 case 'offset':
                     $query->skip($param['value']);
@@ -93,24 +105,26 @@ abstract class CoreController extends BaseController
                 case 'limit':
                     $query->take($param['value']);
                     break;
-                case 'orderBy':
-                    $query->orderBy($param['column'], $param['operator']);
-                    break;
 
                 default:
-                    throw new ParameterValueException('command parameter has a incorrect value, must to be where');
+                    throw new ParameterValueException('command parameter has a incorrect value, must to be offset or take');
             }
-
         }
 
         $objects = $query->get();
 
-        $response['status']     = "success";
-        $response['data']       = $objects;
-
         // additional information
         $query = call_user_func($this->model . '::builder');
-        $response['total']      = $query->count();
+
+        // filter all data by lang
+        if(isset($parameters['lang']))
+            $query->where('lang_id', $parameters['lang']);
+
+
+        $response['status']         = "success";
+        $response['total']          = $query->count();
+        $response['filtered']       = $filtered;
+        $response['data']           = $objects;
 
         return response()->json($response);
     }
@@ -186,5 +200,42 @@ abstract class CoreController extends BaseController
         $response['data']   = $object;
 
         return response()->json($response);
+    }
+
+    private function setQueries($query, $parameters)
+    {
+        // commands without pagination
+        foreach ($parameters['parameters'] as $param)
+        {
+            if(! isset($param['command']))
+                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($param));
+
+            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['column']))
+                throw new ParameterNotFoundException('Parameter column not found in request, please set column parameter in ' . json_encode($param));
+
+            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['operator']))
+                throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($param));
+
+
+            switch ($param['command']) {
+                case 'offset':
+                case 'limit':
+                case 'orderBy':
+                    // commands not accepted
+                    break;
+                case 'where':
+                    $query->where($param['column'], $param['operator'], $param['value']);
+                    break;
+                case 'orWhere':
+                    $query->orWhere($param['column'], $param['operator'], $param['value']);
+                    break;
+
+
+                default:
+                    throw new ParameterValueException('command parameter has a incorrect value, must to be where');
+            }
+        }
+
+        return $query;
     }
 }
