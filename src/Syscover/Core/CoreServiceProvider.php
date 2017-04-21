@@ -19,6 +19,11 @@ class CoreServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../../angular' => public_path('/pulsar')
         ]);
+
+        // register config files
+        $this->publishes([
+            __DIR__ . '/../../config/pulsar.core.php' => config_path('pulsar.core.php'),
+        ]);
 	}
 
 	/**
