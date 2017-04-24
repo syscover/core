@@ -31,8 +31,12 @@ abstract class CoreController extends BaseController
 
         $query = call_user_func($this->model . '::builder');
 
-        if(isset($parameters['lang']))
-            $query->where($this->model . 'lang_id', $parameters['lang']);
+        if(isset($parameters['lang'])){
+            $model = new $this->model;
+            $table = $model->getTable();
+
+            $query->where($table . '.lang_id', $parameters['lang']);
+        }
 
         $objects = $query->get();
 
