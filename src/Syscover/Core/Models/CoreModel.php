@@ -1,6 +1,7 @@
 <?php namespace Syscover\Core\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Model
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class CoreModel extends BaseModel
 {
+    protected $table;
+
     /**
      * Overwrite construct to set params in model
      *
@@ -27,6 +30,15 @@ class CoreModel extends BaseModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    /**
+     * Get columns name from table
+     * @return array
+     */
+    public function getTableColumns() {
+        return DB::getSchemaBuilder()
+            ->getColumnListing($this->table);
     }
 
     /**

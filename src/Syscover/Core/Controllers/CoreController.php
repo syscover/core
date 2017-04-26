@@ -14,11 +14,7 @@ class CoreController extends BaseController
 {
     protected $model;
     protected $modelLang;
-
-    public function __construct(Request $request)
-    {
-
-    }
+    public $relations;
 
     /**
      * Display a listing of the resource.
@@ -40,6 +36,9 @@ class CoreController extends BaseController
             $table = $model->getTable();
             $query->where($table . '.lang_id', $parameters['lang']);
         }
+
+        // set relations. Attention, for each relationship makes a query
+        $query = $this->addRelations($query, $model);
 
         $objects = $query->get();
 
@@ -121,6 +120,9 @@ class CoreController extends BaseController
             }
         }
 
+        // set relations. Attention, for each relationship makes a query
+        $query = $this->addRelations($query, $model);
+
         $objects = $query->get();
 
         // additional information
@@ -129,7 +131,6 @@ class CoreController extends BaseController
         // filter all data by lang
         if(isset($parameters['lang']))
             $query->where('lang_id', $parameters['lang']);
-
 
         $response['status']         = "success";
         $response['total']          = $query->count();
@@ -172,17 +173,19 @@ class CoreController extends BaseController
                 $tableLang = $table;
             }
 
-            $object = $model::builder()
+            $query = $model->builder()
                 ->where($tableLang . '.lang_id', $parameters['lang'])
-                ->where($table . '.' . $primaryKey, $parameters['id'])
-                ->first();
+                ->where($table . '.' . $primaryKey, $parameters['id']);
         }
         else
         {
-            $object = $model->builder()
-                ->where($table . '.' . $primaryKey, $parameters['id'])
-                ->first();
+            $query = $model->builder()
+                ->where($table . '.' . $primaryKey, $parameters['id']);
         }
+
+        // set relations. Attention, for each relationship makes a query
+        $query  = $this->addRelations($query, $model);
+        $object = $query->first();
 
         // do custom operations
         $object = $this->showCustom($parameters, $object);
@@ -339,6 +342,20 @@ class CoreController extends BaseController
                 default:
                     throw new ParameterValueException('command parameter has a incorrect value, must to be where');
             }
+        }
+
+        return $query;
+    }
+
+    /**
+     * Set relations in query
+     */
+    private function addRelations($query, $model)
+    {
+        // set relations. Attention, for each relationship makes a query
+        if(is_array($model->relations) && count($model->relations) > 0)
+        {
+            $query->with($model->relations);
         }
 
         return $query;
