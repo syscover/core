@@ -10,9 +10,10 @@ use Syscover\Core\Exceptions\ParameterValueException;
  * @package Syscover\Pulsar\Core
  */
 
-abstract class CoreController extends BaseController
+class CoreController extends BaseController
 {
     protected $model;
+    protected $modelLang;
 
     public function __construct(Request $request)
     {
@@ -29,12 +30,14 @@ abstract class CoreController extends BaseController
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
-        $query = call_user_func($this->model . '::builder');
+        // get table name, replace to $query = call_user_func($this->model . '::builder')
+        $model = new $this->model;
 
-        if(isset($parameters['lang'])){
-            $model = new $this->model;
+        $query = $model->builder();
+
+        if(isset($parameters['lang']))
+        {
             $table = $model->getTable();
-
             $query->where($table . '.lang_id', $parameters['lang']);
         }
 
@@ -65,8 +68,11 @@ abstract class CoreController extends BaseController
         if(! isset($parameters['parameters']))
             throw new ParameterNotFoundException('Parameter not found in request, please set parameters array parameter');
 
+        // get table name, replace to $query = call_user_func($this->model . '::builder')
+        $model = new $this->model;
+
         // build query
-        $query = call_user_func($this->model . '::builder');
+        $query = $model->builder();
 
         // filter all data by lang
         if(isset($parameters['lang']))
@@ -118,7 +124,7 @@ abstract class CoreController extends BaseController
         $objects = $query->get();
 
         // additional information
-        $query = call_user_func($this->model . '::builder');
+        $query = $model->builder();
 
         // filter all data by lang
         if(isset($parameters['lang']))
@@ -144,27 +150,60 @@ abstract class CoreController extends BaseController
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
-        $query = call_user_func($this->model . '::builder');
+        // get table name, replace to $query = call_user_func($this->model . '::builder')
+        $model      = new $this->model;
+        $table      = $model->getTable();
+        $primaryKey = $model->getKeyName();
 
         if(isset($parameters['lang']))
         {
-            $model = new $this->model;
-            $table = $model->getTable();
+            /**
+             * Check if controller has defined modelLang property,
+             * if has modelLang, this means that the translations are in another table.
+             * Get table name to do the query
+             */
+            if(isset($this->modelLang))
+            {
+                $modelLang = new $this->modelLang;
+                $tableLang = $modelLang->getTable();
+            }
+            else
+            {
+                $tableLang = $table;
+            }
 
-            $object = $query
-                ->where($table . '.lang_id', $parameters['lang'])
-                ->where($table . '.id', $parameters['id'])
+            $object = $model::builder()
+                ->where($tableLang . '.lang_id', $parameters['lang'])
+                ->where($table . '.' . $primaryKey, $parameters['id'])
                 ->first();
         }
         else
         {
-            $object = $query->find($parameters['id']);
+            $object = $model->builder()
+                ->where($table . '.' . $primaryKey, $parameters['id'])
+                ->first();
         }
+
+        // do custom operations
+        $object = $this->showCustom($parameters, $object);
 
         $response['status'] = "success";
         $response['data'] = $object;
 
         return response()->json($response);
+    }
+
+    /**
+     * function to be overridden
+     *
+     * @access	public
+     * @param   array       $parameters
+     * @param   object      $object
+     * @return	array       $object
+     */
+    public function showCustom($parameters, $object)
+    {
+        return $object;
     }
 
     /**
@@ -178,27 +217,86 @@ abstract class CoreController extends BaseController
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
-        $query = call_user_func($this->model . '::builder');
+        // get data to do model queries
+        $model      = new $this->model;
+        $table      = $model->getTable();
+        $primaryKey = $model->getKeyName();
 
+        // Delete object with lang
         if(isset($parameters['lang']))
         {
-            $model = new $this->model;
-            $table = $model->getTable();
+            /**
+             * Check if controller has defined modelLang property,
+             * if has modelLang, this means that the translations are in another table.
+             * Get table name to do the query
+             */
+            if(isset($this->modelLang))
+            {
+                // get data to do model queries
+                $modelLang      = new $this->modelLang;
+                $tableLang      = $modelLang->getTable();
+                $primaryKeyLang = $modelLang->getKeyName();
 
-            $object = $query
-                ->where($table . '.lang_id', $parameters['lang'])
-                ->where($table . '.id', $parameters['id'])
-                ->first();
+                // get object from main table and lang table
+                $object = $model->builder()
+                    ->where($tableLang . '.lang_id', $parameters['lang'])
+                    ->where($table . '.' . $primaryKey, $parameters['id'])
+                    ->first();
 
-            call_user_func($this->model . '::deleteTranslationRecord', $parameters);
+                /**
+                 * This option is for tables that dependent of other tables to set your languages
+                 * set parameter $deleteLangDataRecord to false, because lang model haven't data_lag column
+                 */
+                // replace to call_user_func($this->modelLang . '::deleteTranslationRecord', $parameters, false);
+                $modelLang->deleteTranslationRecord($parameters, false);
+
+                /**
+                 * This kind of tables has field data_lang in main table, not in lang table
+                 * delete data_lang parameter
+                 */
+                // replace to call_user_func($this->model . '::deleteLangDataRecord', $parameters);
+                $model->deleteLangDataRecord($parameters);
+
+
+                /**
+                 * Count records, to know if has more lang
+                 */
+                $nRecords = $modelLang->builder()
+                    ->where($tableLang . '.' . $primaryKeyLang, $parameters['id'])
+                    ->count();
+
+                /**
+                 * if haven't any lang record, delete record from main table
+                 */
+                if($nRecords === 0)
+                {
+                    $model->where($table . '.' . $primaryKey, $parameters['id'])
+                        ->delete();
+                }
+            }
+            else
+            {
+                $object = $model->builder()
+                    ->where($table . '.lang_id', $parameters['lang'])
+                    ->where($table . '.' . $primaryKey, $parameters['id'])
+                    ->first();
+
+                /**
+                 * Delete record from table without dependency from other table lang
+                 */
+                // Replace to call_user_func($this->model . '::deleteTranslationRecord', $parameters);
+                $model->deleteTranslationRecord($parameters);
+            }
         }
         else
         {
-            $object = $query->find($parameters['id']);
+            // Delete single record
+            $object = $model->builder()
+                ->where($table . '.' . $primaryKey, $parameters['id'])
+                ->first();
+
             $object->delete();
         }
-
-
 
         $response['status'] = "success";
         $response['data']   = $object;
@@ -206,6 +304,9 @@ abstract class CoreController extends BaseController
         return response()->json($response);
     }
 
+    /**
+     * Set query parameters
+     */
     private function setQueries($query, $parameters)
     {
         // commands without pagination

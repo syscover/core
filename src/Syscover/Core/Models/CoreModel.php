@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
  * @package Syscover\Pulsar\Core
  */
 
-abstract class CoreModel extends BaseModel
+class CoreModel extends BaseModel
 {
     /**
      * Overwrite construct to set params in model
@@ -44,6 +44,11 @@ abstract class CoreModel extends BaseModel
         if($deleteLangDataRecord)
             $instance::deleteLangDataRecord($parameters);
     }
+
+
+    /**
+     * Manage data_lang column
+     */
 
     /**
      * Function to add lang record from json field
