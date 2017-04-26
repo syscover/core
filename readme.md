@@ -1,4 +1,4 @@
-# Pulsar Core App for Laravel 5.4
+# Pulsar Core App for Laravel
 
 [![Total Downloads](https://poser.pugx.org/syscover/pulsar-core/downloads)](https://packagist.org/packages/syscover/pulsar-core)
 [![Latest Stable Version](http://img.shields.io/github/release/syscover/pulsar-core.svg)](https://packagist.org/packages/syscover/pulsar-core)
@@ -19,7 +19,7 @@ composer require syscover/pulsar-core
 /*
  * Pulsar Application Service Providers...
  */
-Syscover\Pulsar\CoreServiceProvider::class,  
+Syscover\Core\CoreServiceProvider::class,  
 ```
 
 **3 - Execute publish command**
