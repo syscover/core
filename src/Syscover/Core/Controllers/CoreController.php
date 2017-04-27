@@ -27,14 +27,29 @@ class CoreController extends BaseController
         $parameters = $request->route()->parameters();
 
         // get table name, replace to $query = call_user_func($this->model . '::builder')
-        $model = new $this->model;
-
-        $query = $model->builder();
+        $model  = new $this->model;
+        $table  = $model->getTable();
+        $query  = $model->builder();
 
         if(isset($parameters['lang']))
         {
-            $table = $model->getTable();
-            $query->where($table . '.lang_id', $parameters['lang']);
+            /**
+             * Check if controller has defined modelLang property,
+             * if has modelLang, this means that the translations are in another table.
+             * Get table name to do the query
+             */
+            if(isset($this->modelLang))
+            {
+                $modelLang = new $this->modelLang;
+                $tableLang = $modelLang->getTable();
+            }
+            else
+            {
+                $tableLang = $table;
+            }
+
+            // add query lang
+            $query->where($tableLang . '.lang_id', $parameters['lang']);
         }
 
         // set relations. Attention, for each relationship makes a query
@@ -155,6 +170,7 @@ class CoreController extends BaseController
         $model      = new $this->model;
         $table      = $model->getTable();
         $primaryKey = $model->getKeyName();
+        $query      = $model->builder();
 
         if(isset($parameters['lang']))
         {
@@ -173,15 +189,11 @@ class CoreController extends BaseController
                 $tableLang = $table;
             }
 
-            $query = $model->builder()
-                ->where($tableLang . '.lang_id', $parameters['lang'])
-                ->where($table . '.' . $primaryKey, $parameters['id']);
+            // add query lang
+            $query->where($tableLang . '.lang_id', $parameters['lang']);
         }
-        else
-        {
-            $query = $model->builder()
-                ->where($table . '.' . $primaryKey, $parameters['id']);
-        }
+
+        $query->where($table . '.' . $primaryKey, $parameters['id']);
 
         // set relations. Attention, for each relationship makes a query
         $query  = $this->addRelations($query, $model);
