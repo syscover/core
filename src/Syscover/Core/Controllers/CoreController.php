@@ -52,9 +52,6 @@ class CoreController extends BaseController
             $query->where($tableLang . '.lang_id', $parameters['lang']);
         }
 
-        // set relations. Attention, for each relationship makes a query
-        $query = $this->addRelations($query, $model);
-
         $objects = $query->get();
 
         $response['status'] = "success";
@@ -135,9 +132,6 @@ class CoreController extends BaseController
             }
         }
 
-        // set relations. Attention, for each relationship makes a query
-        $query = $this->addRelations($query, $model);
-
         $objects = $query->get();
 
         // additional information
@@ -195,9 +189,9 @@ class CoreController extends BaseController
 
         $query->where($table . '.' . $primaryKey, $parameters['id']);
 
-        // set relations. Attention, for each relationship makes a query
-        $query  = $this->addRelations($query, $model);
         $object = $query->first();
+        $object = $this->addLazyRelations($object, $model);
+
 
         // do custom operations
         $object = $this->showCustom($parameters, $object);
@@ -362,14 +356,11 @@ class CoreController extends BaseController
     /**
      * Set relations in query
      */
-    private function addRelations($query, $model)
+    private function addLazyRelations($object, $model)
     {
-        // set relations. Attention, for each relationship makes a query
-        if(is_array($model->relations) && count($model->relations) > 0)
-        {
-            $query->with($model->relations);
-        }
+        if(is_array($model->lazyRelations) && count($model->lazyRelations) > 0)
+            $object->load($model->lazyRelations);
 
-        return $query;
+        return $object;
     }
 }
