@@ -192,7 +192,6 @@ class CoreController extends BaseController
         $object = $query->first();
         $object = $this->addLazyRelations($object, $model);
 
-
         // do custom operations
         $object = $this->showCustom($parameters, $object);
 
