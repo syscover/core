@@ -19,7 +19,7 @@ composer require syscover/pulsar-core
 /*
  * Pulsar Application Service Providers...
  */
-Syscover\Core\CoreServiceProvider::class,  
+Syscover\Core\CoreServiceProvider::class,
 ```
 
 **3 - Execute publish command**
