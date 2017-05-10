@@ -74,7 +74,7 @@ class CoreModel extends BaseModel
     {
         if($id === null)
         {
-            $jsonString = json_encode(["langs" => [$lang]]);
+            $json[] = $lang;
         }
         else
         {
@@ -83,23 +83,24 @@ class CoreModel extends BaseModel
 
             if($object != null)
             {
-                $jsonObject             = json_decode($object->{'data_lang'});
-                $jsonObject->langs[]    = $lang;
-                $jsonString             = json_encode($jsonObject);
+                $json = $object->data_lang;
+
+                $json[] = $lang;
 
                 // updates all objects with new language variables
-                $instance::where($instance->getKeyName(), $id)->update([
-                    'data_lang' => $jsonString
-                ]);
+                $instance::where($instance->getKeyName(), $id)
+                    ->update([
+                        'data_lang' => json_encode($json)
+                    ]);
             }
             else
             {
-                $jsonString = '{"langs":["' . $lang . '"]}';
+                $json[] = $lang;
             }
 
         }
 
-        return $jsonString;
+        return $json;
     }
 
     /**
@@ -116,22 +117,20 @@ class CoreModel extends BaseModel
 
         if($object != null)
         {
-            $jsonObject = json_decode($object->{'data_lang'});
+            $json = $object->data_lang;
 
             // unset isn't correct, get error to reorder array
-            $newArrayLang = [];
-            foreach($jsonObject->langs as $keyLang)
+            $langArray = [];
+            foreach($json as $lang)
             {
-                if($keyLang != $parameters['lang'])
+                if($lang != $parameters['lang'])
                 {
-                    $newArrayLang[] = $keyLang;
+                    $langArray[] = $lang;
                 }
             }
-            $jsonObject->langs = $newArrayLang;
-            $jsonString = json_encode($jsonObject);
 
             $instance::where($instance->getKeyName(), $parameters['id'])->update([
-                'data_lang'  => $jsonString
+                'data_lang'  => json_encode($langArray)
             ]);
         }
     }

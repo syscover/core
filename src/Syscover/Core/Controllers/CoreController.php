@@ -2,6 +2,8 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Syscover\Admin\Models\Lang;
 use Syscover\Core\Exceptions\ParameterNotFoundException;
 use Syscover\Core\Exceptions\ParameterValueException;
 
@@ -166,7 +168,14 @@ class CoreController extends BaseController
         $primaryKey = $model->getKeyName();
         $query      = $model->builder();
 
-        if(isset($parameters['lang']))
+
+        if(
+            isset($parameters['lang'])
+            // check if table has lang_id, maybe to have translations in one column,
+            // in this case the table has not lang_id
+            // for example table field
+            && Schema::hasColumn($table ,'lang_id')
+        )
         {
             /**
              * Check if controller has defined modelLang property,
@@ -230,8 +239,13 @@ class CoreController extends BaseController
         $table      = $model->getTable();
         $primaryKey = $model->getKeyName();
 
-        // Delete object with lang
-        if(isset($parameters['lang']))
+        /**
+         *  Delete object with lang.
+         *  If destroy baseLang object, delete all objects with this id
+         */
+        if(
+            isset($parameters['lang']) &&
+            Lang::getBaseLang()->id !== $parameters['lang'])
         {
             /**
              * Check if controller has defined modelLang property,
@@ -255,14 +269,12 @@ class CoreController extends BaseController
                  * This option is for tables that dependent of other tables to set your languages
                  * set parameter $deleteLangDataRecord to false, because lang model haven't data_lag column
                  */
-                // replace to call_user_func($this->modelLang . '::deleteTranslationRecord', $parameters, false);
                 $modelLang->deleteTranslationRecord($parameters, false);
 
                 /**
                  * This kind of tables has field data_lang in main table, not in lang table
                  * delete data_lang parameter
                  */
-                // replace to call_user_func($this->model . '::deleteLangDataRecord', $parameters);
                 $model->deleteLangDataRecord($parameters);
 
 
@@ -284,6 +296,7 @@ class CoreController extends BaseController
             }
             else
             {
+                //???????
                 $object = $model->builder()
                     ->where($table . '.lang_id', $parameters['lang'])
                     ->where($table . '.' . $primaryKey, $parameters['id'])
@@ -292,7 +305,6 @@ class CoreController extends BaseController
                 /**
                  * Delete record from table without dependency from other table lang
                  */
-                // Replace to call_user_func($this->model . '::deleteTranslationRecord', $parameters);
                 $model->deleteTranslationRecord($parameters);
             }
         }
