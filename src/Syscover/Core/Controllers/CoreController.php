@@ -245,7 +245,7 @@ class CoreController extends BaseController
          */
         if(
             isset($parameters['lang']) &&
-            Lang::getBaseLang()->id !== $parameters['lang'])
+            base_lang() !== $parameters['lang'])
         {
             /**
              * Check if controller has defined modelLang property,
@@ -296,10 +296,19 @@ class CoreController extends BaseController
             }
             else
             {
-                //???????
-                $object = $model->builder()
-                    ->where($table . '.lang_id', $parameters['lang'])
-                    ->where($table . '.' . $primaryKey, $parameters['id'])
+                $object = $model->builder();
+
+                /**
+                 * The table may have lang but not have the field lang_id.
+                 * Whe is false, the model overwrite method deleteTranslationRecord
+                 * to delete json language field, for example in field table with labels column
+                 */
+                if(Schema::hasColumn($table, 'lang_id'))
+                {
+                    $object->where($table . '.lang_id', $parameters['lang']);
+                }
+
+                $object->where($table . '.' . $primaryKey, $parameters['id'])
                     ->first();
 
                 /**
