@@ -97,10 +97,9 @@ class CoreModel extends BaseModel
             {
                 $json[] = $lang;
             }
-
         }
 
-        return $json;
+        return json_encode($json);
     }
 
     /**
