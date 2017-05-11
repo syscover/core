@@ -83,9 +83,8 @@ class CoreModel extends BaseModel
 
             if($object != null)
             {
-                $json = $object->data_lang;
-
-                $json[] = $lang;
+                $json = $object->data_lang; // get data_lang from object
+                $json[] = $lang; // add new language
 
                 // updates all objects with new language variables
                 $instance::where($instance->getKeyName(), $id)
