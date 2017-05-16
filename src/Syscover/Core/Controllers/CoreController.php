@@ -296,7 +296,7 @@ class CoreController extends BaseController
             }
             else
             {
-                $object = $model->builder();
+                $model->builder();
 
                 /**
                  * The table may have lang but not have the field lang_id.
@@ -305,10 +305,10 @@ class CoreController extends BaseController
                  */
                 if(Schema::hasColumn($table, 'lang_id'))
                 {
-                    $object->where($table . '.lang_id', $parameters['lang']);
+                    $model->where($table . '.lang_id', $parameters['lang']);
                 }
 
-                $object->where($table . '.' . $primaryKey, $parameters['id'])
+                $object = $model->where($table . '.' . $primaryKey, $parameters['id'])
                     ->first();
 
                 /**

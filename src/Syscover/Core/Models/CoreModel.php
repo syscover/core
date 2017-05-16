@@ -98,7 +98,7 @@ class CoreModel extends BaseModel
             }
         }
 
-        return json_encode($json);
+        return $json;
     }
 
     /**
