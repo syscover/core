@@ -168,13 +168,21 @@ class CoreController extends BaseController
         $primaryKey = $model->getKeyName();
         $query      = $model->builder();
 
-
         if(
-            isset($parameters['lang'])
-            // check if table has lang_id, maybe to have translations in one column,
-            // in this case the table has not lang_id
-            // for example table field
-            && Schema::hasColumn($table ,'lang_id')
+            (
+                isset($parameters['lang'])
+                /**
+                 * check if table has lang_id, maybe to have translations in one column,
+                 * in this case the table has not lang_id for example table field
+                 */
+                && Schema::hasColumn($table ,'lang_id')
+            )
+            ||
+            (
+                isset($parameters['lang'])
+                && ! Schema::hasColumn($table ,'lang_id')
+                && isset($this->modelLang)
+            )
         )
         {
             /**
@@ -199,6 +207,7 @@ class CoreController extends BaseController
         $query->where($table . '.' . $primaryKey, $parameters['id']);
 
         $object = $query->first();
+
         $object = $this->addLazyRelations($object, $model);
 
         // do custom operations

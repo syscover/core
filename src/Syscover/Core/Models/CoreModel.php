@@ -87,7 +87,7 @@ class CoreModel extends BaseModel
                 $json[] = $lang; // add new language
 
                 // updates all objects with new language variables
-                $instance::where($instance->getKeyName(), $id)
+                $instance::where($object->table . '.' . $instance->getKeyName(), $id)
                     ->update([
                         'data_lang' => json_encode($json)
                     ]);
@@ -127,7 +127,7 @@ class CoreModel extends BaseModel
                 }
             }
 
-            $instance::where($instance->getKeyName(), $parameters['id'])->update([
+            $instance::where($object->table . '.' . $instance->getKeyName(), $parameters['id'])->update([
                 'data_lang'  => json_encode($langArray)
             ]);
         }
