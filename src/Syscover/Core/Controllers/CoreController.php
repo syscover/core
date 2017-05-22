@@ -3,7 +3,6 @@
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use Syscover\Admin\Models\Lang;
 use Syscover\Core\Exceptions\ParameterNotFoundException;
 use Syscover\Core\Exceptions\ParameterValueException;
 
