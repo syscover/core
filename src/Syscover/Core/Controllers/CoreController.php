@@ -242,6 +242,8 @@ class CoreController extends BaseController
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
+        $this->destroyCustom($parameters);
+
         // get data to do model queries
         $model      = new $this->model;
         $table      = $model->getTable();
@@ -340,6 +342,14 @@ class CoreController extends BaseController
 
         return response()->json($response);
     }
+
+    /**
+     * function to be overridden
+     *
+     * @access	public
+     * @param   array       $parameters
+     */
+    public function destroyCustom($parameters) { }
 
     /**
      * Set query parameters
