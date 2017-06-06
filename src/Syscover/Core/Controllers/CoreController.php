@@ -116,7 +116,8 @@ class CoreController extends BaseController
             switch ($param['command']) {
                 case 'where':
                 case 'orWhere';
-                    // commands not accepted
+                    // commands not accepted, already
+                    // implemented in setQueries method
                     break;
                 case 'orderBy':
                     $query->orderBy($param['column'], $param['operator']);
