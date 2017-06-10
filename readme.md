@@ -27,12 +27,12 @@ Syscover\Core\CoreServiceProvider::class,
 Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 ```
 
-**4 - Register services provider third party**
+**4 - Don't forget to register CORS in your server, the following example is for apache server**
 ```
-/*
- * Third party
- */
-Barryvdh\Cors\ServiceProvider::class,
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Headers "authorization, origin, x-requested-with, content-type"
+Header add Access-Control-Expose-Headers "authorization"
+Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 ```
 
 **5 - Register JWT Alias in aliases array**
@@ -52,13 +52,8 @@ php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider"
 php artisan jwt:generate
 ```
 
-**8 - Config middleware for JWT and CORS in app/Http/Kernel.php**
+**8 - Config middleware for JWT in app/Http/Kernel.php**
 ```
-protected $middleware = [
-    ...
-    \Barryvdh\Cors\HandleCors::class,
-];
-
 protected $routeMiddleware = [
     ...
     'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
@@ -74,17 +69,7 @@ API_NAME=PULSAR
 API_PREFIX=api
 ```
 
-**10 - Config config/cors.php with this values**
-```
-'supportsCredentials' => false,
-'allowedOrigins' => ['*'],
-'allowedHeaders' => ['*'],
-'allowedMethods' => ['*'],
-'exposedHeaders' => ['Authorization'],
-'maxAge' => 0,
-```
-
-**11 - Set base lang application in .env file**
+**10 - Set base lang application in .env file**
 ```
 BASE_LANG=en
 ```
