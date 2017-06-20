@@ -116,6 +116,7 @@ class CoreController extends BaseController
             switch ($param['command']) {
                 case 'where':
                 case 'orWhere';
+                case 'whereIn';
                     // commands not accepted, already
                     // implemented in setQueries method
                     break;
@@ -381,6 +382,9 @@ class CoreController extends BaseController
                     break;
                 case 'orWhere':
                     $query->orWhere($param['column'], $param['operator'], $param['value']);
+                    break;
+                case 'whereIn':
+                    $query->whereIn($param['column'], $param['value']);
                     break;
 
 
