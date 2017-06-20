@@ -67,12 +67,17 @@ protected $routeMiddleware = [
 ];
 ```
 
-**10 - Set base lang application in .env file**
+**10 - create link to storage folder**
+```
+php artisan storage:link
+```
+
+**11 - Set base lang application in .env file**
 ```
 BASE_LANG=en
 ```
 
-**11 - Execute publish command**
+**12 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
