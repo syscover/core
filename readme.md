@@ -35,24 +35,30 @@ Header add Access-Control-Expose-Headers "authorization"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 ```
 
-**5 - Register JWT Alias in aliases array**
+**5 - You may need to extend both the PHP memory on your server as well as the upload limit**
+```
+php_value post_max_size 1000M
+php_value upload_max_filesize 1000M
+php_value memory_limit 256M
+```
+
+**6 - Register JWT Alias in aliases array**
 ```
 'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
 'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
 ```
 
-**6 - Publish elements from JWT provider and CORS**
+**7 - Publish elements from JWT provider**
 ```
 php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\JWTAuthServiceProvider"
-php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider"
 ```
 
-**7 - Generate new JWT key**
+**8 - Generate new JWT key**
 ```
 php artisan jwt:generate
 ```
 
-**8 - Config middleware for JWT in app/Http/Kernel.php**
+**9 - Config middleware for JWT in app/Http/Kernel.php**
 ```
 protected $routeMiddleware = [
     ...
@@ -61,20 +67,12 @@ protected $routeMiddleware = [
 ];
 ```
 
-**9 - Config env file with follows properties**
-```
-API_DEBUG=true
-API_VERSION=v1
-API_NAME=PULSAR
-API_PREFIX=api
-```
-
 **10 - Set base lang application in .env file**
 ```
 BASE_LANG=en
 ```
 
-**12 - Execute publish command**
+**11 - Execute publish command**
 ```
-php artisan vendor:publish
+php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
