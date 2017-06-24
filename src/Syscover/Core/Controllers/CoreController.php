@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Syscover\Core\Exceptions\ParameterNotFoundException;
 use Syscover\Core\Exceptions\ParameterValueException;
+use Syscover\Core\Services\SQLService;
 
 /**
  * Class CoreController
@@ -71,81 +72,30 @@ class CoreController extends BaseController
     public function search(Request $request)
     {
         // get parameters from request
-        $parameters = $request->all();
+        $args = $request->all();
 
         // check query and throw exceptions
-        if($parameters['type'] !== 'query')
-            throw new ParameterValueException('type parameter has a incorrect value, must to be query');
-
-        if(! isset($parameters['parameters']))
+        if(! isset($args['sql']))
             throw new ParameterNotFoundException('Parameter not found in request, please set parameters array parameter');
 
         // get table name, replace to $query = call_user_func($this->model . '::builder')
         $model = new $this->model;
 
         // build query
-        $query = $model->builder();
-
-        // filter all data by lang
-        if(isset($parameters['lang']))
-        {
-            $query
-                ->where('lang_id', $parameters['lang'])
-                ->where(function ($query) use ($parameters){
-                    $this->setQueries($query, $parameters);
-                });
-        }
-        else
-        {
-            $query = $this->setQueries($query, $parameters);
-        }
-
-
+        $query = SQLService::getQueryFiltered($model->builder(), $args);
+        // count records filtered
         $filtered = $query->count();
 
-
-        // commands for pagination
-        foreach ($parameters['parameters'] as $param)
-        {
-            if(! isset($param['command']))
-                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($param));
-
-            if($param['command'] !== "orderBy" && ! isset($param['value']))
-                throw new ParameterNotFoundException('Parameter value not found in request, please set value parameter in: ' . json_encode($param));
-
-            switch ($param['command']) {
-                case 'where':
-                case 'orWhere';
-                case 'whereIn';
-                    // commands not accepted, already
-                    // implemented in setQueries method
-                    break;
-                case 'orderBy':
-                    $query->orderBy($param['column'], $param['operator']);
-                    break;
-                case 'offset':
-                    $query->skip($param['value']);
-                    break;
-                case 'limit':
-                    $query->take($param['value']);
-                    break;
-
-                default:
-                    throw new ParameterValueException('command parameter has a incorrect value, must to be offset or take');
-            }
-        }
+        // get query ordered and limited
+        $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
 
         $objects = $query->get();
 
-        // additional information
-        $query = $model->builder();
-
-        // filter all data by lang
-        if(isset($parameters['lang']))
-            $query->where('lang_id', $parameters['lang']);
+        // N total records
+        $total = SQLService::countPaginateTotalRecords($model->builder(), $args);
 
         $response['status']         = "success";
-        $response['total']          = $query->count();
+        $response['total']          = $total;
         $response['filtered']       = $filtered;
         $response['data']           = $objects;
 
@@ -352,49 +302,6 @@ class CoreController extends BaseController
      * @param   array       $parameters
      */
     public function destroyCustom($parameters) { }
-
-    /**
-     * Set query parameters
-     */
-    private function setQueries($query, $parameters)
-    {
-        // commands without pagination
-        foreach ($parameters['parameters'] as $param)
-        {
-            if(! isset($param['command']))
-                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($param));
-
-            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['column']))
-                throw new ParameterNotFoundException('Parameter column not found in request, please set column parameter in ' . json_encode($param));
-
-            if(($param['command'] === "where" || $param['command'] === "orderBy") && ! isset($param['operator']))
-                throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($param));
-
-
-            switch ($param['command']) {
-                case 'offset':
-                case 'limit':
-                case 'orderBy':
-                    // commands not accepted
-                    break;
-                case 'where':
-                    $query->where($param['column'], $param['operator'], $param['value']);
-                    break;
-                case 'orWhere':
-                    $query->orWhere($param['column'], $param['operator'], $param['value']);
-                    break;
-                case 'whereIn':
-                    $query->whereIn($param['column'], $param['value']);
-                    break;
-
-
-                default:
-                    throw new ParameterValueException('command parameter has a incorrect value, must to be where');
-            }
-        }
-
-        return $query;
-    }
 
     /**
      * Set relations in query

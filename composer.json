@@ -18,6 +18,9 @@
         "psr-4": {
             "Syscover\\Core\\": "src/Syscover/Core"
         },
+        "classmap": [
+            "src/Syscover/Core"
+        ],
         "files": [
             "src/helpers.php"
         ]
