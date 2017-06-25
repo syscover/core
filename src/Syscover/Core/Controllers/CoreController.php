@@ -239,7 +239,6 @@ class CoreController extends BaseController
                  */
                 $model->deleteLangDataRecord($parameters);
 
-
                 /**
                  * Count records, to know if has more lang
                  */
