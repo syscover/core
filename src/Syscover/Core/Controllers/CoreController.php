@@ -82,7 +82,7 @@ class CoreController extends BaseController
         $model = new $this->model;
 
         // build query
-        $query = SQLService::getQueryFiltered($model->builder(), $args);
+        $query = SQLService::getQueryFiltered($model->builder(), $args['sql']);
         // count records filtered
         $filtered = $query->count();
 
@@ -92,7 +92,7 @@ class CoreController extends BaseController
         $objects = $query->get();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords($model->builder(), $args);
+        $total = SQLService::countPaginateTotalRecords($model->builder(), isset($args['lang'])? $args['lang'] : null);
 
         $response['status']         = "success";
         $response['total']          = $total;
@@ -192,101 +192,11 @@ class CoreController extends BaseController
     public function destroy(Request $request)
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $args = $request->route()->parameters();
 
-        $this->destroyCustom($parameters);
+        $this->destroyCustom($args);
 
-        // get data to do model queries
-        $model      = new $this->model;
-        $table      = $model->getTable();
-        $primaryKey = $model->getKeyName();
-
-        /**
-         *  Delete object with lang.
-         *  If destroy baseLang object, delete all objects with this id
-         */
-        if(
-            isset($parameters['lang']) &&
-            base_lang() !== $parameters['lang'])
-        {
-            /**
-             * Check if controller has defined modelLang property,
-             * if has modelLang, this means that the translations are in another table.
-             * Get table name to do the query
-             */
-            if(isset($this->modelLang))
-            {
-                // get data to do model queries
-                $modelLang      = new $this->modelLang;
-                $tableLang      = $modelLang->getTable();
-                $primaryKeyLang = $modelLang->getKeyName();
-
-                // get object from main table and lang table
-                $object = $model->builder()
-                    ->where($tableLang . '.lang_id', $parameters['lang'])
-                    ->where($table . '.' . $primaryKey, $parameters['id'])
-                    ->first();
-
-                /**
-                 * This option is for tables that dependent of other tables to set your languages
-                 * set parameter $deleteLangDataRecord to false, because lang model haven't data_lag column
-                 */
-                $modelLang->deleteTranslationRecord($parameters, false);
-
-                /**
-                 * This kind of tables has field data_lang in main table, not in lang table
-                 * delete data_lang parameter
-                 */
-                $model->deleteLangDataRecord($parameters);
-
-                /**
-                 * Count records, to know if has more lang
-                 */
-                $nRecords = $modelLang->builder()
-                    ->where($tableLang . '.' . $primaryKeyLang, $parameters['id'])
-                    ->count();
-
-                /**
-                 * if haven't any lang record, delete record from main table
-                 */
-                if($nRecords === 0)
-                {
-                    $model->where($table . '.' . $primaryKey, $parameters['id'])
-                        ->delete();
-                }
-            }
-            else
-            {
-                $model->builder();
-
-                /**
-                 * The table may have lang but not have the field lang_id.
-                 * Whe is false, the model overwrite method deleteTranslationRecord
-                 * to delete json language field, for example in field table with labels column
-                 */
-                if(Schema::hasColumn($table, 'lang_id'))
-                {
-                    $model->where($table . '.lang_id', $parameters['lang']);
-                }
-
-                $object = $model->where($table . '.' . $primaryKey, $parameters['id'])
-                    ->first();
-
-                /**
-                 * Delete record from table without dependency from other table lang
-                 */
-                $model->deleteTranslationRecord($parameters);
-            }
-        }
-        else
-        {
-            // Delete single record
-            $object = $model->builder()
-                ->where($table . '.' . $primaryKey, $parameters['id'])
-                ->first();
-
-            $object->delete();
-        }
+        $object = SQLService::destroyRecord($args['id'], $this->model, isset($args['lang'])? $args['lang'] : null, $this->modelLang);
 
         $response['status'] = "success";
         $response['data']   = $object;

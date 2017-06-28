@@ -42,19 +42,19 @@ class CoreModel extends BaseModel
     }
 
     /**
-     * @access	public
-     * @param   array       $parameters             [id, lang]
-     * @param   boolean     $deleteLangDataRecord
+     * @param   $id
+     * @param   $lang
+     * @param   bool $deleteLangDataRecord
      * @return	void
      */
-    public static function deleteTranslationRecord($parameters, $deleteLangDataRecord = true)
+    public static function deleteTranslationRecord($id, $lang, $deleteLangDataRecord = true)
     {
         $instance = new static;
 
-        $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_id', $parameters['lang'])->delete();
+        $instance::where($instance->getKeyName(), $id)->where('lang_id', $lang)->delete();
 
         if($deleteLangDataRecord)
-            $instance::deleteLangDataRecord($parameters);
+            $instance::deleteLangDataRecord($id, $lang);
     }
 
 
@@ -102,16 +102,15 @@ class CoreModel extends BaseModel
     }
 
     /**
-     *  Function to delete lang record from json field
+     * Function to delete lang record from json field
      *
-     * @access  public
-     * @param   array   $parameters     [id, lang]
-     * @return  void
+     * @param $id
+     * @param $lang
      */
-    public static function deleteLangDataRecord($parameters)
+    public static function deleteLangDataRecord($id, $lang)
     {
         $instance   = new static;
-        $object     = $instance::find($parameters['id']);
+        $object     = $instance::find($id);
 
         if($object != null)
         {
@@ -119,17 +118,18 @@ class CoreModel extends BaseModel
 
             // unset isn't correct, get error to reorder array
             $langArray = [];
-            foreach($json as $lang)
+            foreach($json as $jsonLang)
             {
-                if($lang != $parameters['lang'])
+                if($jsonLang != $lang)
                 {
-                    $langArray[] = $lang;
+                    $langArray[] = $jsonLang;
                 }
             }
 
-            $instance::where($object->table . '.' . $instance->getKeyName(), $parameters['id'])->update([
-                'data_lang'  => json_encode($langArray)
-            ]);
+            $instance::where($object->table . '.' . $instance->getKeyName(), $id)
+                ->update([
+                    'data_lang'  => json_encode($langArray)
+                ]);
         }
     }
 }
