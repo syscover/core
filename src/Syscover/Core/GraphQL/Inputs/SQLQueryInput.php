@@ -1,4 +1,4 @@
-<?php namespace Syscover\Core\GraphQL\Imputs;
+<?php namespace Syscover\Core\GraphQL\Inputs;
 
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;

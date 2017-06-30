@@ -12,9 +12,10 @@ class CoreGraphQLServiceProvider
         // CONFIG
         GraphQL::addType(\Syscover\Core\GraphQL\Interfaces\ConfigInterface::class, 'CoreConfigInterface');
         GraphQL::addType(\Syscover\Core\GraphQL\Types\ConfigOptionType::class, 'CoreConfigOptionType');
+        GraphQL::addType(\Syscover\Core\GraphQL\Inputs\ConfigInput::class, 'CoreConfigInput');
 
         // SQL INPUT
-        GraphQL::addType(\Syscover\Core\GraphQL\Imputs\SQLQueryInput::class, 'CoreSQLQueryInput');
+        GraphQL::addType(\Syscover\Core\GraphQL\Inputs\SQLQueryInput::class, 'CoreSQLQueryInput');
     }
 
     public static function bootGraphQLSchema()

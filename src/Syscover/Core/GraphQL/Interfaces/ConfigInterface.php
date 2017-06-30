@@ -16,7 +16,7 @@ class ConfigInterface extends InterfaceType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'The id of config.'
             ]
         ];

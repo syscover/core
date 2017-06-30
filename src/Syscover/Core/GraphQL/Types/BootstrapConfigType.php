@@ -25,10 +25,4 @@ class BootstrapConfigType extends GraphQLType
             ]
         ];
     }
-
-    public function interfaces() {
-        return [
-            GraphQL::type('CoreConfigInterface')
-        ];
-    }
 }
