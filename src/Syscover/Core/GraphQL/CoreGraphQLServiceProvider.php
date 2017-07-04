@@ -14,6 +14,10 @@ class CoreGraphQLServiceProvider
         GraphQL::addType(\Syscover\Core\GraphQL\Types\ConfigOptionType::class, 'CoreConfigOptionType');
         GraphQL::addType(\Syscover\Core\GraphQL\Inputs\ConfigInput::class, 'CoreConfigInput');
 
+        // OBJECT
+        GraphQL::addType(\Syscover\Core\GraphQL\Types\ObjectPaginationType::class, 'CoreObjectPagination');
+        GraphQL::addType(\Syscover\Core\GraphQL\Interfaces\ObjectInterface::class, 'CoreObjectInterface');
+
         // SQL INPUT
         GraphQL::addType(\Syscover\Core\GraphQL\Inputs\SQLQueryInput::class, 'CoreSQLQueryInput');
     }
@@ -23,12 +27,12 @@ class CoreGraphQLServiceProvider
         GraphQL::addSchema('default', array_merge_recursive(GraphQL::getSchemas()['default'], [
             'query' => [
                 // BOOTSTRAP CONFIG
-                'coreBootstrapConfig' => \Syscover\Core\GraphQL\Queries\BootstrapConfigQuery::class,
+                'coreBootstrapConfig'   => \Syscover\Core\GraphQL\Queries\BootstrapConfigQuery::class,
 
                 // CONFIG
-                'coreConfig' => \Syscover\Core\GraphQL\Queries\ConfigQuery::class,
+                'coreConfig'            => \Syscover\Core\GraphQL\Queries\ConfigQuery::class,
             ],
-            'mutation' => []
+            'mutation' => [ ]
         ]));
     }
 }

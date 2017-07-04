@@ -72,7 +72,7 @@ class CoreModel extends BaseModel
      */
     public static function addLangDataRecord($lang, $id = null)
     {
-        if($id === null)
+        if($id == null)
         {
             $json[] = $lang;
         }

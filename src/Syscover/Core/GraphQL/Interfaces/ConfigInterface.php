@@ -6,10 +6,9 @@ use Folklore\GraphQL\Support\InterfaceType;
 
 class ConfigInterface extends InterfaceType
 {
-    // field to documentation
     protected $attributes = [
-        'name'          => 'Config',
-        'description'   => 'Config interface'
+        'name'          => 'ConfigInterface',
+        'description'   => 'Element in config files server'
     ];
 
     public function fields()
@@ -22,7 +21,7 @@ class ConfigInterface extends InterfaceType
         ];
     }
 
-    public function resolveType($root)
+    public function resolveType($value)
     {
         if(true) return GraphQL::type('CoreConfigOptionType');
     }
