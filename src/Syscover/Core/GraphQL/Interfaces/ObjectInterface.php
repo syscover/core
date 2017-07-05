@@ -6,6 +6,7 @@ use Folklore\GraphQL\Support\InterfaceType;
 use Syscover\Admin\Models\Action;
 use Syscover\Admin\Models\AttachmentFamily;
 use Syscover\Admin\Models\Country;
+use Syscover\Admin\Models\Field;
 use Syscover\Admin\Models\FieldGroup;
 use Syscover\Admin\Models\Lang;
 use Syscover\Admin\Models\Package;
@@ -68,6 +69,10 @@ class ObjectInterface extends InterfaceType
 
             case FieldGroup::class:
                 return GraphQL::type('AdminFieldGroup');
+                break;
+
+            case Field::class:
+                return GraphQL::type('AdminField');
                 break;
 
             // CMS
