@@ -5,9 +5,11 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\InterfaceType;
 use Syscover\Admin\Models\Action;
 use Syscover\Admin\Models\AttachmentFamily;
+use Syscover\Admin\Models\AttachmentMime;
 use Syscover\Admin\Models\Country;
 use Syscover\Admin\Models\Field;
 use Syscover\Admin\Models\FieldGroup;
+use Syscover\Admin\Models\FieldValue;
 use Syscover\Admin\Models\Lang;
 use Syscover\Admin\Models\Package;
 use Syscover\Admin\Models\Profile;
@@ -67,12 +69,20 @@ class ObjectInterface extends InterfaceType
                 return GraphQL::type('AdminAttachmentFamily');
                 break;
 
+            case AttachmentMime::class:
+                return GraphQL::type('AdminAttachmentMime');
+                break;
+
             case FieldGroup::class:
                 return GraphQL::type('AdminFieldGroup');
                 break;
 
             case Field::class:
                 return GraphQL::type('AdminField');
+                break;
+
+            case FieldValue::class:
+                return GraphQL::type('AdminFieldValue');
                 break;
 
             // CMS
