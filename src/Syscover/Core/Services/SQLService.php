@@ -13,19 +13,21 @@ class SQLService
     /**
      * @param   $query
      * @param   $sql
-     * @param   null $lang
+     * @param   null $filters
      * @return  mixed
      *
      * Get N records after filter the query
      */
-    public static function getQueryFiltered($query, $sql, $lang = null)
+    public static function getQueryFiltered($query, $sql, $filters = null)
     {
         // filter all data by lang
-        if(isset($lang))
+        if(isset($filters) && is_array($filters))
         {
-            $query
-                ->where('lang_id', $lang)
-                ->where(function ($query) use ($sql) {
+            // filter query
+            $query = SQLService::setQueryFilter($query, $filters);
+
+            // apply query parameters over filter
+            $query->where(function ($query) use ($sql) {
                     SQLService::setQueryFilter($query, $sql);
                 });
         }
@@ -39,47 +41,46 @@ class SQLService
 
     /**
      * @param   $query
-     * @param   null $lang Language to filter count records
+     * @param   null $filters sql to filter total count
      * @return  mixed
      */
-    public static function countPaginateTotalRecords($query, $lang = null)
+    public static function countPaginateTotalRecords($query, $filters = null)
     {
-        // filter all data by lang
-        if(isset($lang))
-            $query->where('lang_id', $lang);
+        if(isset($filters))
+            $query = SQLService::setQueryFilter($query, $filters);
 
         return $query->count();
     }
 
-    public static function setQueryFilter($query, $sql)
+    public static function setQueryFilter($query, $filters)
     {
         // commands without pagination and limit
-        foreach ($sql as $sentence)
+        foreach ($filters as $sql)
         {
-            if(! isset($sentence['command']))
-                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($sentence));
+            if(! isset($sql['command']))
+                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($sql));
 
-            if(($sentence['command'] === "where" || $sentence['command'] === "orderBy") && ! isset($sentence['column']))
-                throw new ParameterNotFoundException('Parameter column not found in request, please set column parameter in ' . json_encode($sentence));
+            if(($sql['command'] === "where" || $sql['command'] === "orderBy") && ! isset($sql['column']))
+                throw new ParameterNotFoundException('Parameter column not found in request, please set column parameter in ' . json_encode($sql));
 
-            if(($sentence['command'] === "where" || $sentence['command'] === "orderBy") && ! isset($sentence['operator']))
-                throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($sentence));
+            if(($sql['command'] === "where" || $sql['command'] === "orderBy") && ! isset($sql['operator']))
+                throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($sql));
 
 
-            switch ($sentence['command']) {
+            switch ($sql['command']) {
                 case 'offset':
                 case 'limit':
                 case 'orderBy':
                     // commands not accepted
                     break;
                 case 'where':
-                    $query->where($sentence['column'], $sentence['operator'], $sentence['value']);
+                    $query->where($sql['column'], $sql['operator'], $sql['value']);
                     break;
                 case 'orWhere':
-                    $query->orWhere($sentence['column'], $sentence['operator'], $sentence['value']);
+                    $query->orWhere($sql['column'], $sql['operator'], $sql['value']);
                     break;
                 case 'whereIn':
-                    $query->whereIn($sentence['column'], $sentence['value']);
+                    $query->whereIn($sql['column'], $sql['value']);
                     break;
 
 
@@ -91,18 +92,18 @@ class SQLService
         return $query;
     }
 
-    public static function getQueryOrderedAndLimited($query, $sql)
+    public static function getQueryOrderedAndLimited($query, $filters)
     {
         // sentences for order query and limited
-        foreach ($sql as $sentence)
+        foreach ($filters as $sql)
         {
-            if(! isset($sentence['command']))
-                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($sentence));
+            if(! isset($sql['command']))
+                throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($sql));
 
-            if($sentence['command'] !== "orderBy" && ! isset($sentence['value']))
-                throw new ParameterNotFoundException('Parameter value not found in request, please set value parameter in: ' . json_encode($sentence));
+            if($sql['command'] !== "orderBy" && ! isset($sql['value']))
+                throw new ParameterNotFoundException('Parameter value not found in request, please set value parameter in: ' . json_encode($sql));
 
-            switch ($sentence['command']) {
+            switch ($sql['command']) {
                 case 'where':
                 case 'orWhere';
                 case 'whereIn';
@@ -110,13 +111,13 @@ class SQLService
                     // implemented in Syscover\Core\Services\SQLService::setQueryFilter method
                     break;
                 case 'orderBy':
-                    $query->orderBy($sentence['column'], $sentence['operator']);
+                    $query->orderBy($sql['column'], $sql['operator']);
                     break;
                 case 'offset':
-                    $query->offset($sentence['value']);
+                    $query->offset($sql['value']);
                     break;
                 case 'limit':
-                    $query->limit($sentence['value']);
+                    $query->limit($sql['value']);
                     break;
 
                 default:
