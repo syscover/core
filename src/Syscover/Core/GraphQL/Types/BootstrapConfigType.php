@@ -6,7 +6,6 @@ use Folklore\GraphQL\Support\Type as GraphQLType;
 
 class BootstrapConfigType extends GraphQLType
 {
-    // to documentation
     protected $attributes = [
         'name'          => 'BootstrapConfigType',
         'description'   => 'Config options defined to start application'

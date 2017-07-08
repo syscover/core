@@ -6,7 +6,6 @@ use Folklore\GraphQL\Support\Type as GraphQLType;
 
 class ConfigOptionType extends GraphQLType
 {
-    // to documentation
     protected $attributes = [
         'name'          => 'ConfigOptionType',
         'description'   => 'Options defined in config files'

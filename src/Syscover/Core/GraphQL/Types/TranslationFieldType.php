@@ -14,7 +14,7 @@ class TranslationFieldType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::id()),
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'Lang id from language that value is translated'
             ],
             'value' => [
