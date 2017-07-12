@@ -9,7 +9,7 @@ use GraphQL\Utils;
 class ObjectType extends ScalarType
 {
 
-    public $name = "Object2";
+    public $name = "Object";
     public $description = "Any object of application";
 
     /**
