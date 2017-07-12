@@ -67,17 +67,25 @@ protected $routeMiddleware = [
 ];
 ```
 
-**10 - create link to storage folder**
+**10 - Register GraphQl custom scalar types**
+<br>In file app\Profiders\AppServiceProvider.php inside register array, set this code.
+```
+$this->app->singleton(ObjectType::class, function ($app) {
+    return new ObjectType();
+});
+```
+
+**11 - create link to storage folder**
 ```
 php artisan storage:link
 ```
 
-**11 - Set base lang application in .env file**
+**12 - Set base lang application in .env file**
 ```
 BASE_LANG=en
 ```
 
-**12 - Execute publish command**
+**13 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
