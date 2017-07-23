@@ -18,6 +18,7 @@ use Syscover\Cms\Models\Article;
 use Syscover\Cms\Models\Category;
 use Syscover\Cms\Models\Family;
 use Syscover\Cms\Models\Section;
+use Syscover\Core\GraphQL\Types\AnyType;
 
 class ObjectInterface extends InterfaceType
 {
@@ -30,7 +31,7 @@ class ObjectInterface extends InterfaceType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::id()),
+                'type' => Type::nonNull(app(AnyType::class)),
                 'description' => 'The id of action'
             ]
         ];

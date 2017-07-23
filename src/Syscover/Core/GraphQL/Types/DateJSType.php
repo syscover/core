@@ -1,14 +1,17 @@
 <?php namespace Syscover\Core\GraphQL\Types;
 
+use Carbon\Carbon;
 use GraphQL\Type\Definition\ScalarType;
+
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\StringValueNode;
+use GraphQL\Utils;
 
-class ObjectType extends ScalarType
+class DateJSType extends ScalarType
 {
 
-    public $name = "Object";
-    public $description = "Any object of application";
+    public $name = "DateJS";
+    public $description = "JavaScript Date object from Timestamp SQL";
 
     /**
      * Serializes an internal value to include in a response.
@@ -18,7 +21,18 @@ class ObjectType extends ScalarType
      */
     public function serialize($value)
     {
+        var_dump($value);
+        exit;
+        //$value = 'Fri Jul 07 2017 15:17:11 GMT+0200 (CEST)';
+        //$value = '12/02/2001';
+
+
+        // Assuming internal representation of email is always correct:
         return $value;
+
+        // If it might be incorrect and you want to make sure that only correct values are included in response -
+        // use following line instead:
+        // return $this->parseValue($value);
     }
 
     /**
@@ -29,6 +43,8 @@ class ObjectType extends ScalarType
      */
     public function parseValue($value)
     {
+        var_dump($value);
+        exit;
         return $value;
     }
 
