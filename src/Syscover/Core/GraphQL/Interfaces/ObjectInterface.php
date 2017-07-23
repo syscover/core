@@ -4,6 +4,7 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\InterfaceType;
 use Syscover\Core\GraphQL\Types\AnyType;
+use Syscover\Admin\Models\User;
 use Syscover\Admin\Models\Action;
 use Syscover\Admin\Models\AttachmentFamily;
 use Syscover\Admin\Models\AttachmentMime;
@@ -85,6 +86,10 @@ class ObjectInterface extends InterfaceType
 
             case FieldValue::class:
                 return GraphQL::type('AdminFieldValue');
+                break;
+
+            case User::class:
+                return GraphQL::type('AdminUser');
                 break;
 
             // CMS
