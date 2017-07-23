@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\InterfaceType;
+use Syscover\Core\GraphQL\Types\AnyType;
 use Syscover\Admin\Models\Action;
 use Syscover\Admin\Models\AttachmentFamily;
 use Syscover\Admin\Models\AttachmentMime;
@@ -18,7 +19,7 @@ use Syscover\Cms\Models\Article;
 use Syscover\Cms\Models\Category;
 use Syscover\Cms\Models\Family;
 use Syscover\Cms\Models\Section;
-use Syscover\Core\GraphQL\Types\AnyType;
+use Syscover\Crm\Models\Group;
 
 class ObjectInterface extends InterfaceType
 {
@@ -101,6 +102,11 @@ class ObjectInterface extends InterfaceType
 
             case Article::class:
                 return GraphQL::type('CmsArticle');
+                break;
+
+            // CRM
+            case Group::class:
+                return GraphQL::type('CrmGroup');
                 break;
         }
     }
