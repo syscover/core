@@ -3,6 +3,7 @@
 use GraphQL;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Admin\Models\Lang;
+use Syscover\Admin\Models\Package;
 
 class BootstrapConfigQuery extends Query
 {
@@ -20,7 +21,8 @@ class BootstrapConfigQuery extends Query
     {
         return [
             'base_lang' => base_lang(),
-            'langs'     =>  Lang::where('active', true)->get()
+            'langs'     => Lang::where('active', true)->get(),
+            'packages'  => Package::all()
         ];
     }
 }
