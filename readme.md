@@ -68,10 +68,14 @@ protected $routeMiddleware = [
 ```
 
 **10 - Register GraphQl custom scalar types**
-<br>In file app\Profiders\AppServiceProvider.php inside register array, set this code.
+<br>In file app\Profiders\AppServiceProvider.php inside register array, set this code to register custom scalar types.
 ```
 $this->app->singleton(ObjectType::class, function ($app) {
     return new ObjectType();
+});
+
+$this->app->singleton(AnyType::class, function ($app) {
+    return new AnyType();
 });
 ```
 
@@ -88,4 +92,15 @@ BASE_LANG=en
 **13 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
+```
+
+**14 - Register GraphQl middleware**
+<br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
+```
+'pulsar.core.graphQL'   => \Syscover\Core\Middleware\GraphQL::class,
+```
+
+and in config/graphql.php replace 'middleware' => [] by
+```
+'middleware' => ['pulsar.core.graphQL'],
 ```
