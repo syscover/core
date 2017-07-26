@@ -27,6 +27,14 @@ Syscover\Core\CoreServiceProvider::class,
 Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 ```
 
+And after Application Service providers
+```
+/*
+ * Thirdparty Service Providers...
+ */
+Folklore\GraphQL\ServiceProvider::class,
+```
+
 **4 - Don't forget to register CORS in your server, the following example is for apache server**
 ```
 Header add Access-Control-Allow-Origin "*"
@@ -42,10 +50,11 @@ php_value upload_max_filesize 1000M
 php_value memory_limit 256M
 ```
 
-**6 - Register JWT Alias in aliases array**
+**6 - Register JWT Alias in aliases array on config/app.php**
 ```
 'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
 'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
+'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
 ```
 
 **7 - Publish elements from JWT provider**
@@ -78,6 +87,11 @@ $this->app->singleton(AnyType::class, function ($app) {
     return new AnyType();
 });
 ```
+Don't forget include this imports
+```
+use Syscover\Core\GraphQL\Types\ObjectType;
+use Syscover\Core\GraphQL\Types\AnyType;
+```
 
 **11 - create link to storage folder**
 ```
@@ -91,6 +105,7 @@ BASE_LANG=en
 
 **13 - Execute publish command**
 ```
+php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
