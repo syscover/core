@@ -119,3 +119,10 @@ and in config/graphql.php replace 'middleware' => [] by
 ```
 'middleware' => ['pulsar.core.graphQL'],
 ```
+
+**14 - Register user for JWT**
+<br>in config/jwt.php set this value
+```
+'user' => 'Syscover\Admin\Models\User',
+```
+
