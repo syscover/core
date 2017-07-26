@@ -11,6 +11,7 @@
     "require": {
         "php": ">=5.6.4",
         "doctrine/dbal": "^2.5",
+        "folklore/graphql": "^1.0",
         "tymon/jwt-auth": "0.5.*",
         "intervention/image": "^2.3"
     },
