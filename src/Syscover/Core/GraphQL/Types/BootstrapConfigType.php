@@ -21,6 +21,10 @@ class BootstrapConfigType extends GraphQLType
             'langs' => [
                 'type' => Type::listOf(GraphQL::type('AdminLang')),
                 'description' => 'List of languages'
+            ],
+            'packages' => [
+                'type' => Type::listOf(GraphQL::type('AdminPackage')),
+                'description' => 'List of packages'
             ]
         ];
     }
