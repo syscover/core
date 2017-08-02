@@ -21,6 +21,10 @@ use Syscover\Cms\Models\Category;
 use Syscover\Cms\Models\Family;
 use Syscover\Cms\Models\Section;
 use Syscover\Crm\Models\Group;
+use Syscover\Market\Models\CustomerClassTax;
+use Syscover\Market\Models\OrderStatus;
+use Syscover\Market\Models\PaymentMethod;
+use Syscover\Market\Models\ProductClassTax;
 
 class ObjectInterface extends InterfaceType
 {
@@ -112,6 +116,23 @@ class ObjectInterface extends InterfaceType
             // CRM
             case Group::class:
                 return GraphQL::type('CrmGroup');
+                break;
+
+            // MARKET
+            case OrderStatus::class:
+                return GraphQL::type('MarketOrderStatus');
+                break;
+
+            case PaymentMethod::class:
+                return GraphQL::type('MarketPaymentMethod');
+                break;
+
+            case CustomerClassTax::class:
+                return GraphQL::type('MarketCustomerClassTax');
+                break;
+
+            case ProductClassTax::class:
+                return GraphQL::type('MarketProductClassTax');
                 break;
         }
     }
