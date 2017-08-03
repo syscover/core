@@ -89,8 +89,8 @@ $this->app->singleton(AnyType::class, function ($app) {
 ```
 Don't forget include this imports
 ```
-use Syscover\Core\GraphQL\Types\ObjectType;
-use Syscover\Core\GraphQL\Types\AnyType;
+use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
+use Syscover\Core\GraphQL\ScalarTypes\AnyType;
 ```
 
 **11 - create link to storage folder**

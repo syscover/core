@@ -1,4 +1,4 @@
-<?php namespace Syscover\Core\GraphQL\Types;
+<?php namespace Syscover\Core\GraphQL\ScalarTypes;
 
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Language\AST\StringValueNode;
