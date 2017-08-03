@@ -8,7 +8,7 @@ class ObjectType extends ScalarType
 {
 
     public $name = "Object";
-    public $description = "Any object of application";
+    public $description = "Object scalar type, type that encapsulates any object";
 
     /**
      * Serializes an internal value to include in a response.

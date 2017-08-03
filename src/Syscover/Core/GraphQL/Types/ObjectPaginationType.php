@@ -4,6 +4,7 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 use Syscover\Core\Services\SQLService;
+use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 
 class ObjectPaginationType extends GraphQLType
 {
@@ -24,7 +25,8 @@ class ObjectPaginationType extends GraphQLType
                 'description' => 'N records filtered'
             ],
             'objects' => [
-                'type' => Type::listOf(GraphQL::type('CoreObjectInterface')),
+                // before was used a interface 'type' => Type::listOf(GraphQL::type('CoreObjectInterface')),
+                'type' => Type::listOf(app(ObjectType::class)),
                 'description' => 'List of objects filtered',
                 'args' => [
                     'sql' => [
