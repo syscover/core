@@ -16,7 +16,7 @@ class SQLService
      * @param   null $filters
      * @return  mixed
      *
-     * Get N records after filter the query
+     * Get query apply sql or filters
      */
     public static function getQueryFiltered($query, $sql, $filters = null)
     {

@@ -33,6 +33,7 @@ class CoreController extends BaseController
         $table  = $model->getTable();
         $query  = $model->builder();
 
+        // if has lang in url parameter, filter by lang_id
         if(isset($parameters['lang']))
         {
             /**
@@ -54,6 +55,13 @@ class CoreController extends BaseController
             $query->where($tableLang . '.lang_id', $parameters['lang']);
         }
 
+        // search records
+        if($request->has('sql'))
+        {
+            $query = SQLService::getQueryFiltered($query, $request->input('sql'));
+            $query = SQLService::getQueryOrderedAndLimited($query, $request->input('sql'));
+        }
+
         $objects = $query->get();
 
         $response['status'] = "success";
@@ -69,7 +77,8 @@ class CoreController extends BaseController
      * @throws ParameterNotFoundException
      * @throws ParameterValueException
      */
-    public function search(Request $request)
+    // TODO delete this function
+    public function search_TO_DELETE(Request $request)
     {
         // get parameters from request
         $args = $request->all();
