@@ -53,7 +53,7 @@ php_value memory_limit 256M
 **6 - Register JWT Alias in aliases array on config/app.php**
 ```
 'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
+'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
 ```
 
