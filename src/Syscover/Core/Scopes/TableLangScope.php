@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
+// Scope to be used in tables with table lang related
 class TableLangScope implements Scope
 {
     /**
