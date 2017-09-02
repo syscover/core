@@ -14,16 +14,17 @@ Pulsar is an application that generates a control panel where you start creating
 composer require syscover/pulsar-core
 ```
 
+Register service provider, on file config/app.php add to providers array**
+```
+/*
+ * Pulsar Application Service Providers...
+ */
+Syscover\Core\CoreServiceProvider::class,
+```
+
 **2 - You must register JWTAuthServiceProvider above AppServiceProvider**
 ```
 Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-```
-
-And after Application Service providers
-```
-/*
- * Thirdparty Service Providers...
- */
 Folklore\GraphQL\ServiceProvider::class,
 ```
 
@@ -69,7 +70,14 @@ protected $routeMiddleware = [
 ```
 
 **9 - Register GraphQl custom scalar types**
-<br>In file app\Profiders\AppServiceProvider.php inside register array, set this code to register custom scalar types.
+<br>In file app\Profiders\AppServiceProvider.php
+Include this imports
+```
+use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
+use Syscover\Core\GraphQL\ScalarTypes\AnyType;
+```
+
+inside register array, set this code to register custom scalar types
 ```
 $this->app->singleton(ObjectType::class, function ($app) {
     return new ObjectType();
@@ -78,11 +86,6 @@ $this->app->singleton(ObjectType::class, function ($app) {
 $this->app->singleton(AnyType::class, function ($app) {
     return new AnyType();
 });
-```
-Don't forget include this imports
-```
-use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
-use Syscover\Core\GraphQL\ScalarTypes\AnyType;
 ```
 
 **10 - create link to storage folder**
@@ -104,7 +107,7 @@ php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 **13 - Register GraphQl middleware**
 <br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
 ```
-'pulsar.core.graphQL'   => \Syscover\Core\Middleware\GraphQL::class,
+'pulsar.core.graphQL' => \Syscover\Core\Middleware\GraphQL::class,
 ```
 
 and in config/graphql.php replace 'middleware' => [] by

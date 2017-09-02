@@ -25,12 +25,5 @@
         "files": [
             "src/helpers.php"
         ]
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Syscover\\Core\\CoreServiceProvider"
-            ]
-        }
     }
 }
