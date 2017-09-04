@@ -93,18 +93,13 @@ $this->app->singleton(AnyType::class, function ($app) {
 php artisan storage:link
 ```
 
-**11 - Set base lang application in .env file**
-```
-BASE_LANG=en
-```
-
-**12 - Execute publish command**
+**11 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**13 - Register GraphQl middleware**
+**12 - Register GraphQl middleware**
 <br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
 ```
 'pulsar.core.graphQL' => \Syscover\Core\Middleware\GraphQL::class,
@@ -115,7 +110,7 @@ and in config/graphql.php replace 'middleware' => [] by
 'middleware' => ['pulsar.core.graphQL'],
 ```
 
-**14 - Register user for JWT**
+**13 - Register user for JWT**
 <br>in config/jwt.php set this value
 ```
 'user' => 'Syscover\Admin\Models\User',
