@@ -12,9 +12,6 @@ class CoreServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-        // register routes
-        $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
-
         // register views
         $this->loadViewsFrom(__DIR__ . '/../../views', 'core');
 

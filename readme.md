@@ -69,7 +69,21 @@ protected $routeMiddleware = [
 ];
 ```
 
-**9 - Register GraphQl custom scalar types**
+**9 - Config middleware group for JWT in app/Http/Kernel.php**
+```
+protected $middlewareGroups = [
+    ...
+    'no.csrf' => [
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+];
+```
+
+**10 - Register GraphQl custom scalar types**
 <br>In file app\Profiders\AppServiceProvider.php
 Include this imports
 ```
@@ -88,18 +102,18 @@ $this->app->singleton(AnyType::class, function ($app) {
 });
 ```
 
-**10 - create link to storage folder**
+**11 - create link to storage folder**
 ```
 php artisan storage:link
 ```
 
-**11 - Execute publish command**
+**12 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**12 - Register GraphQl middleware**
+**13 - Register GraphQl middleware**
 <br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
 ```
 'pulsar.core.graphQL' => \Syscover\Core\Middleware\GraphQL::class,
@@ -110,7 +124,7 @@ and in config/graphql.php replace 'middleware' => [] by
 'middleware' => ['pulsar.core.graphQL'],
 ```
 
-**13 - Register user for JWT**
+**14 - Register user for JWT**
 <br>in config/jwt.php set this value
 ```
 'user' => 'Syscover\Admin\Models\User',
