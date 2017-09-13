@@ -116,12 +116,12 @@ php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 **13 - Register GraphQl middleware**
 <br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
 ```
-'pulsar.core.graphQL' => \Syscover\Core\Middleware\GraphQL::class,
+'pulsar.core.graphql' => \Syscover\Core\Middleware\GraphQL::class,
 ```
 
 and in config/graphql.php replace 'middleware' => [] by
 ```
-'middleware' => ['pulsar.core.graphQL'],
+'middleware' => ['pulsar.core.graphql'],
 ```
 
 **14 - Register user for JWT**
