@@ -84,7 +84,7 @@ protected $middlewareGroups = [
 ```
 
 **10 - Register GraphQl custom scalar types**
-<br>In file app\Providers\AppServiceProvider.php
+<br>In file app\Profiders\AppServiceProvider.php
 Include this imports
 ```
 use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
@@ -107,25 +107,24 @@ $this->app->singleton(AnyType::class, function ($app) {
 php artisan storage:link
 ```
 
-**12 - Register GraphQl middleware**
-<br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
-```
-'pulsar.core.graphql' => \Syscover\Core\Middleware\GraphQL::class,
-```
-
-**14 - If publish force, and rewrite  config/graphql.php and config/jwt.php**
+**12 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**You must check this values**
+**13 - Register GraphQl middleware**
+<br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
+```
+'pulsar.core.graphql' => \Syscover\Core\Middleware\GraphQL::class,
+```
 
-config/graphql.php replace 'middleware' => [] by
+and in config/graphql.php replace 'middleware' => [] by
 ```
 'middleware' => ['pulsar.core.graphql'],
 ```
 
+**14 - Register user for JWT**
 <br>in config/jwt.php set this value
 ```
 'user' => 'Syscover\Admin\Models\User',
