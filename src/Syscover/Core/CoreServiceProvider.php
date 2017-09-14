@@ -17,7 +17,7 @@ class CoreServiceProvider extends ServiceProvider
 
         // register config files
         $this->publishes([
-            __DIR__ . '/../../config/pulsar.core.php' => config_path('pulsar.core.php'),
+            __DIR__ . '/../../config/pulsar-core.php' => config_path('pulsar-core.php'),
         ]);
 
         // register GraphQL types and schema
