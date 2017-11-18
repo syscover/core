@@ -131,11 +131,11 @@ class SQLService
     /**
      * @param $id
      * @param $modelClassName
-     * @param null $lang
+     * @param null $langId
      * @param null $modelLangClassName
      * @return mixed
      */
-    public static function destroyRecord($id, $modelClassName, $lang = null, $modelLangClassName = null)
+    public static function destroyRecord($id, $modelClassName, $langId = null, $modelLangClassName = null)
     {
         // get data to do model queries
         $model      = new $modelClassName;
@@ -147,8 +147,8 @@ class SQLService
          *  If destroy baseLang object, delete all objects with this id
          */
         if(
-            isset($lang) &&
-            base_lang() !== $lang)
+            isset($langId) &&
+            base_lang() !== $langId)
         {
             /**
              * Check if controller has defined modelLang property,
@@ -160,31 +160,30 @@ class SQLService
                 // get data to do model queries
                 $modelLang      = new $modelLangClassName;
                 $tableLang      = $modelLang->getTable();
-                $primaryKeyLang = $modelLang->getKeyName();
 
                 // get object from main table and lang table
                 $object = $model->builder()
-                    ->where($tableLang . '.lang_id', $lang)
-                    ->where($table . '.' . $primaryKey, $id)
+                    ->where($tableLang . '.lang_id', $langId)
+                    ->where($table . '.obj_id', $id)
                     ->first();
 
                 /**
                  * This option is for tables that dependent of other tables to set your languages
                  * set parameter $deleteLangDataRecord to false, because lang model haven't data_lag column
                  */
-                $modelLang->deleteTranslationRecord($id, $lang, false);
+                $modelLang->deleteTranslationRecord($id, $langId, false);
 
                 /**
                  * This kind of tables has field data_lang in main table, not in lang table
                  * delete data_lang parameter
                  */
-                $model->deleteLangDataRecord($id, $lang);
+                $model->deleteDataLang($langId, $id);
 
                 /**
                  * Count records, to know if has more lang
                  */
                 $nRecords = $modelLang->builder()
-                    ->where($tableLang . '.' . $primaryKeyLang, $id)
+                    ->where($tableLang . '.obj_id', $id)
                     ->count();
 
                 /**
@@ -198,35 +197,54 @@ class SQLService
             }
             else
             {
-                $model->builder();
-
                 /**
-                 * The table may have lang but not have the field lang_id.
+                 * The table may have lang parameter but not have the field lang_id.
                  * Whe is false, the model overwrite method deleteTranslationRecord
                  * to delete json language field, for example in field table with labels column
                  */
                 if(Schema::hasColumn($table, 'lang_id'))
                 {
-                    $model->where($table . '.lang_id', $lang);
+                    $object = $model->builder()
+                        ->where($table . '.lang_id', $langId)
+                        ->where($table . '.obj_id', $id)
+                        ->first();
                 }
-
-                $object = $model->where($table . '.' . $primaryKey, $id)
-                    ->first();
+                else
+                {
+                    $object = $model->builder()
+                        ->where($table . '.' . $primaryKey, $id)
+                        ->first();
+                }
 
                 /**
                  * Delete record from table without dependency from other table lang
                  */
-                $model->deleteTranslationRecord($id, $lang);
+                $model->deleteTranslationRecord($id, $langId);
             }
         }
         else
         {
-            // Delete single record
-            $object = $model->builder()
-                ->where($table . '.' . $primaryKey, $id)
-                ->first();
+            if(isset($langId))
+            {
+                $object = $model->builder()
+                    ->where($table . '.obj_id', $id)
+                    ->where($table . '.lang_id', $langId)
+                    ->first();
 
-            $object->delete();
+                // Delete single record
+                $model->builder()
+                    ->where($table . '.obj_id', $id)
+                    ->delete();
+            }
+            else
+            {
+                // Delete single record
+                $object = $model->builder()
+                    ->where($table . '.' . $primaryKey, $id)
+                    ->first();
+
+                $object->delete();
+            }
         }
 
         return $object;
