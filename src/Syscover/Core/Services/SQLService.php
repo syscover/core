@@ -135,7 +135,12 @@ class SQLService
      * @param null $modelLangClassName
      * @return mixed
      */
-    public static function destroyRecord($id, $modelClassName, $langId = null, $modelLangClassName = null)
+    public static function destroyRecord(
+        $id,
+        $modelClassName,
+        $langId = null,
+        $modelLangClassName = null
+    )
     {
         // get data to do model queries
         $model      = new $modelClassName;
@@ -238,10 +243,20 @@ class SQLService
             }
             else
             {
-                // Delete single record
-                $object = $model->builder()
-                    ->where($table . '.' . $primaryKey, $id)
-                    ->first();
+                if(Schema::hasColumn($table, 'object_id'))
+                {
+                    // Delete single record
+                    $object = $model->builder()
+                        ->where($table . '.object_id', $id)
+                        ->first();
+                }
+                else
+                {
+                    // Delete single record
+                    $object = $model->builder()
+                        ->where($table . '.' . $primaryKey, $id)
+                        ->first();
+                }
 
                 $object->delete();
             }
