@@ -42,21 +42,21 @@ class CoreModel extends BaseModel
     }
 
     /**
-     * @param   $objId
+     * @param   $objectId
      * @param   $langId
      * @param   bool $deleteLangDataRecord
      * @return	void
      */
-    public static function deleteTranslationRecord($objId, $langId, $deleteLangDataRecord = true)
+    public static function deleteTranslationRecord($objectId, $langId, $deleteLangDataRecord = true)
     {
         $instance = new static;
 
-        $instance::where('obj_id', $objId)
+        $instance::where('object_id', $objectId)
             ->where('lang_id', $langId)
             ->delete();
 
         if($deleteLangDataRecord)
-            $instance::deleteDataLang($langId, $objId);
+            $instance::deleteDataLang($langId, $objectId);
     }
 
 
@@ -68,21 +68,21 @@ class CoreModel extends BaseModel
      * Function to add lang record from json field
      *
      * @access	public
-     * @param   int $objId
+     * @param   int $objectId
      * @param   string $lang
      * @return	string
      */
-    public static function addDataLang($lang, $objId = null)
+    public static function addDataLang($lang, $objectId = null)
     {
         // if id is equal to null, is a new object
-        if($objId === null)
+        if($objectId === null)
         {
             $json[] = $lang;
         }
         else
         {
             $instance   = new static;
-            $object     = $instance::where('obj_id', $objId)->first();
+            $object     = $instance::where('object_id', $objectId)->first();
 
             if($object != null)
             {
@@ -90,7 +90,7 @@ class CoreModel extends BaseModel
                 $json[] = $lang; // add new language
 
                 // updates all objects with new language variables
-                $instance::where($object->table . '.obj_id', $object->obj_id)
+                $instance::where($object->table . '.object_id', $object->object_id)
                     ->update([
                         'data_lang' => json_encode($json)
                     ]);
@@ -107,13 +107,13 @@ class CoreModel extends BaseModel
     /**
      * Function to delete lang record from json field
      *
-     * @param $objId
+     * @param $objectId
      * @param $langId
      */
-    public static function deleteDataLang($langId, $objId)
+    public static function deleteDataLang($langId, $objectId)
     {
         $instance   = new static;
-        $object     = $instance::where('obj_id', $objId)->first();
+        $object     = $instance::where('object_id', $objectId)->first();
 
         if($object != null)
         {
@@ -129,7 +129,7 @@ class CoreModel extends BaseModel
                 }
             }
 
-            $instance::where($object->table . '.obj_id', $objId)
+            $instance::where($object->table . '.object_id', $objectId)
                 ->update([
                     'data_lang'  => json_encode($langArray)
                 ]);

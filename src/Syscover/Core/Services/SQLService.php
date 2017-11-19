@@ -164,7 +164,7 @@ class SQLService
                 // get object from main table and lang table
                 $object = $model->builder()
                     ->where($tableLang . '.lang_id', $langId)
-                    ->where($table . '.obj_id', $id)
+                    ->where($table . '.object_id', $id)
                     ->first();
 
                 /**
@@ -183,7 +183,7 @@ class SQLService
                  * Count records, to know if has more lang
                  */
                 $nRecords = $modelLang->builder()
-                    ->where($tableLang . '.obj_id', $id)
+                    ->where($tableLang . '.object_id', $id)
                     ->count();
 
                 /**
@@ -206,7 +206,7 @@ class SQLService
                 {
                     $object = $model->builder()
                         ->where($table . '.lang_id', $langId)
-                        ->where($table . '.obj_id', $id)
+                        ->where($table . '.object_id', $id)
                         ->first();
                 }
                 else
@@ -227,13 +227,13 @@ class SQLService
             if(isset($langId))
             {
                 $object = $model->builder()
-                    ->where($table . '.obj_id', $id)
+                    ->where($table . '.object_id', $id)
                     ->where($table . '.lang_id', $langId)
                     ->first();
 
                 // Delete single record
                 $model->builder()
-                    ->where($table . '.obj_id', $id)
+                    ->where($table . '.object_id', $id)
                     ->delete();
             }
             else
