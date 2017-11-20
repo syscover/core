@@ -59,45 +59,48 @@ class CoreModel extends BaseModel
             $instance::deleteDataLang($langId, $objectId);
     }
 
-
-    /**
-     * Manage data_lang column
-     */
-
     /**
      * Function to add lang record from json field
      *
      * @access	public
-     * @param   int $objectId
-     * @param   string $lang
+     * @param   string  $langId
+     * @param   int     $objectId
+     * @param   string  $dataLangModelId  id column from table thar contain data_lang column, may be object_id or id like product table
      * @return	string
      */
-    public static function addDataLang($lang, $objectId = null)
+    public static function addDataLang(
+        $langId,
+        $objectId = null,
+        $dataLangModelId = 'object_id'
+    )
     {
         // if id is equal to null, is a new object
         if($objectId === null)
         {
-            $json[] = $lang;
+            $json[] = $langId;
         }
         else
         {
             $instance   = new static;
-            $object     = $instance::where('object_id', $objectId)->first();
+            $object     = $instance::where($dataLangModelId, $objectId)->first();
 
-            if($object != null)
+            if($object !== null)
             {
-                $json = $object->data_lang; // get data_lang from object
-                $json[] = $lang; // add new language
+                // get data_lang from object, check that has array in data_lang column
+                $json = is_array($object->data_lang)? $object->data_lang : [];
+
+                // add new language
+                $json[] = $langId;
 
                 // updates all objects with new language variables
-                $instance::where($object->table . '.object_id', $object->object_id)
+                $instance::where($object->table . '.' . $dataLangModelId, $object->{$dataLangModelId})
                     ->update([
                         'data_lang' => json_encode($json)
                     ]);
             }
             else
             {
-                $json[] = $lang;
+                $json[] = $langId;
             }
         }
 
@@ -107,13 +110,18 @@ class CoreModel extends BaseModel
     /**
      * Function to delete lang record from json field
      *
-     * @param $objectId
-     * @param $langId
+     * @param   string  $langId
+     * @param   int     $objectId
+     * @param   string  $dataLangModelId  id column from table thar contain data_lang column, may be object_id or id like product table
      */
-    public static function deleteDataLang($langId, $objectId)
+    public static function deleteDataLang(
+        $langId,
+        $objectId,
+        $dataLangModelId = 'object_id'
+    )
     {
         $instance   = new static;
-        $object     = $instance::where('object_id', $objectId)->first();
+        $object     = $instance::where($dataLangModelId, $objectId)->first();
 
         if($object != null)
         {
@@ -129,7 +137,7 @@ class CoreModel extends BaseModel
                 }
             }
 
-            $instance::where($object->table . '.object_id', $objectId)
+            $instance::where($object->table . '.' . $dataLangModelId, $objectId)
                 ->update([
                     'data_lang'  => json_encode($langArray)
                 ]);

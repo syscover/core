@@ -151,13 +151,11 @@ class SQLService
          *  Delete object with lang.
          *  If destroy baseLang object, delete all objects with this id
          */
-        if(
-            isset($langId) &&
-            base_lang() !== $langId)
+        if(isset($langId))
         {
             /**
-             * Check if controller has defined modelLang property,
-             * if has modelLang, this means that the translations are in another table.
+             * Check if controller has defined $modelLangClassName property,
+             * if has $modelLangClassName, this means that the translations are in another table.
              * Get table name to do the query
              */
             if($modelLangClassName !== null)
@@ -167,10 +165,21 @@ class SQLService
                 $tableLang      = $modelLang->getTable();
 
                 // get object from main table and lang table
+                // in builder method do the join between table and table lang
                 $object = $model->builder()
                     ->where($tableLang . '.lang_id', $langId)
-                    ->where($table . '.object_id', $id)
+                    ->where($table . '.id', $id)
                     ->first();
+
+                // check if must delete base_lang object
+                if(base_lang() === $langId)
+                {
+                    // Delete record from main table and delete records in table lang by relations
+                    $model::where($table . '.id', $id)
+                        ->delete();
+
+                    return $object;
+                }
 
                 /**
                  * This option is for tables that dependent of other tables to set your languages
@@ -182,7 +191,7 @@ class SQLService
                  * This kind of tables has field data_lang in main table, not in lang table
                  * delete data_lang parameter
                  */
-                $model->deleteDataLang($langId, $id);
+                $model->deleteDataLang($langId, $id, 'id');
 
                 /**
                  * Count records, to know if has more lang
@@ -199,6 +208,8 @@ class SQLService
                     $model->where($table . '.' . $primaryKey, $id)
                         ->delete();
                 }
+
+                return $object;
             }
             else
             {
@@ -213,55 +224,61 @@ class SQLService
                         ->where($table . '.lang_id', $langId)
                         ->where($table . '.object_id', $id)
                         ->first();
+
+                    // check if must delete base_lang object
+                    if(base_lang() === $langId)
+                    {
+                        // Delete record from main table and delete records in table lang by relations
+                        $model::where($table . '.object_id', $id)
+                            ->delete();
+
+                        return $object;
+                    }
                 }
                 else
                 {
                     $object = $model->builder()
                         ->where($table . '.' . $primaryKey, $id)
                         ->first();
+
+                    // check if must delete base_lang object
+                    if(base_lang() === $langId)
+                    {
+                        // Delete record from main table and delete records in table lang by relations
+                        $model::where($table . '.' . $primaryKey, $id)
+                            ->delete();
+
+                        return $object;
+                    }
                 }
 
-                /**
-                 * Delete record from table without dependency from other table lang
-                 */
+                // delete record from table without dependency from other table lang
                 $model->deleteTranslationRecord($id, $langId);
+
+                return $object;
             }
         }
         else
         {
-            if(isset($langId))
+            // delete objects without languages
+            if(Schema::hasColumn($table, 'object_id'))
             {
+                // Delete single record
                 $object = $model->builder()
                     ->where($table . '.object_id', $id)
-                    ->where($table . '.lang_id', $langId)
                     ->first();
-
-                // Delete single record
-                $model->builder()
-                    ->where($table . '.object_id', $id)
-                    ->delete();
             }
             else
             {
-                if(Schema::hasColumn($table, 'object_id'))
-                {
-                    // Delete single record
-                    $object = $model->builder()
-                        ->where($table . '.object_id', $id)
-                        ->first();
-                }
-                else
-                {
-                    // Delete single record
-                    $object = $model->builder()
-                        ->where($table . '.' . $primaryKey, $id)
-                        ->first();
-                }
-
-                $object->delete();
+                // Delete single record
+                $object = $model->builder()
+                    ->where($table . '.' . $primaryKey, $id)
+                    ->first();
             }
-        }
 
-        return $object;
+            $object->delete();
+
+            return $object;
+        }
     }
 }
