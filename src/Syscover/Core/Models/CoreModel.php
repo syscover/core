@@ -33,6 +33,25 @@ class CoreModel extends BaseModel
     }
 
     /**
+     * Filter query with parameters passe
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  array $filters
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilterQuery($query, $filters)
+    {
+        // apply filters
+        if(is_array($filters) && count($filters) > 0)
+        {
+            foreach ($filters as $column => $value)
+                $query->where($column, $value);
+        }
+
+        return $query;
+    }
+
+    /**
      * Get columns name from table
      * @return array
      */
@@ -42,21 +61,23 @@ class CoreModel extends BaseModel
     }
 
     /**
-     * @param   $objectId
+     * @param   $id
      * @param   $langId
      * @param   bool $deleteLangDataRecord
+     * @param   array $filters  filters to select and delete records
      * @return	void
      */
-    public static function deleteTranslationRecord($objectId, $langId, $deleteLangDataRecord = true)
+    public static function deleteTranslationRecord($id, $langId, $deleteLangDataRecord = true, $filters = [])
     {
         $instance = new static;
 
-        $instance::where('object_id', $objectId)
+        $instance::where('id', $id)
             ->where('lang_id', $langId)
+            ->filterQuery($filters)
             ->delete();
 
         if($deleteLangDataRecord)
-            $instance::deleteDataLang($langId, $objectId);
+            $instance::deleteDataLang($langId, $id);
     }
 
     /**
@@ -64,25 +85,29 @@ class CoreModel extends BaseModel
      *
      * @access	public
      * @param   string  $langId
-     * @param   int     $objectId
-     * @param   string  $dataLangModelId  id column from table thar contain data_lang column, may be object_id or id like product table
+     * @param   int     $id
+     * @param   array   $filters            filters to select and updates records
      * @return	string
      */
     public static function addDataLang(
         $langId,
-        $objectId = null,
-        $dataLangModelId = 'object_id'
+        $id = null,
+        $filters = []
     )
     {
         // if id is equal to null, is a new object
-        if($objectId === null)
+        if($id === null)
         {
             $json[] = $langId;
         }
         else
         {
             $instance   = new static;
-            $object     = $instance::where($dataLangModelId, $objectId)->first();
+
+            // get the first record, record previous to recent record
+            $object = $instance::where('id', $id)
+                ->filterQuery($filters)
+                ->first();
 
             if($object !== null)
             {
@@ -93,7 +118,8 @@ class CoreModel extends BaseModel
                 $json[] = $langId;
 
                 // updates all objects with new language variables
-                $instance::where($object->table . '.' . $dataLangModelId, $object->{$dataLangModelId})
+                $instance::where($object->table . '.id', $object->id)
+                    ->filterQuery($filters)
                     ->update([
                         'data_lang' => json_encode($json)
                     ]);
@@ -111,17 +137,17 @@ class CoreModel extends BaseModel
      * Function to delete lang record from json field
      *
      * @param   string  $langId
-     * @param   int     $objectId
-     * @param   string  $dataLangModelId  id column from table thar contain data_lang column, may be object_id or id like product table
+     * @param   int     $id
+     * @param   string  $dataLangModelId  id column from table thar contain data_lang column, may be ix or id like product table
      */
     public static function deleteDataLang(
         $langId,
-        $objectId,
-        $dataLangModelId = 'object_id'
+        $id,
+        $dataLangModelId = 'id'
     )
     {
         $instance   = new static;
-        $object     = $instance::where($dataLangModelId, $objectId)->first();
+        $object     = $instance::where($dataLangModelId, $id)->first();
 
         if($object != null)
         {
@@ -137,7 +163,7 @@ class CoreModel extends BaseModel
                 }
             }
 
-            $instance::where($object->table . '.' . $dataLangModelId, $objectId)
+            $instance::where($object->table . '.' . $dataLangModelId, $id)
                 ->update([
                     'data_lang'  => json_encode($langArray)
                 ]);
