@@ -140,6 +140,7 @@ mix.styles([
     ...
     'vendor/syscover/pulsar-core/src/public/css/helpers/margin.css',
     'vendor/syscover/pulsar-core/src/public/css/helpers/padding.css',
+    'vendor/syscover/pulsar-core/src/public/css/helpers/helpers.css',
     ...
 ], 'public/css/app.css') 
 ```

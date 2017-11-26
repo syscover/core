@@ -71,6 +71,7 @@ return [
     'spanish'                               => 'Spanish',
     'status'                                => 'Status',
     'tax'                                   => 'Impuesto|Impuestos',
+    'tin'                                   => 'TIN',
     'total'                                 => 'Total',
     'zip'                                   => 'Postal code',
 ];
