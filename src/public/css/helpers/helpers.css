@@ -1,2 +1,12 @@
 @import "margin.css";
 @import "padding.css";
+
+/*========== MISCELLANEOUS ==========*/
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
