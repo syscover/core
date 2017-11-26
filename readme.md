@@ -138,8 +138,8 @@ if you use Laravel Mix set this code
 ```
 mix.styles([
     ...
-    'vendor/syscover/pulsar-core/public/css/helpers/margin.css',
-    'vendor/syscover/pulsar-core/public/css/helpers/padding.css',
+    'vendor/syscover/pulsar-core/src/public/css/helpers/margin.css',
+    'vendor/syscover/pulsar-core/src/public/css/helpers/padding.css',
     ...
 ], 'public/css/app.css') 
 ```
