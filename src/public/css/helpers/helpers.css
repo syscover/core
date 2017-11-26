@@ -3,10 +3,10 @@
 
 /*========== MISCELLANEOUS ==========*/
 
-.hide {
+.soft-hide {
     display: none;
 }
 
-.show {
+.soft-show {
     display: block;
 }
