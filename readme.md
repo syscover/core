@@ -130,3 +130,18 @@ and in config/graphql.php replace 'middleware' => [] by
 'user' => 'Syscover\Admin\Models\User',
 ```
 
+**15 - Add css helpers to use it in your project**
+```
+<link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
+```
+if you use Laravel Mix set this code
+```
+mix.styles([
+    ...
+    'vendor/syscover/pulsar-core/public/css/helpers/helpers.css',
+    ...
+], 'public/css/app.css') 
+```
+
+
+
