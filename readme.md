@@ -130,7 +130,7 @@ and in config/graphql.php replace 'middleware' => [] by
 'user' => 'Syscover\Admin\Models\User',
 ```
 
-**15 - Add css helpers to use it in your project**
+**15 - Add css helpers and scripts to use it in your project**
 ```
 <link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
 ```
@@ -142,7 +142,12 @@ mix.styles([
     'vendor/syscover/pulsar-core/src/public/css/helpers/padding.css',
     'vendor/syscover/pulsar-core/src/public/css/helpers/helpers.css',
     ...
-], 'public/css/app.css') 
+], 'public/css/app.css')
+.scripts([
+    ...
+    'vendor/syscover/pulsar-core/src/public/vendor/territories/js/jquery.territories.js',
+    ...
+], 'public/js/app.js')
 ```
 
 
