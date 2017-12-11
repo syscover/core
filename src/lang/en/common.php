@@ -57,6 +57,7 @@ return [
     'register'                              => 'Register',
     'repeat_password'                       => 'repeat_password',
     'required_fields'                       => 'Required fields',
+    'review'                                => 'Review|Reviews',
     'save'                                  => 'Save',
     'send'                                  => 'Send',
     'shipping_address'                      => 'Shipping address|Shipping addresses',

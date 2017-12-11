@@ -57,6 +57,7 @@ return [
     'register'                              => 'Registro',
     'repeat_password'                       => 'Repite la contraseña',
     'required_fields'                       => 'Campos requeridos',
+    'review'                                => 'Valoración|Valoraciones',
     'save'                                  => 'Guardar',
     'send'                                  => 'Enviar',
     'shipping_address'                      => 'Dirección de envío|Direcciones de envío',
