@@ -20,8 +20,11 @@ class CoreController extends BaseController
 
     /**
      * Display a listing of the resource.
-     * @param   Request $request
-     * @return  \Illuminate\Http\JsonResponse
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ParameterNotFoundException
+     * @throws ParameterValueException
      */
     public function index(Request $request)
     {
@@ -182,10 +185,9 @@ class CoreController extends BaseController
     /**
      * function to be overridden
      *
-     * @access	public
-     * @param   array       $parameters
-     * @param   object      $object
-     * @return	array       $object
+     * @param $parameters
+     * @param $object
+     * @return mixed
      */
     public function showCustom($parameters, $object)
     {
