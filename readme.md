@@ -91,7 +91,7 @@ use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 use Syscover\Core\GraphQL\ScalarTypes\AnyType;
 ```
 
-inside register array, set this code to register custom scalar types
+inside register method, set this code to register custom scalar types
 ```
 $this->app->singleton(ObjectType::class, function ($app) {
     return new ObjectType();
