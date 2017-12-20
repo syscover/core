@@ -23,6 +23,6 @@ class ConfigInterface extends InterfaceType
 
     public function resolveType($value)
     {
-        if(true) return GraphQL::type('CoreConfigOptionType');
+        if(true) return GraphQL::type('CoreConfigOption');
     }
 }

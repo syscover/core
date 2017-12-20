@@ -9,6 +9,7 @@ return [
     'article'                               => 'Artículo|Artículos',
     'billing_address'                       => 'Dirección de facturación|Direcciones de facturación',
     'blog'                                  => 'Blog|Blogs',
+    'calculated'                            => 'Calculando',
     'cancel'                                => 'Cancelar',
     'checkout'                              => 'Hacer pedido',
     'click_here'                            => 'Pincha aquí',

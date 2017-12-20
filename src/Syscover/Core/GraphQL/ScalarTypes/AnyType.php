@@ -1,6 +1,8 @@
 <?php namespace Syscover\Core\GraphQL\ScalarTypes;
 
 use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Language\AST\BooleanValueNode;
+use GraphQL\Language\AST\FloatValueNode;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Language\AST\IntValueNode;
 
@@ -8,10 +10,7 @@ class AnyType extends ScalarType
 {
 
     public $name = "Any";
-    public $description = "Any type of application, can to be a Int or String";
-    const MAX_INT = 2147483647;
-    const MIN_INT = -2147483648;
-
+    public $description = "Any type of application, can to be a Int, String or Boolean";
     /**
      * Serializes an internal value to include in a response.
      *
@@ -34,20 +33,32 @@ class AnyType extends ScalarType
         return $value;
     }
 
+    /**
+     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input
+     *
+     * @param \GraphQL\Language\AST\Node $valueNode
+     * @return mixed
+     */
     public function parseLiteral($ast)
     {
         if ($ast instanceof StringValueNode)
         {
-            return $ast->value;
+            return (string) $ast->value;
         }
 
         if ($ast instanceof IntValueNode)
         {
-            $val = (int) $ast->value;
-            if ($ast->value === (string) $val && self::MIN_INT <= $val && $val <= self::MAX_INT)
-            {
-                return $val;
-            }
+            return (int) $ast->value;
+        }
+
+        if ($ast instanceof BooleanValueNode)
+        {
+            return (boolean) $ast->value;
+        }
+
+        if ($ast instanceof FloatValueNode)
+        {
+            return (float) $ast->value;
         }
 
         return null;

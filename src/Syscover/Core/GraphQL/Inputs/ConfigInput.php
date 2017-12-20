@@ -5,13 +5,13 @@ use Folklore\GraphQL\Support\Type as GraphQLType;
 
 class ConfigInput extends GraphQLType
 {
-    protected $inputObject = true;
-
     // field to documentation
     protected $attributes = [
         'name'          => 'ConfigInput',
         'description'   => 'Input to request config value'
     ];
+
+    protected $inputObject = true;
 
     public function fields()
     {

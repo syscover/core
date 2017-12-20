@@ -8,7 +8,7 @@ class ConfigOptionType extends GraphQLType
 {
     protected $attributes = [
         'name'          => 'ConfigOptionType',
-        'description'   => 'Options defined in config files'
+        'description'   => 'Options defined in app/config files'
     ];
 
     public function fields()

@@ -11,8 +11,12 @@ class CoreGraphQLServiceProvider
 
         // CONFIG
         GraphQL::addType(\Syscover\Core\GraphQL\Interfaces\ConfigInterface::class, 'CoreConfigInterface');
-        GraphQL::addType(\Syscover\Core\GraphQL\Types\ConfigOptionType::class, 'CoreConfigOptionType');
+        GraphQL::addType(\Syscover\Core\GraphQL\Types\ConfigOptionType::class, 'CoreConfigOption');
         GraphQL::addType(\Syscover\Core\GraphQL\Inputs\ConfigInput::class, 'CoreConfigInput');
+
+        // PREFERENCE
+        GraphQL::addType(\Syscover\Core\GraphQL\Types\PreferenceType::class, 'CorePreference');
+        GraphQL::addType(\Syscover\Core\GraphQL\Inputs\PreferenceInput::class, 'CorePreferenceInput');
 
         // OBJECT
         GraphQL::addType(\Syscover\Core\GraphQL\Types\ObjectPaginationType::class, 'CoreObjectPagination');
@@ -34,8 +38,14 @@ class CoreGraphQLServiceProvider
 
                 // CONFIG
                 'coreConfig' => \Syscover\Core\GraphQL\Queries\ConfigQuery::class,
+
+                // PREFERENCE
+                'corePreferences' => \Syscover\Core\GraphQL\Queries\PreferencesQuery::class,
             ],
-            'mutation' => [ ]
+            'mutation' => [
+                // PREFERENCE
+                'coreUpdatePreferences' => \Syscover\Core\GraphQL\Mutations\UpdatePreferencesMutation::class,
+            ]
         ]));
     }
 }

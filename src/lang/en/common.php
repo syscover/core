@@ -9,6 +9,7 @@ return [
     'article'                               => 'Article|Articles',
     'billing_address'                       => 'Billing address|Billing addresses',
     'blog'                                  => 'Blog|Blogs',
+    'calculated'                            => 'Calculated',
     'cancel'                                => 'Cancel',
     'checkout'                              => 'Checkout',
     'click_here'                            => 'Click here',

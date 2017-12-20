@@ -7,7 +7,7 @@ class TranslationFieldType extends GraphQLType
 {
     protected $attributes = [
         'name'          => 'TranslationFieldType',
-        'description'   => 'Type to define field that has multiple translations and this is saved in json format in column database, ex. field.labels'
+        'description'   => 'Type to define field that has multiple translations and this is saved in json format in column database, example. field.labels'
     ];
 
     public function fields()
