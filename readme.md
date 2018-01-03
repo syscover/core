@@ -22,9 +22,8 @@ Register service provider, on file config/app.php add to providers array**
 Syscover\Core\CoreServiceProvider::class,
 ```
 
-**2 - You must register JWTAuthServiceProvider above AppServiceProvider**
+**2 - You must register Folklore service provider above AppServiceProvider**
 ```
-Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 Folklore\GraphQL\ServiceProvider::class,
 ```
 
@@ -45,31 +44,15 @@ php_value memory_limit 256M
 
 **5 - Register JWT Alias in aliases array on config/app.php**
 ```
-'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
 ```
 
-**6 - Publish elements from JWT provider**
+**6 - Generate new JWT key**
 ```
-php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\JWTAuthServiceProvider"
-```
-
-**7 - Generate new JWT key**
-```
-php artisan jwt:generate
+php artisan jwt:secret
 ```
 
-**8 - Config middleware for JWT in app/Http/Kernel.php**
-```
-protected $routeMiddleware = [
-    ...
-    'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-    'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
-];
-```
-
-**9 - Config middleware group for JWT in app/Http/Kernel.php**
+**7 - Config middleware group no.csrf in app/Http/Kernel.php**
 ```
 protected $middlewareGroups = [
     ...
@@ -83,7 +66,7 @@ protected $middlewareGroups = [
 ];
 ```
 
-**10 - Register GraphQl custom scalar types**
+**9 - Register GraphQl custom scalar types**
 <br>In file app\Profiders\AppServiceProvider.php
 Include this imports
 ```
@@ -102,38 +85,29 @@ $this->app->singleton(AnyType::class, function ($app) {
 });
 ```
 
-**11 - create link to storage folder**
+**10 - create link to storage folder**
 ```
 php artisan storage:link
 ```
 
-**12 - Execute publish command**
+**11 - Execute publish command**
 ```
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**13 - Register GraphQl middleware**
-<br>in app/Http/Kernel.php inside routeMiddleware array add this middleware
+**12 - Set GraphQl middleware**
+In config/graphql.php replace 'middleware' => [] by
 ```
-'pulsar.core.graphql' => \Syscover\Core\Middleware\GraphQL::class,
-```
-
-and in config/graphql.php replace 'middleware' => [] by
-```
-'middleware' => ['pulsar.core.graphql'],
+'middleware' => ['auth:api', 'jwt.refresh'],
 ```
 
-**14 - Register user for JWT**
-<br>in config/jwt.php set this value
-```
-'user' => 'Syscover\Admin\Models\User',
-```
-
-**15 - Add css helpers and scripts to use it in your project**
+**13 - Add css helpers and scripts to use it in your project**
 ```
 <link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
 ```
+
 if you use Laravel Mix set this code
 ```
 mix.styles([
