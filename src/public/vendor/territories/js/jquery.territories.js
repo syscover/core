@@ -180,7 +180,15 @@
             $.ajax({
                 type: "GET",
                 url: `/api/v1/admin/country/${this.options.lang}`,
-                data: {},
+                data: {
+                    sql: [
+                        {
+                            command: 'orderBy',
+                            column: 'admin_country.name',
+                            operator: 'asc'
+                        }
+                    ]
+                },
                 dataType: 'json',
                 success: (response) => {
 
@@ -310,6 +318,11 @@
                             column: 'admin_country.lang_id',
                             operator: '=',
                             value: this.options.lang
+                        },
+                        {
+                            command: 'orderBy',
+                            column: 'admin_territorial_area_1.name',
+                            operator: 'asc'
                         }
                     ]
                 },
@@ -405,6 +418,11 @@
                             column: 'admin_country.lang_id',
                             operator: '=',
                             value: this.options.lang
+                        },
+                        {
+                            command: 'orderBy',
+                            column: 'admin_territorial_area_2.name',
+                            operator: 'asc'
                         }
                     ]
                 };
@@ -424,6 +442,11 @@
                             column: 'admin_country.lang_id',
                             operator: '=',
                             value: this.options.lang
+                        },
+                        {
+                            command: 'orderBy',
+                            column: 'admin_territorial_area_2.name',
+                            operator: 'asc'
                         }
                     ]
                 };
@@ -527,6 +550,11 @@
                             column: 'admin_country.lang_id',
                             operator: '=',
                             value: this.options.lang
+                        },
+                        {
+                            command: 'orderBy',
+                            column: 'admin_territorial_area_3.name',
+                            operator: 'asc'
                         }
                     ]
                 };
@@ -546,6 +574,11 @@
                             column: 'admin_country.lang_id',
                             operator: '=',
                             value: this.options.lang
+                        },
+                        {
+                            command: 'orderBy',
+                            column: 'admin_territorial_area_3.name',
+                            operator: 'asc'
                         }
                     ]
                 };
@@ -565,6 +598,11 @@
                             column: 'admin_country.lang_id',
                             operator: '=',
                             value: this.options.lang
+                        },
+                        {
+                            command: 'orderBy',
+                            column: 'admin_territorial_area_3.name',
+                            operator: 'asc'
                         }
                     ]
                 };
