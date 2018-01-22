@@ -7,6 +7,7 @@ return [
     'all_rights_reserved'                   => 'Todos los derechos reservados',
     'apply'                                 => 'Aplicar',
     'article'                               => 'Artículo|Artículos',
+    'authentication'                        => 'Autenticación',
     'billing_address'                       => 'Dirección de facturación|Direcciones de facturación',
     'blog'                                  => 'Blog|Blogs',
     'calculated'                            => 'Calculando',
