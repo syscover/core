@@ -103,7 +103,7 @@ In config/graphql.php replace 'middleware' => [] by
 'middleware' => ['auth:api', 'jwt.refresh'],
 ```
 
-**13 - Add css helpers and scripts to use it in your project**
+**13 - Add css helpers, bootstrap and scripts to use it in your project**
 ```
 <link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
 ```
@@ -112,6 +112,7 @@ if you use Laravel Mix set this code
 ```
 mix.styles([
     ...
+    'vendor/syscover/pulsar-core/src/public/vendor/bootstrap/css/bootstrap.min.css',
     'vendor/syscover/pulsar-core/src/public/css/helpers/margin.css',
     'vendor/syscover/pulsar-core/src/public/css/helpers/padding.css',
     'vendor/syscover/pulsar-core/src/public/css/helpers/helpers.css',
@@ -119,6 +120,7 @@ mix.styles([
 ], 'public/css/app.css')
 .scripts([
     ...
+    'vendor/syscover/pulsar-core/src/public/vendor/bootstrap/js/bootstrap.min.js',
     'vendor/syscover/pulsar-core/src/public/vendor/territories/js/jquery.territories.js',
     ...
 ], 'public/js/app.js')
