@@ -11,12 +11,14 @@ use Syscover\Core\Exceptions\ParameterValueException;
 class SQLService
 {
     /**
-     * @param   $query
-     * @param   $sql
-     * @param   null $filters
-     * @return  mixed
-     *
      * Get query apply sql or filters
+     *
+     * @param $query
+     * @param $sql
+     * @param null $filters
+     * @return mixed
+     * @throws ParameterNotFoundException
+     * @throws ParameterValueException
      */
     public static function getQueryFiltered($query, $sql, $filters = null)
     {
