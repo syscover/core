@@ -232,7 +232,7 @@
                             .append($('<option disabled></option>').html(this.options.textSeparatorHighlight));
                     }
 
-                    for(var country of response.data)
+                    for(var i in response.data)
                     {
                         // check if this country is highlight
                         if($.inArray(response.data[i].id, this.options.highlightCountrys) == -1)
@@ -240,11 +240,11 @@
                             $("[name='" + this.options.countrySelect + "']")
                                 .append(
                                     $('<option></option>')
-                                        .val(country.id)
-                                        .html(country.name)
-                                        .data('at1', country.territorial_area_1)
-                                        .data('at2', country.territorial_area_2)
-                                        .data('at3', country.territorial_area_3)
+                                        .val(response.data[i].id)
+                                        .html(response.data[i].name)
+                                        .data('at1', response.data[i].territorial_area_1)
+                                        .data('at2', response.data[i].territorial_area_2)
+                                        .data('at3', response.data[i].territorial_area_3)
                                 );
                         }
                     }
@@ -340,9 +340,9 @@
                                     .prop('disabled', this.options.placeholderDisabled)
                             );
 
-                        for(var territorialArea1 of response.data) {
+                        for(var i in response.data) {
                             wrapper.find("[name='" + this.options.tA1Select + "']")
-                                .append(new Option(territorialArea1.name, territorialArea1.id));
+                                .append(new Option(response.data[i].name, response.data[i].id));
                         }
 
                         // get value of territorialArea1 if it has
@@ -471,10 +471,10 @@
                                     .prop('disabled', this.options.placeholderDisabled)
                             );
 
-                        for(var territorialArea2 of response.data)
+                        for(var i in response.data)
                         {
                             wrapper.find("[name='" + this.options.tA2Select + "']")
-                                .append(new Option(territorialArea2.name, territorialArea2.id));
+                                .append(new Option(response.data[i].name, response.data[i].id));
                         }
 
                         // get value of territorialArea2 if it has
@@ -627,9 +627,9 @@
                                     .prop('disabled', this.options.placeholderDisabled)
                             );
 
-                        for(var territorialArea3 of response.data)
+                        for(var i in response.data)
                         {
-                            $("[name='" + this.options.tA3Select + "']").append(new Option(territorialArea3.name, territorialArea3.id));
+                            $("[name='" + this.options.tA3Select + "']").append(new Option(response.data[i].name, response.data[i].id));
                         }
 
                         // get value of territorialArea3 if it has
