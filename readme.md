@@ -120,6 +120,8 @@ mix.styles([
 ], 'public/css/app.css')
 .scripts([
     ...
+    'vendor/syscover/pulsar-core/src/public/vendor/polyfill/array.prototype.find.js',
+    'vendor/syscover/pulsar-core/src/public/vendor/polyfill/array.prototype.foreach.js',
     'vendor/syscover/pulsar-core/src/public/vendor/bootstrap/js/bootstrap.min.js',
     'vendor/syscover/pulsar-core/src/public/vendor/territories/js/jquery.territories.js',
     ...
