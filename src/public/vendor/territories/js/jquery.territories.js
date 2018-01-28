@@ -64,7 +64,7 @@
 
             // set events on elements
             // when change country select
-            $(`[name=${this.options.countrySelect}]`).change(($event, localCallback) => {
+            $('[name=' + this.options.countrySelect + ']').change(($event, localCallback) => {
                 // get form or wrapper
                 var wrapper = $($event.target).closest(this.options.wrapper);
                 var zones = null;
@@ -111,7 +111,7 @@
             });
 
             // when change territorial area 1 select
-            $(`[name=${this.options.tA1Select}]`).change(($event, localCallback) => {
+            $('[name=' + this.options.tA1Select + ']').change(($event, localCallback) => {
 
                 // get form or wrapper
                 var wrapper = $($event.target).closest(this.options.wrapper);
@@ -131,7 +131,7 @@
             });
 
             // when change territorial area 2 select
-            $(`[name=${this.options.tA2Select}]`).change(($event, localCallback) => {
+            $('[name=' + this.options.tA2Select + ']').change(($event, localCallback) => {
                 // get form or wrapper
                 var wrapper = $($event.target).closest(this.options.wrapper);
 
@@ -179,7 +179,7 @@
 
             $.ajax({
                 type: "GET",
-                url: `/api/v1/admin/country/${this.options.lang}`,
+                url: '/api/v1/admin/country/' + this.options.lang,
                 data: {
                     sql: [
                         {
@@ -729,7 +729,6 @@
                 object = $.data(document, 'territories' + options.id, Object.create(Territories).init(options, callback));
                 return $(object);
             } else {
-
                 return $($.data(document, 'territories' + options.id));
             }
         }
