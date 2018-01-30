@@ -17,6 +17,7 @@
 
             highlightCountrys:          ['ES'],                                     // Countrys that you want highlight
             placeholderDisabled:        false,                                      // Disabled empty option
+            showPlaceholderText:        true,                                       // Show text of TA in empty option
             useSeparatorHighlight:      false,
             textSeparatorHighlight:     '*********',
 
@@ -331,14 +332,16 @@
 
                     wrapper.find("[name='" + this.options.tA1Select + "'] option").remove();
 
-                    if(response.data.length > 0) {
+                    if(response.data.length > 0)
+                    {
+                        var defaultOption = $('<option></option>')
+                            .val(this.options.nullValue)
+                            .prop('disabled', this.options.placeholderDisabled);
+
+                        if(this.options.showPlaceholderText) defaultOption.html(this.options.trans.selectA + wrapper.find("[name='" + this.options.countrySelect + "'] option:selected").data('at1'));
+
                         wrapper.find("[name='" + this.options.tA1Select + "']")
-                            .append(
-                                $('<option></option>')
-                                    .val(this.options.nullValue)
-                                    .html(this.options.trans.selectA + wrapper.find("[name='" + this.options.countrySelect + "'] option:selected").data('at1'))
-                                    .prop('disabled', this.options.placeholderDisabled)
-                            );
+                            .append(defaultOption);
 
                         for(var i in response.data) {
                             wrapper.find("[name='" + this.options.tA1Select + "']")
@@ -463,13 +466,14 @@
 
                     if(response.data.length > 0)
                     {
+                        var defaultOption = $('<option></option>')
+                            .val(this.options.nullValue)
+                            .prop('disabled', this.options.placeholderDisabled);
+
+                        if(this.options.showPlaceholderText) defaultOption.html(this.options.trans.selectA + wrapper.find("[name='" + this.options.countrySelect + "'] option:selected").data('at2'));
+
                         wrapper.find("[name='" + this.options.tA2Select + "']")
-                            .append(
-                                $('<option></option>')
-                                    .val(this.options.nullValue)
-                                    .html(this.options.trans.selectA + wrapper.find("[name='" + this.options.countrySelect + "'] option:selected").data('at2'))
-                                    .prop('disabled', this.options.placeholderDisabled)
-                            );
+                            .append(defaultOption);
 
                         for(var i in response.data)
                         {
@@ -619,13 +623,14 @@
 
                     if(response.data.length > 0)
                     {
+                        var defaultOption = $('<option></option>')
+                            .val(this.options.nullValue)
+                            .prop('disabled', this.options.placeholderDisabled);
+
+                        if(this.options.showPlaceholderText) defaultOption.html(this.options.trans.selectA + wrapper.find("[name='" + this.options.countrySelect + "'] option:selected").data('at3'));
+
                         wrapper.find("[name='" + this.options.tA3Select + "']")
-                            .append(
-                                $('<option></option>')
-                                    .val(this.options.nullValue)
-                                    .html(this.options.trans.selectA + wrapper.find("[name='" + this.options.countrySelect + "'] option:selected").data('at3'))
-                                    .prop('disabled', this.options.placeholderDisabled)
-                            );
+                            .append(defaultOption);
 
                         for(var i in response.data)
                         {
