@@ -11,3 +11,8 @@
 .soft-show {
     display: block;
 }
+
+.no-scroll {
+    overflow: hidden;
+    height: 100%;
+}
