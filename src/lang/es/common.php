@@ -66,7 +66,7 @@ return [
     'send'                                  => 'Enviar',
     'shipping_address'                      => 'Dirección de envío|Direcciones de envío',
     'shipping_amount'                       => 'Costes de envío',
-    'shipping_data'                         => 'Datos de envíos',
+    'shipping_data'                         => 'Datos de envío',
     'shopping_cart'                         => 'Carro de compra',
     'shopping_cart_empty'                   => 'Tu carro de compra está vacío',
     'show_product'                          => 'Ver producto',
