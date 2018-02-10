@@ -22,12 +22,7 @@ Register service provider, on file config/app.php add to providers array**
 Syscover\Core\CoreServiceProvider::class,
 ```
 
-**2 - You must register Folklore service provider above AppServiceProvider**
-```
-Folklore\GraphQL\ServiceProvider::class,
-```
-
-**3 - Don't forget to register CORS in your server, the following example is for apache server**
+**2 - Don't forget to register CORS in your server, the following example is for apache server**
 ```
 Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Headers "authorization, origin, x-requested-with, content-type"
@@ -35,24 +30,19 @@ Header add Access-Control-Expose-Headers "authorization"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 ```
 
-**4 - You may need to extend both the PHP memory on your server as well as the upload limit**
+**3 - You may need to extend both the PHP memory on your server as well as the upload limit**
 ```
 php_value post_max_size 1000M
 php_value upload_max_filesize 1000M
 php_value memory_limit 256M
 ```
 
-**5 - Register JWT Alias in aliases array on config/app.php**
-```
-'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
-```
-
-**6 - Generate new JWT key**
+**4 - Generate new JWT key**
 ```
 php artisan jwt:secret
 ```
 
-**7 - Config middleware group no.csrf in app/Http/Kernel.php**
+**5 - Config middleware group no.csrf in app/Http/Kernel.php**
 ```
 protected $middlewareGroups = [
     ...
@@ -66,7 +56,7 @@ protected $middlewareGroups = [
 ];
 ```
 
-**9 - Register GraphQl custom scalar types**
+**6 - Register GraphQl custom scalar types**
 <br>In file app\Profiders\AppServiceProvider.php
 Include this imports
 ```
@@ -85,30 +75,30 @@ $this->app->singleton(AnyType::class, function ($app) {
 });
 ```
 
-**10 - create link to storage folder**
+**7 - create link to storage folder**
 ```
 php artisan storage:link
 ```
 
-**11 - Execute publish command**
+**8 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**12 - Set GraphQl middleware**
+**9 - Set GraphQl middleware**
 In config/graphql.php replace 'middleware' => [] by
 ```
 'middleware' => ['auth:api', 'jwt.refresh'],
 ```
 
-**13 - Execute publish command**
+**10 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**14 - Add css helpers, bootstrap and scripts to use it in your project**
+**11 - Add css helpers, bootstrap and scripts to use it in your project**
 ```
 <link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
 ```
