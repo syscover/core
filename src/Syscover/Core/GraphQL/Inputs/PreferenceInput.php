@@ -21,7 +21,7 @@ class PreferenceInput extends GraphQLType
                 'description' => 'The key of preference'
             ],
             'value' => [
-                'type' => Type::nonNull(app(AnyType::class)),
+                'type' => app(AnyType::class),
                 'description' => 'Preference value'
             ]
         ];
