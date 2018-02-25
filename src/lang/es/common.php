@@ -80,5 +80,6 @@ return [
     'tax'                                   => 'Impuesto|Impuestos',
     'tin'                                   => 'CIF',
     'total'                                 => 'Total',
+    'undefined'                             => 'No definido',
     'zip'                                   => 'Código postal',
 ];

@@ -80,5 +80,6 @@ return [
     'tax'                                   => 'Impuesto|Impuestos',
     'tin'                                   => 'TIN',
     'total'                                 => 'Total',
+    'undefined'                             => 'Undefined',
     'zip'                                   => 'Postal code',
 ];
