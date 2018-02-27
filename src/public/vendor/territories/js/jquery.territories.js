@@ -248,6 +248,8 @@
                                     $('<option></option>')
                                         .val(response.data[i].id)
                                         .html(response.data[i].name)
+                                        .data('zones', response.data[j].zones)
+                                        .data('prefix', response.data[j].prefix)
                                         .data('at1', response.data[i].territorial_area_1)
                                         .data('at2', response.data[i].territorial_area_2)
                                         .data('at3', response.data[i].territorial_area_3)
