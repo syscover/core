@@ -10,46 +10,47 @@
 (function () {
     var Territories = {
         options: {
-            id:                         null,                                       // application id
-            wrapper:                    'form',                                     // element that cover territorials inputs
-            urlPlugin:                  '.',
-            lang:                       'es',
+            id:                             null,                                       // application id
+            wrapper:                        'form',                                     // element that cover territorials inputs
+            urlPlugin:                      '.',
+            lang:                           'es',
 
-            highlightCountrys:          ['ES'],                                     // Countrys that you want highlight
-            placeholderDisabled:        false,                                      // Disabled empty option
-            showPlaceholderText:        true,                                       // Show text of TA in empty option
-            useSeparatorHighlight:      false,
-            textSeparatorHighlight:     '*********',
+            highlightCountries:             ['ES'],                                     // Countries that you want highlight
+            addHighlightCountriesToList:    false,                                      // Add highlight countries to general list
+            placeholderDisabled:            false,                                      // Disabled empty option
+            showPlaceholderText:            true,                                       // Show text of TA in empty option
+            useSeparatorHighlight:          false,
+            textSeparatorHighlight:         '*********',
 
-            tA1Wrapper:					'.territorial-area-1-wrapper',              // Wrapper selector territorial area 1
-            tA2Wrapper:					'.territorial-area-2-wrapper',	            // Wrapper selector territorial area 2
-            tA3Wrapper:					'.territorial-area-3-wrapper',		        // Wrapper selector territorial area 3
+            tA1Wrapper:					    '.territorial-area-1-wrapper',              // Wrapper selector territorial area 1
+            tA2Wrapper:					    '.territorial-area-2-wrapper',	            // Wrapper selector territorial area 2
+            tA3Wrapper:					    '.territorial-area-3-wrapper',		        // Wrapper selector territorial area 3
 
-            tA1Label:                   '.territorial-area-1-label',                // label Select territorial area 1
-            tA2Label:                   '.territorial-area-2-label',                // label Select territorial area 2
-            tA3Label:                   '.territorial-area-3-label',                // label Select territorial area 3
-            tA1LabelPrefix:             '',
-            tA2LabelPrefix:             '',
-            tA3LabelPrefix:             '',
-            tA1LabelSuffix:             '',
-            tA2LabelSuffix:             '',
-            tA3LabelSuffix:             '',
+            tA1Label:                       '.territorial-area-1-label',                // label Select territorial area 1
+            tA2Label:                       '.territorial-area-2-label',                // label Select territorial area 2
+            tA3Label:                       '.territorial-area-3-label',                // label Select territorial area 3
+            tA1LabelPrefix:                 '',
+            tA2LabelPrefix:                 '',
+            tA3LabelPrefix:                 '',
+            tA1LabelSuffix:                 '',
+            tA2LabelSuffix:                 '',
+            tA3LabelSuffix:                 '',
 
-            countrySelect:              'country_id',                               // select name country
-            tA1Select:                  'territorial_area_1_id',                    // name Select territorial area 1
-            tA2Select:                  'territorial_area_2_id',                    // name Select territorial area 2
-            tA3Select:                  'territorial_area_3_id',                    // name Select territorial area 3
-            prefixInput:                'prefix',                                   // input name of prefix field
+            countrySelect:                  'country_id',                               // select name country
+            tA1Select:                      'territorial_area_1_id',                    // name Select territorial area 1
+            tA2Select:                      'territorial_area_2_id',                    // name Select territorial area 2
+            tA3Select:                      'territorial_area_3_id',                    // name Select territorial area 3
+            prefixInput:                    'prefix',                                   // input name of prefix field
 
-            nullValue:                  '',                                         // The best option is ''
-            countryValue:               'country_id_value',
-            territorialArea1Value:      'territorial_area_1_id_value',
-            territorialArea2Value:      'territorial_area_2_id_value',
-            territorialArea3Value:      'territorial_area_3_id_value',
+            nullValue:                      '',                                         // The best option is ''
+            countryValue:                   'country_id_value',
+            territorialArea1Value:          'territorial_area_1_id_value',
+            territorialArea2Value:          'territorial_area_2_id_value',
+            territorialArea3Value:          'territorial_area_3_id_value',
 
             trans: {
-                selectCountry:		    'Select a Country',
-                selectA:		        'Select a '
+                selectCountry:		        'Select a Country',
+                selectA:		            'Select a '
             }
         },
         callback: null,
@@ -208,12 +209,12 @@
 
                     var highlightCountry = false;
 
-                    for(var i in that.options.highlightCountrys)
+                    for(var i in that.options.highlightCountries)
                     {
                         for(var j in response.data)
                         {
                             // check if this country is highlight
-                            if(that.options.highlightCountrys[i] == response.data[j].id)
+                            if(that.options.highlightCountries[i] == response.data[j].id)
                             {
                                 $("[name='" + that.options.countrySelect + "']")
                                     .append(
@@ -240,7 +241,7 @@
                     for(var i in response.data)
                     {
                         // check if this country is highlight
-                        if($.inArray(response.data[i].id, that.options.highlightCountrys) == -1)
+                        if(that.options.addHighlightCountriesToList || $.inArray(response.data[i].id, that.options.highlightCountries) == -1)
                         {
                             $("[name='" + that.options.countrySelect + "']")
                                 .append(
