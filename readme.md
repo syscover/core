@@ -120,6 +120,7 @@ mix.styles([
     'vendor/syscover/pulsar-core/src/public/vendor/polyfill/array.prototype.foreach.js',
     'vendor/syscover/pulsar-core/src/public/vendor/bootstrap/js/bootstrap.min.js',
     'vendor/syscover/pulsar-core/src/public/vendor/territories/js/jquery.territories.js',
+    'vendor/syscover/pulsar-core/src/public/vendor/check-postal-code/js/jquery.check-postal-code.js',
     'vendor/syscover/pulsar-core/src/public/vendor/jquery-validation/jquery.validate.min.js',
     'vendor/syscover/pulsar-core/src/public/vendor/jquery-validation/additional-methods.min.js',
     'vendor/syscover/pulsar-core/src/public/vendor/fontawesome/svg-with-js/js/fontawesome-all.js'
