@@ -1,13 +1,14 @@
 /*
- *	Territories v1.3 - 2017-11-26
+ *	CheckPostalCode v1.0 - 2018-02-27
+ *  Google Maps Geocoding API
  *	By José Carlos Rodríguez Palacín
- *	(c) 2017 SYSCOVER S.L. - https://syscover.com
+ *	(c) 2018 SYSCOVER S.L. - https://syscover.com
  *	All rights reserved
  */
 
 "use strict";
 
-(function () {
+(function ( $ ) {
     var CheckPostalCode = {
         options: {
             key:            'YOUR GOOGLE MAPS API KEY',
@@ -15,23 +16,13 @@
             outputFormat:   'json',                                             // output format, values: json or xml
         },
 
-        init: function(options, callback)
+        init: function(options)
         {
             this.options = $.extend({}, this.options, options||{});	            // Init options
+            $(this).trigger('checkPostalCode:init', this.options);              // trigger event
 
-            var that = this;
-
-            if(callback != null)
-            {
-                that.callback({
-                    success: true,
-                    message: 'CheckPostalCode init'
-                });
-            }
-
-            return that;
+            return this;
         },
-
         check: function(q, callback) {
 
             var that = this;
@@ -68,7 +59,6 @@
                     // trigger event
                     $(that).trigger('checkPostalCode:afterCheck', response);
                     if(callback) callback(response);
-
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     if(that.callback != null)
@@ -100,14 +90,11 @@
     /*
      * Start the plugin
      */
-    $.checkPostalCode = function(options, callback) {
-        var object;
+    $.checkPostalCode = function(options) {
         if (! $.data(document, 'checkPostalCode')) {
-            object = $.data(document, 'checkPostalCode', Object.create(CheckPostalCode).init(options, callback));
-            return $(object);
+            return $.data(document, 'checkPostalCode', Object.create(CheckPostalCode).init(options));
         } else {
-            return $($.data(document, 'checkPostalCode'));
+            return $.data(document, 'checkPostalCode');
         }
     };
-
 }( jQuery ));
