@@ -655,7 +655,7 @@
                         if(territorialArea3Value !== null && territorialArea3Value !== '')
                         {
                             wrapper.find("[name='" + that.options.tA3Select + "']")
-                                .val(that.options.territorialArea3Value)
+                                .val(territorialArea3Value)
                                 .trigger("change");
                             // reset value to avoid load
                             wrapper.find("[name='" + that.options.territorialArea3Value + "']").val('');
