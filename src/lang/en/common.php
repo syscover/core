@@ -77,9 +77,10 @@ return [
     'surname'                               => 'Surname|Surnames',
     'spanish'                               => 'Spanish',
     'status'                                => 'Status',
-    'tax'                                   => 'Impuesto|Impuestos',
+    'tax'                                   => 'Tax|Taxes',
     'tin'                                   => 'TIN',
     'total'                                 => 'Total',
+    'tracking'                              => 'Tracking',
     'undefined'                             => 'Undefined',
     'zip'                                   => 'Postal code',
 ];
