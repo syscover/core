@@ -74,47 +74,6 @@ class CoreController extends BaseController
     }
 
     /**
-     * Display a listing of the resource.
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws ParameterNotFoundException
-     * @throws ParameterValueException
-     */
-    // TODO delete this function
-    public function search_TO_DELETE(Request $request)
-    {
-        // get parameters from request
-        $args = $request->all();
-
-        // check query and throw exceptions
-        if(! isset($args['sql']))
-            throw new ParameterNotFoundException('Parameter not found in request, please set parameters array parameter');
-
-        // get table name, replace to $query = call_user_func($this->model . '::builder')
-        $model = new $this->model;
-
-        // build query
-        $query = SQLService::getQueryFiltered($model->builder(), $args['sql']);
-        // count records filtered
-        $filtered = $query->count();
-
-        // get query ordered and limited
-        $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
-
-        $objects = $query->get();
-
-        // N total records
-        $total = SQLService::countPaginateTotalRecords($model->builder(), isset($args['lang'])? $args['lang'] : null);
-
-        $response['status']         = "success";
-        $response['total']          = $total;
-        $response['filtered']       = $filtered;
-        $response['data']           = $objects;
-
-        return response()->json($response);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param   Request $request

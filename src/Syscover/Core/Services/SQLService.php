@@ -14,13 +14,13 @@ class SQLService
      * Get query apply sql or filters
      *
      * @param $query
-     * @param $sql
+     * @param array $sql
      * @param null $filters
      * @return mixed
      * @throws ParameterNotFoundException
      * @throws ParameterValueException
      */
-    public static function getQueryFiltered($query, $sql, $filters = null)
+    public static function getQueryFiltered($query, $sql = [], $filters = null)
     {
         // filter all data by lang
         if(isset($filters) && is_array($filters))
@@ -42,9 +42,11 @@ class SQLService
     }
 
     /**
-     * @param   $query
-     * @param   null $filters sql to filter total count
-     * @return  mixed
+     * @param $query
+     * @param null $filters sql to filter total count
+     * @return mixed
+     * @throws ParameterNotFoundException
+     * @throws ParameterValueException
      */
     public static function countPaginateTotalRecords($query, $filters = null)
     {
@@ -94,7 +96,14 @@ class SQLService
         return $query;
     }
 
-    public static function getQueryOrderedAndLimited($query, $filters)
+    /**
+     * @param   $query
+     * @param   array $filters
+     * @return  mixed
+     * @throws  ParameterNotFoundException
+     * @throws  ParameterValueException
+     */
+    public static function getQueryOrderedAndLimited($query, $filters = [])
     {
         // sentences for order query and limited
         foreach ($filters as $sql)

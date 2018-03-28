@@ -41,6 +41,9 @@ class CoreGraphQLServiceProvider
 
                 // PREFERENCE
                 'corePreferences' => \Syscover\Core\GraphQL\Queries\PreferencesQuery::class,
+
+                // SLUGS
+                'coreSlug' => \Syscover\Core\GraphQL\Queries\SlugQuery::class,
             ],
             'mutation' => [
                 // PREFERENCE

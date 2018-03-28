@@ -59,7 +59,7 @@ return [
     'receipt'                               => 'Receipt',
     'reduced_iva'                           => 'Reduced IVA',
     'register'                              => 'Register',
-    'repeat_password'                       => 'repeat_password',
+    'repeat_password'                       => 'Repeat password',
     'required_fields'                       => 'Required fields',
     'review'                                => 'Review|Reviews',
     'save'                                  => 'Save',

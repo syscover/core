@@ -93,6 +93,11 @@ In config/graphql.php replace 'middleware' => [] by
 'middleware' => ['auth:api', 'jwt.refresh'],
 ```
 
+and replace 'error_formatter' => [\GraphQL::class, 'formatError'], by
+```
+'error_formatter' => [\Syscover\Core\GraphQL\Services\GraphQL::class, 'formatError'],
+```
+
 **10 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
