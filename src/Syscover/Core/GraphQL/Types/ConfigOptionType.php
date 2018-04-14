@@ -25,7 +25,8 @@ class ConfigOptionType extends GraphQLType
         ];
     }
 
-    public function interfaces() {
+    public function interfaces()
+    {
         return [
             GraphQL::type('CoreConfigInterface')
         ];

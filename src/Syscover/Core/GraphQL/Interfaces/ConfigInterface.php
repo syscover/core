@@ -23,6 +23,13 @@ class ConfigInterface extends InterfaceType
 
     public function resolveType($value)
     {
-        if(true) return GraphQL::type('CoreConfigOption');
+        if(property_exists($value, 'values'))
+        {
+            return GraphQL::type('AdminConfigFieldTypeOption');
+        }
+        else
+        {
+            return GraphQL::type('CoreConfigOption');
+        }
     }
 }
