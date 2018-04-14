@@ -71,7 +71,8 @@ class SQLService
                 throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($sql));
 
 
-            switch ($sql['command']) {
+            switch ($sql['command'])
+            {
                 case 'offset':
                 case 'limit':
                 case 'orderBy':
