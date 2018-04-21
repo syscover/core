@@ -28,3 +28,21 @@ if (! function_exists('date_time_string')) {
         return (new \Carbon\Carbon(preg_replace('/\(.*\)/','', $value), config('app.timezone')))->toDateTimeString();
     }
 }
+
+if (! function_exists('next_id')) {
+    /**
+     * Get next id from model
+     *
+     * @param  string  $model
+     * @param  string  $key
+     * @return int
+     */
+    function next_id($model, $key = 'id')
+    {
+        $model  = new $model;
+        $id = $model->max($key);
+        $id++;
+
+        return $id;
+    }
+}
