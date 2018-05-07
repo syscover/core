@@ -324,12 +324,6 @@
                             value: wrapper.find("[name='" + this.options.countrySelect + "']").val()
                         },
                         {
-                            command: 'where',
-                            column: 'admin_country.lang_id',
-                            operator: '=',
-                            value: this.options.lang
-                        },
-                        {
                             command: 'orderBy',
                             column: 'admin_territorial_area_1.name',
                             operator: 'asc'
@@ -427,12 +421,6 @@
                             value: wrapper.find("[name='" + this.options.countrySelect + "']").val()
                         },
                         {
-                            command: 'where',
-                            column: 'admin_country.lang_id',
-                            operator: '=',
-                            value: this.options.lang
-                        },
-                        {
                             command: 'orderBy',
                             column: 'admin_territorial_area_2.name',
                             operator: 'asc'
@@ -449,12 +437,6 @@
                             column: 'territorial_area_1_id',
                             operator: '=',
                             value: wrapper.find("[name='" + this.options.tA1Select + "']").val()
-                        },
-                        {
-                            command: 'where',
-                            column: 'admin_country.lang_id',
-                            operator: '=',
-                            value: this.options.lang
                         },
                         {
                             command: 'orderBy',
@@ -561,12 +543,6 @@
                             value: wrapper.find("[name='" + this.options.countrySelect + "']").val()
                         },
                         {
-                            command: 'where',
-                            column: 'admin_country.lang_id',
-                            operator: '=',
-                            value: this.options.lang
-                        },
-                        {
                             command: 'orderBy',
                             column: 'admin_territorial_area_3.name',
                             operator: 'asc'
@@ -585,12 +561,6 @@
                             value: wrapper.find("[name='" + this.options.countrySelect + "']").val()
                         },
                         {
-                            command: 'where',
-                            column: 'admin_country.lang_id',
-                            operator: '=',
-                            value: this.options.lang
-                        },
-                        {
                             command: 'orderBy',
                             column: 'admin_territorial_area_3.name',
                             operator: 'asc'
@@ -607,12 +577,6 @@
                             column: 'territorial_area_2_id',
                             operator: '=',
                             value: wrapper.find("[name='" + this.options.tA2Select + "']").val()
-                        },
-                        {
-                            command: 'where',
-                            column: 'admin_country.lang_id',
-                            operator: '=',
-                            value: this.options.lang
                         },
                         {
                             command: 'orderBy',
