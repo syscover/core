@@ -29,6 +29,20 @@ if (! function_exists('date_time_string')) {
     }
 }
 
+if (! function_exists('carbon')) {
+    /**
+     * Create Carbon from format
+     *
+     * @param  string  $value
+     * @param  string  $format
+     * @return \Carbon\Carbon
+     */
+    function carbon($value, $format = 'Y-m-d\TH:i:s')
+    {
+        return \Carbon\Carbon::createFromFormat($format, $value);
+    }
+}
+
 if (! function_exists('next_id')) {
     /**
      * Get next id from model
