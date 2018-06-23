@@ -42,21 +42,7 @@ php_value memory_limit 256M
 php artisan jwt:secret
 ```
 
-**5 - Config middleware group no.csrf in app/Http/Kernel.php**
-```
-protected $middlewareGroups = [
-    ...
-    'no.csrf' => [
-        \App\Http\Middleware\EncryptCookies::class,
-        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-    ],
-];
-```
-
-**6 - Register GraphQl custom scalar types**
+**5 - Register GraphQl custom scalar types**
 <br>In file app\Profiders\AppServiceProvider.php
 Include this imports
 ```
@@ -75,19 +61,19 @@ $this->app->singleton(AnyType::class, function ($app) {
 });
 ```
 
-**7 - create link to storage folder**
+**6 - create link to storage folder**
 ```
 php artisan storage:link
 ```
 
-**8 - Execute publish command**
+**7 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**9 - Set GraphQl middleware**
+**8 - Set GraphQl middleware**
 In config/graphql.php replace 'middleware' => [] by
 ```
 'middleware' => ['auth:api', 'jwt.refresh'],
@@ -98,12 +84,12 @@ and replace 'error_formatter' => [\GraphQL::class, 'formatError'], by
 'error_formatter' => [\Syscover\Core\GraphQL\Services\GraphQL::class, 'formatError'],
 ```
 
-**10 - Execute publish command**
+**9 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**11 - Add css helpers, bootstrap and scripts to use it in your project**
+**10 - Add css helpers, bootstrap and scripts to use it in your project**
 ```
 <link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
 ```
