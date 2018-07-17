@@ -119,7 +119,7 @@ mix
         'vendor/syscover/pulsar-core/src/assets/vendor/jquery-validation/additional-methods.min.js',
         'vendor/syscover/pulsar-core/src/assets/vendor/fontawesome/svg-with-js/js/fontawesome-all.js',
         'vendor/syscover/pulsar-core/src/assets/vendor/js-cookie/src/js.cookie.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/cookie-consent/cookie-consent.js
+        'vendor/syscover/pulsar-core/src/assets/vendor/cookie-consent/cookie-consent.js'
         ...
     ], 'public/js/all.js')
 ```
