@@ -3,7 +3,7 @@
 Component: Cookie consent
 
 @component('core::components.cookie-consent')
-  $slot('button)
+  $slot('accept)
 @endcomponent
 
 --}}
@@ -11,7 +11,7 @@ Component: Cookie consent
 <div class="cookie-consent-block js-cookie-consent-block">
     <p>
         <button type="button" class="no-style js-accept-cookies">
-            {{ $button ?? __('core::cookie-consent.accept_cookies_consent') }}
+            {{ $accept ?? __('core::cookie-consent.accept_cookies_consent') }}
             <i class="fa fa-times"></i>
         </button>
     </p>
