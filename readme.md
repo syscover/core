@@ -104,7 +104,7 @@ mix
     ], 'public/css/all.css')
     .sass([
         ...
-        'vendor/syscover/pulsar-core/src/assets/scss/app.css',
+        'vendor/syscover/pulsar-core/src/assets/scss/app.scss',
         ...
     ], 'public/css/app.css')
     .scripts([
