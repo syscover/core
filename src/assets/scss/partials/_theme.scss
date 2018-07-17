@@ -1,0 +1,12 @@
+.elevation-example {
+    @include mat-elevation-transition;
+    @include mat-elevation(2);
+
+    &:hover {
+        @include mat-elevation(8);
+    }
+}
+
+.links a.active {
+    color: red;
+}

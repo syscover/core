@@ -96,27 +96,30 @@ php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 
 if you use Laravel Mix set this code
 ```
-mix.styles([
-    ...
-    'vendor/syscover/pulsar-core/src/public/vendor/bootstrap/css/bootstrap.min.css',
-    'vendor/syscover/pulsar-core/src/public/css/helpers/margin.css',
-    'vendor/syscover/pulsar-core/src/public/css/helpers/padding.css',
-    'vendor/syscover/pulsar-core/src/public/css/helpers/helpers.css',
-    ...
-], 'public/css/app.css')
-.scripts([
-    ...
-    'vendor/syscover/pulsar-core/src/public/vendor/jquery/jquery-3.3.1.min.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/polyfill/array.prototype.find.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/polyfill/array.prototype.foreach.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/bootstrap/js/bootstrap.min.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/territories/js/jquery.territories.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/check-postal-code/jquery.check-postal-code.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/jquery-validation/jquery.validate.min.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/jquery-validation/additional-methods.min.js',
-    'vendor/syscover/pulsar-core/src/public/vendor/fontawesome/svg-with-js/js/fontawesome-all.js'
-    ...
-], 'public/js/app.js')
+mix
+    .styles([
+        ...
+        'vendor/syscover/pulsar-core/src/assets/vendor/bootstrap/css/bootstrap.min.css',
+        ...
+    ], 'public/css/all.css')
+    .sass([
+        ...
+        'vendor/syscover/pulsar-core/src/assets/scss/app.css',
+        ...
+    ], 'public/css/app.css')
+    .scripts([
+        ...
+        'vendor/syscover/pulsar-core/src/assets/vendor/jquery/jquery-3.3.1.min.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/polyfill/array.prototype.find.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/polyfill/array.prototype.foreach.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/bootstrap/js/bootstrap.min.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/territories/js/jquery.territories.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/check-postal-code/jquery.check-postal-code.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/jquery-validation/jquery.validate.min.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/jquery-validation/additional-methods.min.js',
+        'vendor/syscover/pulsar-core/src/assets/vendor/fontawesome/svg-with-js/js/fontawesome-all.js'
+        ...
+    ], 'public/js/all.js')
 ```
 
 
