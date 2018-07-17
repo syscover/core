@@ -61,6 +61,26 @@
     .font-#{$i} {
         font-size: #{$i}px !important;
     }
+
+    // WIDTH
+    .w-#{$i} {
+        height: #{$i}px !important;
+    }
+
+    // HEIGHT
+    .h-#{$i} {
+        height: #{$i}px !important;
+    }
+
+    // MAX-WIDTH
+    .mw-#{$i * 10} {
+        max-width: #{$i * 10}px !important;
+    }
+
+    // MAX-HEIGHT
+    .mh-#{$i * 10} {
+        max-width: #{$i * 10}px !important;
+    }
 }
 
 // MATERIAL SHADOWS FRON 0 TO 24
