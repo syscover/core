@@ -39,12 +39,12 @@
             var components = '';
             var componentKeys = ['route', 'locality', 'administrative_area', 'postal_code', 'country'];
             var first = true;
-            for(var key of componentKeys)
+            for(var i = 0; i < componentKeys.length(); i++)
             {
-                if(q[key])
+                if(q[componentKeys[i]])
                 {
                     if(first) first = false; else components += '|';
-                    components += key + ':' + q[key];
+                    components += componentKeys[i] + ':' + q[componentKeys[i]];
                 }
             }
             if(components.length > 0) data['components'] = components;
