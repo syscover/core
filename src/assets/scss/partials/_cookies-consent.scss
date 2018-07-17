@@ -1,0 +1,43 @@
+.cookie-consent-block {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: .5rem 70px .5rem .5rem;
+    display: none;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 1px -1px 1px #ccc;
+    z-index: 12;
+}
+
+@media only screen and (min-width: 40.063em) {
+    .cookie-consent-block {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 40em){
+    .cookie-consent-block {
+        width: 100%;
+
+    }
+}
+.cookie-consent-block p,
+.cookie-consent-block button {
+    font-size: 1rem;
+}
+
+.cookie-consent-block p {
+    margin-bottom: 0;
+}
+
+.cookie-consent-block button {
+    color: #746f6b;
+    text-decoration: underline;
+    margin-bottom: 0;
+    outline: none;
+}
+button.no-style {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
