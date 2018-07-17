@@ -16,6 +16,6 @@ Component: Cookie consent
         </button>
     </p>
     <p>
-        {!! $slot ??  __('core::cookie-consent.cookies_consent', ['cookie-consent'=> route('web.cookies-' . user_lang())]) !!}
+        {!! $text ??  __('core::cookie-consent.cookies_consent', ['cookie-consent'=> route('web.cookies-' . user_lang())]) !!}
     </p>
 </div>
