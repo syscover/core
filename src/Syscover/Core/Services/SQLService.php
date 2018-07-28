@@ -20,8 +20,10 @@ class SQLService
      * @throws ParameterNotFoundException
      * @throws ParameterValueException
      */
-    public static function getQueryFiltered($query, $sql = [], $filters = null)
+    public static function getQueryFiltered($query, $sql = null, $filters = null)
     {
+        if(! $sql) $sql = [];
+
         // filter all data by lang
         if(isset($filters) && is_array($filters))
         {
@@ -104,8 +106,10 @@ class SQLService
      * @throws  ParameterNotFoundException
      * @throws  ParameterValueException
      */
-    public static function getQueryOrderedAndLimited($query, $filters = [])
+    public static function getQueryOrderedAndLimited($query, $filters = null)
     {
+        if(! $filters) return $query;
+
         // sentences for order query and limited
         foreach ($filters as $sql)
         {

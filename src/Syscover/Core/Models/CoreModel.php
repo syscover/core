@@ -33,6 +33,17 @@ class CoreModel extends BaseModel
     }
 
     /**
+     * Add SQL_CALC_FOUND_ROWS to statement
+     *
+     * @param   $query
+     * @return  mixed
+     */
+    public function scopeCalculateFoundRows($query)
+    {
+        return $query->select(DB::raw('SQL_CALC_FOUND_ROWS *'));
+    }
+
+    /**
      * Filter query with parameters passe
      *
      * @param  \Illuminate\Database\Eloquent\Builder $query
