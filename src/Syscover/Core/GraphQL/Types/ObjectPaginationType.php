@@ -56,10 +56,10 @@ class ObjectPaginationType extends GraphQLType
     public function resolveObjectsField($object, $args)
     {
         // get query filtered by sql statement and filterd by filters statement
-        $query = SQLService::getQueryFiltered($object->query, ! empty($args['sql']) ?? $args['sql'], ! empty($args['filters']) ?? $args['filters']);
+        $query = SQLService::getQueryFiltered($object->query, $args['sql'] ?? null, $args['filters'] ?? null);
 
         // get query ordered and limited
-        $query = SQLService::getQueryOrderedAndLimited($query, ! empty($args['sql']) ?? $args['sql']);
+        $query = SQLService::getQueryOrderedAndLimited($query, $args['sql'] ?? null);
 
         // get objects filtered
         $objects = $query->get();
