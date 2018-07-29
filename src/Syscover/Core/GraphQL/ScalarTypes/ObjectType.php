@@ -6,9 +6,8 @@ use GraphQL\Language\AST\StringValueNode;
 
 class ObjectType extends ScalarType
 {
-
     public $name = "Object";
-    public $description = "Object scalar type, type that encapsulates any object";
+    public $description = "Object scalar type, type that encapsulates for any object";
 
     /**
      * Serializes an internal value to include in a response.
@@ -44,6 +43,4 @@ class ObjectType extends ScalarType
         }
         return $valueNode->value;
     }
-
-
 }

@@ -13,6 +13,7 @@ class ObjectPaginationType extends GraphQLType
         'name'          => 'ObjectPaginationType',
         'description'   => 'Pagination for database objects'
     ];
+    private $filtered;
 
     public function fields()
     {
@@ -55,8 +56,12 @@ class ObjectPaginationType extends GraphQLType
 
     public function resolveObjectsField($object, $args)
     {
+        // save eager loads to load after execute FOUND_ROWS() MySql Function
+        $eagerLoads = $object->query->getEagerLoads();
+        $query      = $object->query->setEagerLoads([]);
+
         // get query filtered by sql statement and filterd by filters statement
-        $query = SQLService::getQueryFiltered($object->query, $args['sql'] ?? null, $args['filters'] ?? null);
+        $query = SQLService::getQueryFiltered($query, $args['sql'] ?? null, $args['filters'] ?? null);
 
         // get query ordered and limited
         $query = SQLService::getQueryOrderedAndLimited($query, $args['sql'] ?? null);
@@ -64,11 +69,18 @@ class ObjectPaginationType extends GraphQLType
         // get objects filtered
         $objects = $query->get();
 
+        // execute FOUND_ROWS() MySql Function and save filtered value, to be returned in resolveFilteredField() function
+        // this function is executed after resolveObjectsField according to the position of fields marked in the GraphQL query
+        $this->filtered = DB::select(DB::raw("SELECT FOUND_ROWS() AS 'filtered'"))[0]->filtered;
+
+        // load eager loads
+        $objects->load($eagerLoads);
+
         return $objects;
     }
 
     public function resolveFilteredField()
     {
-        return DB::select(DB::raw("SELECT FOUND_ROWS() AS 'filtered'"))[0]->filtered;
+        return $this->filtered;
     }
 }

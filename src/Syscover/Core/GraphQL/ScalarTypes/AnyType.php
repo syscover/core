@@ -8,9 +8,9 @@ use GraphQL\Language\AST\IntValueNode;
 
 class AnyType extends ScalarType
 {
-
     public $name = "Any";
     public $description = "Any type of application, can to be a Int, String or Boolean";
+
     /**
      * Serializes an internal value to include in a response.
      *
