@@ -58,7 +58,7 @@
     }
 
     // FONT SIZE
-    .font-#{$i} {
+    .font-size-#{$i}-px {
         font-size: #{$i}px !important;
     }
 
@@ -80,6 +80,12 @@
     // MAX-HEIGHT
     .mh-#{$i * 10} {
         max-width: #{$i * 10}px !important;
+    }
+}
+
+@for $i from 0 through 10 {
+    .font-size-#{$i}-per {
+        font-size: #{$i * 10}\% !important;
     }
 }
 
