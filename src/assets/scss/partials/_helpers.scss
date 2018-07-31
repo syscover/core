@@ -84,7 +84,7 @@
 }
 
 @for $i from 0 through 10 {
-    .font-size-#{$i}-per {
+    .font-size-#{$i * 10}-per {
         font-size: #{$i * 10}% !important;
     }
 }
