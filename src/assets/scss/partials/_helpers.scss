@@ -89,7 +89,7 @@
     }
 }
 
-// MATERIAL SHADOWS FRON 0 TO 24
+// MATERIAL SHADOWS FROM 0 TO 24
 @for $i from 0 through 24 {
     .elevation-z#{$i} {
         @include mat-elevation($i);
