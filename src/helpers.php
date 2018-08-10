@@ -54,7 +54,7 @@ if (! function_exists('next_id')) {
     function next_id($model, $key = 'id')
     {
         $model  = new $model;
-        $id = $model->max($key);
+        $id     = $model->max($key);
         $id++;
 
         return $id;
