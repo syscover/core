@@ -14,6 +14,12 @@
 
 @for $i from 0 through 100 {
     // PADDING
+    .p-#{$i} {
+        padding-top: #{$i}px !important;
+        padding-right: #{$i}px !important;
+        padding-bottom: #{$i}px !important;
+        padding-left: #{$i}px !important;
+    }
     .px-#{$i} {
         padding-left: #{$i}px !important;
         padding-right: #{$i}px !important;
@@ -36,6 +42,12 @@
     }
 
     // MARGIN
+    .m-#{$i} {
+        margin-top: #{$i}px !important;
+        margin-right: #{$i}px !important;
+        margin-bottom: #{$i}px !important;
+        margin-left: #{$i}px !important;
+    }
     .mx-#{$i} {
         margin-left: #{$i}px !important;
         margin-right: #{$i}px !important;
