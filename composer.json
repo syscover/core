@@ -13,8 +13,7 @@
         "doctrine/dbal": "^2.5",
         "folklore/graphql": "^1.0",
         "tymon/jwt-auth": "1.0.0-rc.2",
-        "intervention/image": "^2.3",
-        "mtdowling/cron-expression": "^1.2"
+        "intervention/image": "^2.3"
     },
     "autoload": {
         "psr-4": {
