@@ -43,7 +43,7 @@ php artisan jwt:secret
 ```
 
 **5 - Register GraphQl custom scalar types**
-<br>In file app\Profiders\AppServiceProvider.php
+<br>In file app\Providers\AppServiceProvider.php
 Include this imports
 ```
 use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
@@ -79,17 +79,12 @@ In config/graphql.php replace 'middleware' => [] by
 'middleware' => ['auth:api', 'jwt.refresh'],
 ```
 
-and replace 'error_formatter' => [\GraphQL::class, 'formatError'], by
+and replace 'error_formatter' => [\Folklore\GraphQL\GraphQL::class, 'formatError'], by
 ```
 'error_formatter' => [\Syscover\Core\GraphQL\Services\GraphQL::class, 'formatError'],
 ```
 
-**9 - Execute publish command**
-```
-php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
-```
-
-**10 - Add css helpers, bootstrap and scripts to use it in your project**
+**9 - Add css helpers, bootstrap and scripts to use it in your project**
 ```
 <link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
 ```

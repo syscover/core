@@ -38,7 +38,7 @@ return [
     'quantity'                              => 'Cantidad',
     'language'                              => 'Idioma|Idiomas',
     'locality'                              => 'Localidad',
-    'login'                                 => 'Acceder',
+    'login'                                 => 'Iniciar sesión',
     'logout'                                => 'Cerrar sesión',
     'main'                                  => 'Principal',
     'message'                               => 'Mensaje',
