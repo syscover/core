@@ -44,6 +44,6 @@ class SlugQuery extends Query
 
     public function resolve($root, $args)
     {
-        return SlugService::checkSlug($args['model'], $args['slug']);
+        return SlugService::checkSlug($args['model'], $args['slug'], $args['id'] ?? null, $args['field'] ?? 'slug');
     }
 }
