@@ -82,6 +82,7 @@ return [
     'tin'                                   => 'CIF',
     'total'                                 => 'Total',
     'tracking'                              => 'Seguimiento',
+    'type'                                  => 'Tipo|Tipos',
     'undefined'                             => 'No definido',
     'zip'                                   => 'Código postal',
 ];

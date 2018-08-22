@@ -82,6 +82,7 @@ return [
     'tin'                                   => 'TIN',
     'total'                                 => 'Total',
     'tracking'                              => 'Tracking',
+    'type'                                  => 'Type|Types',
     'undefined'                             => 'Undefined',
     'zip'                                   => 'Postal code',
 ];
