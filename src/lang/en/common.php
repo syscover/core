@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'about'                                 => 'About',
     'add_to_cart'                           => 'Buy',
     'address'                               => 'Address|Addresses',
     'alias'                                 => 'Alias',
