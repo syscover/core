@@ -84,9 +84,18 @@ and replace 'error_formatter' => [\Folklore\GraphQL\GraphQL::class, 'formatError
 'error_formatter' => [\Syscover\Core\GraphQL\Services\GraphQL::class, 'formatError'],
 ```
 
-**9 - Add css helpers, bootstrap and scripts to use it in your project**
+**9 - Add scss**
+In file in resources/assets/sass/app.scss you can add utilities scss files
 ```
-<link rel="stylesheet" href="{{ asset('vendor/pular-core/css/helpers/helpers.css') }}">
+// Material
+@import "../../../vendor/syscover/pulsar-core/src/assets/scss/material/elevations";
+
+// Partials
+@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/forms";
+@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/typography";
+@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/helpers";
+@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/cookies-consent";
+@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/vue";
 ```
 
 if you use Laravel Mix set this code
