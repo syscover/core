@@ -69,11 +69,6 @@
         margin-left: #{$i}px !important;
     }
 
-    // FONT SIZE
-    .font-size-#{$i}-px {
-        font-size: #{$i}px !important;
-    }
-
     // WIDTH
     .w-#{$i} {
         height: #{$i}px !important;
@@ -92,6 +87,16 @@
     // MAX-HEIGHT
     .mh-#{$i * 10} {
         max-width: #{$i * 10}px !important;
+    }
+
+    // FONT SIZE
+    .font-size-#{$i}-px {
+        font-size: #{$i}px !important;
+    }
+
+    // LINE HEIGHT
+    .line-height-#{$i}-px { {
+        line-height: #{$i}px !important;
     }
 }
 
