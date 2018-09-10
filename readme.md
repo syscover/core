@@ -22,6 +22,16 @@ Register service provider, on file config/app.php add to providers array**
 Syscover\Core\CoreServiceProvider::class,
 ```
 
+Register middleware group sessions on file app/Http/Kernel.php add to middlewareGroups array**
+```
+...
+'sessions' => [
+    \Illuminate\Session\Middleware\StartSession::class,
+],
+...
+
+```
+
 **2 - Don't forget to register CORS in your server, the following example is for apache server**
 ```
 Header add Access-Control-Allow-Origin "*"
