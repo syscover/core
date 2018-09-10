@@ -26,6 +26,7 @@ Register middleware group sessions on file app/Http/Kernel.php add to middleware
 ```
 ...
 'sessions' => [
+    \App\Http\Middleware\EncryptCookies::class,
     \Illuminate\Session\Middleware\StartSession::class,
 ],
 ...
