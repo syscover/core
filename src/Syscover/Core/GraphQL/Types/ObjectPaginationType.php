@@ -54,9 +54,15 @@ class ObjectPaginationType extends GraphQLType
         return $total === 1 ? DB::select(DB::raw("SELECT FOUND_ROWS() AS 'total'"))[0]->total : $total;
     }
 
+    /**
+     * With $object parameter access to parent PaginationQuery resolve, where execute the builder of class
+     * for example, ActionsPaginationQuery execute the resolve method and return query that is used in resolveObjectsField method
+     */
     public function resolveObjectsField($object, $args)
     {
         // save eager loads to load after execute FOUND_ROWS() MySql Function
+        // FOUND_ROWS function get total number rows of last query, if model has eagerLoads, after execute the query model,
+        // will execute eagerLoads losing the reference os last query to execute FOUND_ROWS() MySql Function
         $eagerLoads = $object->query->getEagerLoads();
         $query      = $object->query->setEagerLoads([]);
 

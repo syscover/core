@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Syscover\Core\Exceptions\ParameterNotFoundException;
 use Syscover\Core\Exceptions\ParameterValueException;
@@ -69,6 +70,42 @@ class CoreController extends BaseController
 
         $response['status'] = "success";
         $response['data'] = $objects;
+
+        return response()->json($response);
+    }
+
+    public function search()
+    {
+        $model = new $this->model;
+        $query = $model->calculateFoundRows()->builder();
+
+        // save eager loads to load after execute FOUND_ROWS() MySql Function
+        // FOUND_ROWS function get total number rows of last query, if model has eagerLoads, after execute the query model,
+        // will execute eagerLoads losing the reference os last query to execute FOUND_ROWS() MySql Function
+        $eagerLoads = $query->getEagerLoads();
+        $query      = $query->setEagerLoads([]);
+
+        // get query filtered by sql statement and filterd by filters statement
+        $query = SQLService::getQueryFiltered($query, request('sql') ?? null, request('filter') ?? null);
+
+        // get query ordered and limited
+        $query = SQLService::getQueryOrderedAndLimited($query, request('sql') ?? null);
+
+        // get objects filtered
+        $objects = $query->get();
+
+        // execute FOUND_ROWS() MySql Function and save filtered value, to be returned in resolveFilteredField() function
+        // this function is executed after resolveObjectsField according to the position of fields marked in the GraphQL query
+        $filtered = DB::select(DB::raw("SELECT FOUND_ROWS() AS 'filtered'"))[0]->filtered;
+
+        // load eager loads
+        $objects->load($eagerLoads);
+
+
+        $response['status']     = 200;
+        $response['statusText'] = "OK";
+        $response['filtered']   = $filtered;
+        $response['data']       = $objects;
 
         return response()->json($response);
     }
