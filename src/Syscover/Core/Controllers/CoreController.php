@@ -101,7 +101,6 @@ class CoreController extends BaseController
         // load eager loads
         $objects->load($eagerLoads);
 
-
         $response['status']     = 200;
         $response['statusText'] = "OK";
         $response['filtered']   = $filtered;
