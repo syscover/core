@@ -33,6 +33,51 @@ Register middleware group sessions on file app/Http/Kernel.php add to middleware
 
 ```
 
+**X - And execute migrations**
+```
+php artisan migrate
+```
+
+**X - Execute command to create encryption keys fot laravel passport**
+```
+php artisan passport:install
+```
+
+**X - Add Passport::routes method within the boot method of your AuthServiceProvider**
+
+This method will register the routes necessary to issue access tokens and revoke access tokens, clients, and personal access tokens
+```
+<?php namespace App\Providers;
+
+use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
+        
+        Passport::routes();  // add laravel passport routes
+    }
+}
+```
+
+
 **2 - Don't forget to register CORS in your server, the following example is for apache server**
 ```
 Header add Access-Control-Allow-Origin "*"
@@ -48,14 +93,10 @@ php_value upload_max_filesize 1000M
 php_value memory_limit 256M
 ```
 
-**4 - Generate new JWT key**
-```
-php artisan jwt:secret
-```
 
 **5 - Register GraphQl custom scalar types**
-<br>In file app\Providers\AppServiceProvider.php
-Include this imports
+
+In file app\Providers\AppServiceProvider.php Include this imports
 ```
 use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 use Syscover\Core\GraphQL\ScalarTypes\AnyType;
@@ -85,9 +126,10 @@ php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
 **8 - Set GraphQl middleware**
+
 In config/graphql.php replace 'middleware' => [] by
 ```
-'middleware' => ['auth:api', 'jwt.refresh'],
+'middleware' => ['auth:api'],
 ```
 
 and replace 'error_formatter' => [\Folklore\GraphQL\GraphQL::class, 'formatError'], by
