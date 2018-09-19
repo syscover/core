@@ -1,0 +1,1 @@
+scalar Object @scalar(class: "Syscover\\Core\\GraphQL\\Types\\Scalars\\ObjectType")

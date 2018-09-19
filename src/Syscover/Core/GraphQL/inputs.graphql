@@ -1,0 +1,11 @@
+# Type to define SQL sentence
+input CoreSQLInput {
+    # SQL Command, Where, OrderBy, etc.
+    command: String!
+    # SQL Operator, <, >, ><, etc.
+    operator: String
+    # Value to compare.
+    value: String
+    # Column over operate.
+    column: String
+}

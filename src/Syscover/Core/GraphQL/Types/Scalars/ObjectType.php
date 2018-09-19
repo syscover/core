@@ -1,4 +1,4 @@
-<?php namespace Syscover\Core\GraphQL\ScalarTypes;
+<?php namespace Syscover\Core\GraphQL\Types\Scalars;
 
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\StringValueNode;
@@ -31,7 +31,7 @@ class ObjectType extends ScalarType
         return $value;
     }
 
-    public function parseLiteral($valueNode)
+    public function parseLiteral($valueNode, array $variables = null)
     {
         // Note: throwing GraphQL\Error\Error vs \UnexpectedValueException to benefit from GraphQL
         // error location in query:
