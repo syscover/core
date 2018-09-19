@@ -1,0 +1,2 @@
+# Query to get config files from laravel
+coreConfig(config:[CoreConfigInput]): [Object!]! @field(resolver: "Syscover\\Core\\GraphQL\\Services\\ConfigGraphQL@resolveConfig")

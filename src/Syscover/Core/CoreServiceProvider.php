@@ -22,10 +22,6 @@ class CoreServiceProvider extends ServiceProvider
 
         // register translations
         $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'core');
-
-        // register GraphQL types and schema
-        CoreGraphQLServiceProvider::bootGraphQLTypes();
-        CoreGraphQLServiceProvider::bootGraphQLSchema();
 	}
 
 	/**

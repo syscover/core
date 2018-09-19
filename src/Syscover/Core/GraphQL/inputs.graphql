@@ -9,3 +9,13 @@ input CoreSQLInput {
     # Column over operate.
     column: String
 }
+
+# Input to request config value
+input CoreConfigInput {
+    # String to access to config
+    key: String!
+    # Lang that will be translated config property
+    lang: String
+    # Property from object that will be translated
+    property: String
+}
