@@ -3,7 +3,7 @@
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
 
-abstract class CoreGraphQL
+abstract class CoreGraphQLService
 {
     protected $model;
     protected $service;
@@ -22,8 +22,8 @@ abstract class CoreGraphQL
 
         if(isset($args['sql']))
         {
-            $query = SQLService::getQueryFiltered($query, $args['sql'], $args['filters']);
-            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql'], $args['filters']);
+            $query = SQLService::getQueryFiltered($query, $args['sql'], $args['filters'] ?? null);
+            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql'], $args['filters'] ?? null);
         }
 
         return $query->get();
