@@ -47,7 +47,8 @@ trait CanManageCrud
      * Get columns name from table
      * @return array
      */
-    public function getTableColumns() {
+    public function getTableColumns()
+    {
         return DB::getSchemaBuilder()
             ->getColumnListing($this->table);
     }
