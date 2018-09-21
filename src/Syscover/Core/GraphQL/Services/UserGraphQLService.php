@@ -1,9 +1,11 @@
 <?php namespace Syscover\Core\GraphQL\Services;
 
+use Illuminate\Support\Facades\Auth;
+
 class UserGraphQLService
 {
     public function resolveUser($root, array $args)
     {
-        return auth($args['guard'] ?? null)->user();
+        return Auth::guard($args['guard'] ?? null)->user();
     }
 }
