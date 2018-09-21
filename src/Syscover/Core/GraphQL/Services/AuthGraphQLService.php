@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 
-class UserGraphQLService
+class AuthGraphQLService
 {
     public function resolveUser($root, array $args)
     {
