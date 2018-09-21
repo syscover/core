@@ -6,6 +6,11 @@ class UserGraphQLService
 {
     public function resolveUser($root, array $args)
     {
-        return Auth::guard($args['guard'] ?? null)->user();
+        if(isset($args['guard']))
+        {
+            return Auth::guard($args['guard'] ?? null)->user();
+        }
+
+        return Auth::user();
     }
 }
