@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 
-class ConfigGraphQL
+class ConfigGraphQLService
 {
     public function resolveConfig($root, array $args)
     {
