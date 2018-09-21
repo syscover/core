@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\DB;
 
 trait CanManageCrud
 {
-    protected $table;
-
     /**
      * @param   $query
      * @return  mixed
