@@ -3,3 +3,6 @@ coreConfig(config:[CoreConfigInput]): [Object!]! @field(resolver: "Syscover\\Cor
 
 # Query to get auth user
 coreUser(guard:String): Object @field(resolver: "Syscover\\Core\\GraphQL\\Services\\UserGraphQLService@resolveUser")
+
+# Query to check auth user
+coreUser(guard:String): Object @field(resolver: "Syscover\\Core\\GraphQL\\Services\\UserGraphQLService@resolveCheck")
