@@ -3,7 +3,7 @@ type CorePagination {
     #
     total: Int! @field(resolver: "Syscover\\Core\\GraphQL\\Services\\PaginationGraphQL@resolveTotal")
     #
-    objects(sql:[CoreSQLInput] filter:[CoreSQLInput]): [Object] @field(resolver: "Syscover\\Core\\GraphQL\\Services\\PaginationGraphQL@resolveObjects")
+    objects(sql:[CoreSQLInput] filters:[CoreSQLInput]): [Object] @field(resolver: "Syscover\\Core\\GraphQL\\Services\\PaginationGraphQL@resolveObjects")
     #
     filtered: Int @field(resolver: "Syscover\\Core\\GraphQL\\Services\\PaginationGraphQL@resolveFiltered")
 }
