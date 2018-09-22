@@ -1,6 +1,5 @@
 <?php namespace Syscover\Core\GraphQL\Services;
 
-use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
 
 abstract class CoreGraphQLService
