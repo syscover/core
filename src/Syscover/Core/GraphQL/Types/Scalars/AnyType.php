@@ -1,10 +1,10 @@
-<?php namespace Syscover\Core\GraphQL\ScalarTypes;
+<?php namespace Syscover\Core\GraphQL\Types\Scalars;
 
-use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Language\AST\BooleanValueNode;
 use GraphQL\Language\AST\FloatValueNode;
-use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Language\AST\IntValueNode;
+use GraphQL\Language\AST\StringValueNode;
+use GraphQL\Type\Definition\ScalarType;
 
 class AnyType extends ScalarType
 {
@@ -33,32 +33,26 @@ class AnyType extends ScalarType
         return $value;
     }
 
-    /**
-     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input
-     *
-     * @param \GraphQL\Language\AST\Node $valueNode
-     * @return mixed
-     */
-    public function parseLiteral($ast)
+    public function parseLiteral($valueNode, array $variables = null)
     {
-        if ($ast instanceof StringValueNode)
+        if ($valueNode instanceof StringValueNode)
         {
-            return (string) $ast->value;
+            return (string) $valueNode->value;
         }
 
-        if ($ast instanceof IntValueNode)
+        if ($valueNode instanceof IntValueNode)
         {
-            return (int) $ast->value;
+            return (int) $valueNode->value;
         }
 
-        if ($ast instanceof BooleanValueNode)
+        if ($valueNode instanceof BooleanValueNode)
         {
-            return (boolean) $ast->value;
+            return (boolean) $valueNode->value;
         }
 
-        if ($ast instanceof FloatValueNode)
+        if ($valueNode instanceof FloatValueNode)
         {
-            return (float) $ast->value;
+            return (float) $valueNode->value;
         }
 
         return null;

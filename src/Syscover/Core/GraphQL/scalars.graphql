@@ -1,1 +1,2 @@
 scalar Object @scalar(class: "Syscover\\Core\\GraphQL\\Types\\Scalars\\ObjectType")
+scalar Any @scalar(class: "Syscover\\Core\\GraphQL\\Types\\Scalars\\AnyType")
