@@ -9,3 +9,6 @@ coreAuthCheck(guard:String): Object @field(resolver: "Syscover\\Core\\GraphQL\\S
 
 """ Get preference key/value pair from cache """
 corePreferences(keys:[String]): [CorePreference] @field(resolver: "Syscover\\Core\\GraphQL\\Services\\CacheGraphQLService@resolvePreferences")
+
+""" Query to get slug """
+coreSlug(model:String! slug:String! id:String field:String): String @field(resolver: "Syscover\\Core\\GraphQL\\Services\\SlugGraphQLService@resolveSlug")
