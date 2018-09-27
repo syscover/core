@@ -13,7 +13,7 @@ class PaginationGraphQL
         // check if total is equal to 1, execute FOUND_ROWS() to guarantee the real result
         // https://github.com/laravel/framework/issues/22883
         // https://github.com/laravel/framework/issues/4306
-        return $total === 1 ? DB::select(DB::raw("SELECT FOUND_ROWS() AS 'total'"))[0]->total : $total;
+        return $total === 1 ? DB::select(DB::raw("select FOUND_ROWS() as 'total'"))[0]->total : $total;
     }
 
     public function resolveObjects($root, array $args)
@@ -35,7 +35,7 @@ class PaginationGraphQL
 
         // execute FOUND_ROWS() MySql Function and save filtered value, to be returned in resolveFilteredField() function
         // this function is executed after resolveObjectsField according to the position of fields marked in the GraphQL query
-        $root->filtered = DB::select(DB::raw("SELECT FOUND_ROWS() AS 'filtered'"))[0]->filtered;
+        $root->filtered = DB::select(DB::raw("select FOUND_ROWS() as 'filtered'"))[0]->filtered;
 
         // load eager loads
         $objects->load($eagerLoads);
