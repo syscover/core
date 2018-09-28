@@ -1,7 +1,5 @@
 <?php namespace Syscover\Core\GraphQL\Types\Scalars;
 
-use GraphQL\Error\Error;
-use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
 
 class ObjectType extends ScalarType
@@ -33,18 +31,6 @@ class ObjectType extends ScalarType
 
     public function parseLiteral($valueNode, array $variables = null)
     {
-        // Note: throwing GraphQL\Error\Error vs \UnexpectedValueException to benefit from GraphQL
-        // error location in query:
-        if (! $valueNode instanceof StringValueNode)
-        {
-            throw new Error('Query error: Can only parse strings got: ' . $valueNode->kind, [$valueNode]);
-        }
-
-        if (!filter_var($valueNode->value, FILTER_VALIDATE_EMAIL))
-        {
-            throw new Error("Not a valid email", [$valueNode]);
-        }
-
         return $valueNode->value;
     }
 }
