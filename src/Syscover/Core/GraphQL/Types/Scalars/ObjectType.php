@@ -35,7 +35,7 @@ class ObjectType extends ScalarType
     {
         // Note: throwing GraphQL\Error\Error vs \UnexpectedValueException to benefit from GraphQL
         // error location in query:
-        if (!$valueNode instanceof StringValueNode)
+        if (! $valueNode instanceof StringValueNode)
         {
             throw new Error('Query error: Can only parse strings got: ' . $valueNode->kind, [$valueNode]);
         }
