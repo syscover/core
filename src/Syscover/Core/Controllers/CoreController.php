@@ -202,7 +202,7 @@ class CoreController extends BaseController
 
         $this->destroyCustom($args);
 
-        $object = SQLService::destroyRecord($args['id'], $this->model, isset($args['lang'])? $args['lang'] : null, $this->modelLang);
+        $object = SQLService::deleteRecord($args['id'], $this->model, isset($args['lang'])? $args['lang'] : null, $this->modelLang);
 
         $response['status'] = "success";
         $response['data']   = $object;

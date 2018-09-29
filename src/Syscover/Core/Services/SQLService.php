@@ -152,7 +152,7 @@ class SQLService
      * @param array     $filters            filters to select and delete records
      * @return mixed
      */
-    public static function destroyRecord(
+    public static function deleteRecord(
         $id,
         $modelClassName,
         $langId = null,
