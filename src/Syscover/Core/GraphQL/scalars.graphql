@@ -1,2 +1,3 @@
-scalar Object @scalar(class: "Syscover\\Core\\GraphQL\\Types\\Scalars\\ObjectType")
-scalar Any @scalar(class: "Syscover\\Core\\GraphQL\\Types\\Scalars\\AnyType")
+scalar Object @scalar(class: "Syscover\\Core\\GraphQL\\Scalars\\ObjectScalar")
+scalar Any @scalar(class: "Syscover\\Core\\GraphQL\\Scalars\\AnyScalar")
+scalar Json @scalar(class: "Syscover\\Core\\GraphQL\\Scalars\\JsonScalar")

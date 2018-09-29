@@ -1,4 +1,4 @@
-<?php namespace Syscover\Core\GraphQL\Types\Scalars;
+<?php namespace Syscover\Core\GraphQL\Scalars;
 
 use GraphQL\Language\AST\BooleanValueNode;
 use GraphQL\Language\AST\FloatValueNode;
@@ -6,7 +6,7 @@ use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
 
-class AnyType extends ScalarType
+class AnyScalar extends ScalarType
 {
     public $name = "Any";
     public $description = "Any type of application, can to be a Int, String or Boolean";

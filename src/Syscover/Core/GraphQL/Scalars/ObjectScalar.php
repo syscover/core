@@ -1,8 +1,8 @@
-<?php namespace Syscover\Core\GraphQL\Types\Scalars;
+<?php namespace Syscover\Core\GraphQL\Scalars;
 
 use GraphQL\Type\Definition\ScalarType;
 
-class ObjectType extends ScalarType
+class ObjectScalar extends ScalarType
 {
     public $name = "Object";
     public $description = "Object scalar type, type that encapsulates for any object";
@@ -15,7 +15,7 @@ class ObjectType extends ScalarType
      */
     public function serialize($value)
     {
-        return $value;
+        return json_decode(json_encode($value), true);
     }
 
     /**
@@ -26,7 +26,7 @@ class ObjectType extends ScalarType
      */
     public function parseValue($value)
     {
-        return $value;
+        return json_decode(json_encode($value), false);
     }
 
     public function parseLiteral($valueNode, array $variables = null)
