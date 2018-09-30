@@ -1,0 +1,3 @@
+# Preference
+""" Set preference key/value pair from cache """
+coreUpdatePreferences(preferences: [CorePreferenceInput!]!): [CorePreference] @field(resolver: "Syscover\\Core\\GraphQL\\Services\\CacheGraphQLService@update")

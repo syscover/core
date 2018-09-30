@@ -33,52 +33,34 @@ Register middleware group sessions on file app/Http/Kernel.php add to middleware
 
 ```
 
-**X - And execute migrations**
+**2 - And execute migrations**
 ```
 php artisan migrate
 ```
 
-**X - Execute command to create encryption keys fot laravel passport**
+**3 - Execute command to create encryption keys fot laravel passport**
 ```
 php artisan passport:install
 ```
 
-**X - Add Passport::routes method within the boot method of your AuthServiceProvider**
+**4 - Add Passport::routes method within the boot method of your AuthServiceProvider**
 
 This method will register the routes necessary to issue access tokens and revoke access tokens, clients, and personal access tokens
 ```
-<?php namespace App\Providers;
-
-use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
-class AuthServiceProvider extends ServiceProvider
+/**
+ * Register any authentication / authorization services.
+ *
+ * @return void
+ */
+public function boot()
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-    ];
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->registerPolicies();
-        
-        Passport::routes();  // add laravel passport routes
-    }
+    $this->registerPolicies();
+    
+    Passport::routes();  // add laravel passport routes
 }
 ```
 
-
-**2 - Don't forget to register CORS in your server, the following example is for apache server**
+**5 - Don't forget to register CORS in your server, the following example is for apache server**
 ```
 Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Headers "authorization, origin, x-requested-with, content-type"
@@ -86,58 +68,32 @@ Header add Access-Control-Expose-Headers "authorization"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 ```
 
-**3 - You may need to extend both the PHP memory on your server as well as the upload limit**
+**6 - You may need to extend both the PHP memory on your server as well as the upload limit**
 ```
 php_value post_max_size 1000M
 php_value upload_max_filesize 1000M
 php_value memory_limit 256M
 ```
 
-
-**5 - Register GraphQl custom scalar types**
-
-In file app\Providers\AppServiceProvider.php Include this imports
-```
-use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
-use Syscover\Core\GraphQL\ScalarTypes\AnyType;
-```
-
-inside register method, set this code to register custom scalar types
-```
-$this->app->singleton(ObjectType::class, function ($app) {
-    return new ObjectType();
-});
-
-$this->app->singleton(AnyType::class, function ($app) {
-    return new AnyType();
-});
-```
-
-**6 - create link to storage folder**
+**7 - create link to storage folder**
 ```
 php artisan storage:link
 ```
 
-**7 - Execute publish command**
+**8 - Execute publish command**
 ```
-php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
-php artisan vendor:publish --provider="Folklore\GraphQL\ServiceProvider"
+php artisan vendor:publish --provider="Nuwave\Lighthouse\Providers\LighthouseServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**8 - Set GraphQl middleware**
+**9 - Set GraphQl middleware**
 
-In config/graphql.php replace 'middleware' => [] by
+In config/lighthouse.php add to route => middleware array
 ```
-'middleware' => ['auth:api'],
-```
-
-and replace 'error_formatter' => [\Folklore\GraphQL\GraphQL::class, 'formatError'], by
-```
-'error_formatter' => [\Syscover\Core\GraphQL\Services\GraphQL::class, 'formatError'],
+'middleware' => ['auth:api', 'sessions'],
 ```
 
-**9 - Add scss**
+**10 - Add scss**
 In file in resources/assets/sass/app.scss you can add utilities scss files
 ```
 // Material

@@ -1,21 +1,27 @@
-# Type to define SQL sentence
+""" Input to request config value """
+input CoreConfigInput {
+    """ String to access to config """
+    key: String!
+    """ Lang that will be translated config property """
+    lang: String
+    """ Property from object that will be translated """
+    property: String
+}
+
+""" Type to define SQL sentence """
 input CoreSQLInput {
-    # SQL Command, Where, OrderBy, etc.
+    """ SQL Command, Where, OrderBy, etc. """
     command: String!
-    # SQL Operator, <, >, ><, etc.
+    """ SQL Operator, <, >, ><, etc. """
     operator: String
-    # Value to compare.
+    """ Value to compare. """
     value: String
-    # Column over operate.
+    """ Column over operate. """
     column: String
 }
 
-# Input to request config value
-input CoreConfigInput {
-    # String to access to config
+""" Object that contain key/value to represent preferences of applications """
+input CorePreferenceInput {
     key: String!
-    # Lang that will be translated config property
-    lang: String
-    # Property from object that will be translated
-    property: String
+    value: Any
 }
