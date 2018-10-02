@@ -11,8 +11,8 @@ abstract class CoreGraphQLService
 
     public function __construct()
     {
-        $this->modelInstance = new $this->model;
-        $this->serviceInstance = new $this->service;
+        if (isset($this->model)) $this->modelInstance = new $this->model;
+        if (isset($this->service)) $this->serviceInstance = new $this->service;
     }
 
     public function get($root, array $args)
