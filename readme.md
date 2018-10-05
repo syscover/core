@@ -90,10 +90,18 @@ php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 
 In config/lighthouse.php add to route => middleware array
 ```
-'middleware' => ['auth:api', 'sessions'],
+'middleware' => ['api', 'client'],
 ```
 
-**10 - Add scss**
+**10 - Consumption of the API from localhost**
+To consume API resources from your own domain you can use the following route.
+```
+https://yourdomian.com/graphql/localhost
+```
+You will need to send CSRF token in your requests to verify that you make the requests from laravel.
+
+
+**11 - Add scss**
 In file in resources/assets/sass/app.scss you can add utilities scss files
 ```
 // Material
