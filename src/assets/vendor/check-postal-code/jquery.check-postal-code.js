@@ -2,7 +2,7 @@
  *	CheckPostalCode v1.0 - 2018-02-27
  *  Google Maps Geocoding API
  *	By José Carlos Rodríguez Palacín
- *	(c) 2018 SYSCOVER S.L. - https://syscover.com
+ *	(c) 2018 SYSCOVER S.L. - https://digitalh2.com
  *	All rights reserved
  */
 
