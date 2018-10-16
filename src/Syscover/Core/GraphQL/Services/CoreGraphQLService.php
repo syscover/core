@@ -44,12 +44,12 @@ abstract class CoreGraphQLService
 
     public function create($root, array $args)
     {
-        return $this->service->create($args['object']);
+        return $this->service->create($args['payload']);
     }
 
     public function update($root, array $args)
     {
-        return $this->service->update($args['object']);
+        return $this->service->update($args['payload']);
     }
 
     public function delete($root, array $args)
