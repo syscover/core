@@ -16,6 +16,7 @@ return [
     'checkout'                              => 'Checkout',
     'click_here'                            => 'Click here',
     'company'                               => 'Company',
+    'confirm_password'                      => 'Confirm password',
     'contact'                               => 'Contact',
     'contact_form'                          => 'Contact form',
     'continue'                              => 'Continue',

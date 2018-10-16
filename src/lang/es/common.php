@@ -16,6 +16,7 @@ return [
     'checkout'                              => 'Hacer pedido',
     'click_here'                            => 'Pincha aquí',
     'company'                               => 'Empresa',
+    'confirm_password'                      => 'Confirma la contraseña',
     'contact'                               => 'Contacto',
     'contact_form'                          => 'Formulario de contacto',
     'continue'                              => 'Continuar',
