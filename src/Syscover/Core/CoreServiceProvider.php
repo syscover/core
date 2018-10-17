@@ -16,7 +16,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
 
         // register views
-        $this->loadViewsFrom(__DIR__ . '/../../views', 'core');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'core');
 
         // register config files
         $this->publishes([
@@ -24,7 +24,7 @@ class CoreServiceProvider extends ServiceProvider
         ]);
 
         // register translations
-        $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'core');
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'core');
 	}
 
 	/**

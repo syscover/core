@@ -105,14 +105,14 @@ You will need to send CSRF token in your requests to verify that you make the re
 In file in resources/assets/sass/app.scss you can add utilities scss files
 ```
 // Material
-@import "../../../vendor/syscover/pulsar-core/src/assets/scss/material/elevations";
+@import "../../../vendor/syscover/pulsar-core/src/resources/sass/material/elevations";
 
 // Partials
-@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/forms";
-@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/typography";
-@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/helpers";
-@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/cookies-consent";
-@import "../../../vendor/syscover/pulsar-core/src/assets/scss/partials/vue";
+@import "../../../vendor/syscover/pulsar-core/src/resources/sass/partials/forms";
+@import "../../../vendor/syscover/pulsar-core/src/resources/sass/partials/typography";
+@import "../../../vendor/syscover/pulsar-core/src/resources/sass/partials/helpers";
+@import "../../../vendor/syscover/pulsar-core/src/resources/sass/partials/cookies-consent";
+@import "../../../vendor/syscover/pulsar-core/src/resources/sass/partials/vue";
 ```
 
 if you use Laravel Mix set this code
@@ -130,17 +130,14 @@ mix
     ], 'public/css/app.css')
     .scripts([
         ...
-        'vendor/syscover/pulsar-core/src/assets/vendor/jquery/jquery-3.3.1.min.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/polyfill/array.prototype.find.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/polyfill/array.prototype.foreach.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/bootstrap/js/bootstrap.min.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/territories/js/jquery.territories.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/check-postal-code/jquery.check-postal-code.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/jquery-validation/jquery.validate.min.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/jquery-validation/additional-methods.min.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/fontawesome/svg-with-js/js/fontawesome-all.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/js-cookie/src/js.cookie.js',
-        'vendor/syscover/pulsar-core/src/assets/vendor/cookie-consent/cookie-consent.js'
+        'vendor/syscover/pulsar-core/src/resources/vendor/polyfill/array.prototype.find.js',
+        'vendor/syscover/pulsar-core/src/resources/vendor/polyfill/array.prototype.foreach.js',
+        'vendor/syscover/pulsar-core/src/resources/vendor/territories/js/jquery.territories.js',
+        'vendor/syscover/pulsar-core/src/resources/vendor/check-postal-code/jquery.check-postal-code.js',
+        'vendor/syscover/pulsar-core/src/resources/vendor/jquery-validation/jquery.validate.min.js',
+        'vendor/syscover/pulsar-core/src/resources/vendor/jquery-validation/additional-methods.min.js',
+        'vendor/syscover/pulsar-core/src/resources/vendor/js-cookie/src/js.cookie.js',
+        'vendor/syscover/pulsar-core/src/resources/vendor/cookie-consent/cookie-consent.js'
         ...
     ], 'public/js/all.js')
 ```
