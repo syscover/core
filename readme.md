@@ -21,16 +21,6 @@ Register service provider, on file config/app.php add to providers array**
  */
 Syscover\Core\CoreServiceProvider::class,
 ```
-
-Register middleware group sessions on file app/Http/Kernel.php add to middlewareGroups array**
-```
-...
-'sessions' => [
-    \App\Http\Middleware\EncryptCookies::class,
-    \Illuminate\Session\Middleware\StartSession::class,
-],
-...
-
 ```
 
 **2 - And execute migrations**
