@@ -38,6 +38,8 @@ return [
     'forget_password'                       => 'Forget your password?',
     'free'                                  => 'Free',
     'home'                                  => 'Home',
+    'is_user'                               => 'I am already a user',
+    'is_not_user'                           => 'I am not yet a user',
     'iva'                                   => 'IVA',
     'legal'                                 => 'Legal',
     'language'                              => 'Language|Languages',
