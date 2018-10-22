@@ -11,6 +11,9 @@
 .pointer {
     cursor: pointer;
 }
+.full-width {
+    width: 100%;
+}
 
 @for $i from 0 through 100 {
     // PADDING
@@ -104,6 +107,10 @@
     // FONT SIZE
     .fs-#{$i * 10}-per {
         font-size: #{($i * 10) + '%'} !important;
+    }
+    // WIDTH
+    .w-#{$i * 10}-per {
+        width: #{($i * 10) + '%'} !important;
     }
 }
 
