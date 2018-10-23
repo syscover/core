@@ -81,6 +81,7 @@ return [
     'save_shipping_address'                 => 'Guardar esta dirección de envío',
     'save_this_address'                     => 'Guardar esta dirección como',
     'send'                                  => 'Enviar',
+    'share'                                 => 'Compartir',
     'shipping_address'                      => 'Dirección de envío|Direcciones de envío',
     'shipping_amount'                       => 'Costes de envío',
     'shipping_data'                         => 'Datos de envío',

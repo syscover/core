@@ -81,6 +81,7 @@ return [
     'save_shipping_address'                 => 'Save this shipping address',
     'save_this_address'                     => 'Save this address as',
     'send'                                  => 'Send',
+    'share'                                 => 'Share',
     'shipping_address'                      => 'Shipping address|Shipping addresses',
     'shipping_amount'                       => 'Shipping amount',
     'shipping_data'                         => 'Shipping data',
