@@ -10,6 +10,7 @@ return [
     'article'                               => 'Artículo|Artículos',
     'authentication'                        => 'Autenticación',
     'billing_address'                       => 'Dirección de facturación|Direcciones de facturación',
+    'billing_information'                   => 'Información de facturación',
     'blog'                                  => 'Blog|Blogs',
     'calculated'                            => 'Calculando',
     'cancel'                                => 'Cancelar',

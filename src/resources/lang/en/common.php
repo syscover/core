@@ -10,6 +10,7 @@ return [
     'article'                               => 'Article|Articles',
     'authentication'                        => 'Authentication',
     'billing_address'                       => 'Billing address|Billing addresses',
+    'billing_information'                   => 'Billing information',
     'blog'                                  => 'Blog|Blogs',
     'calculated'                            => 'Calculated',
     'cancel'                                => 'Cancel',
