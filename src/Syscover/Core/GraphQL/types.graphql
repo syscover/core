@@ -4,6 +4,12 @@ type CorePagination {
     filtered: Int @field(resolver: "Syscover\\Core\\GraphQL\\Services\\PaginationGraphQL@resolveFiltered")
 }
 
+type CorePaginationObject {
+    total: Int!
+    objects: [Object]
+    filtered: Int
+}
+
 type CoreTranslationField {
     id: String!
     value: String!
