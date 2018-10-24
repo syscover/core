@@ -60,6 +60,7 @@ return [
     'order'                                 => 'Pedido|Pedidos',
     'order_history'                         => 'Pedidos',
     'password'                              => 'Contraseña',
+    'paypal'                                => 'PayPal',
     'paypal_item_list_description'          => 'Productos',
     'paypal_shipping_description'           => 'Transporte',
     'payment_method'                        => 'Forma de pago',

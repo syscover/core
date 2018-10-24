@@ -60,6 +60,7 @@ return [
     'order'                                 => 'Order|Orders',
     'order_history'                         => 'Order history',
     'password'                              => 'Password',
+    'paypal'                                => 'PayPal',
     'paypal_item_list_description'          => 'Products',
     'paypal_shipping_description'           => 'Shipping',
     'payment_method'                        => 'Payment method',
