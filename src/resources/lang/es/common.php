@@ -37,7 +37,7 @@ return [
     'edit'                                  => 'Editar',
     'english'                               => 'Inglés',
     'email'                                 => 'Email',
-    'forget_password'                       => '¿Olvidó su contraseña?',
+    'forgot_password'                       => '¿Olvidó su contraseña?',
     'free'                                  => 'Gratis',
     'home'                                  => 'Inicio',
     'is_user'                               => 'Ya soy usuario',

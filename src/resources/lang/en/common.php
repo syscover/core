@@ -37,7 +37,7 @@ return [
     'edit'                                  => 'Edit',
     'english'                               => 'English',
     'email'                                 => 'Email',
-    'forget_password'                       => 'Forget your password?',
+    'forgot_password'                       => 'Forgot your password?',
     'free'                                  => 'Free',
     'home'                                  => 'Home',
     'is_user'                               => 'I am already a user',
