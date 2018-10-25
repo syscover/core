@@ -107,6 +107,7 @@ return [
     'type'                                  => 'Type|Types',
     'undefined'                             => 'Undefined',
     'update_account'                        => 'Update account',
+    'validation_zip'                        => 'el :attribute no es válido',
     'view_cart'                             => 'View cart',
     'want_purchase_invoice'                 => 'I want my purchase invoice',
     'zip'                                   => 'Postal code',

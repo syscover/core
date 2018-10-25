@@ -107,6 +107,7 @@ return [
     'type'                                  => 'Tipo|Tipos',
     'undefined'                             => 'No definido',
     'update_account'                        => 'Actualizar cuenta',
+    'validation_zip'                        => 'The :attribute is not valid',
     'view_cart'                             => 'Ver carro',
     'want_purchase_invoice'                 => 'Quiero factura de mi compra',
     'zip'                                   => 'Código postal',
