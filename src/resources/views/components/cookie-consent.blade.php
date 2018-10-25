@@ -12,7 +12,7 @@ Component: Cookie consent
     <p>
         <button type="button" class="no-style js-accept-cookies">
             {{ $accept ?? __('core::cookie-consent.accept_cookies_consent') }}
-            <i class="fa fa-times"></i>
+            <i class="fas fa-times"></i>
         </button>
     </p>
     <p>
