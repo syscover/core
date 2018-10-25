@@ -78,6 +78,7 @@ return [
     'registered_customers'                  => 'Registered customers',
     'repeat_password'                       => 'Repeat password',
     'required_fields'                       => 'Required fields',
+    'restore_password'                      => 'Restore password',
     'review'                                => 'Review|Reviews',
     'save'                                  => 'Save',
     'save_billing_address'                  => 'Save this billing address',

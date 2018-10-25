@@ -78,6 +78,7 @@ return [
     'registered_customers'                  => 'Clientes registrados',
     'repeat_password'                       => 'Repite la contraseña',
     'required_fields'                       => 'Campos requeridos',
+    'restore_password'                      => 'Restablecer contraseña',
     'review'                                => 'Valoración|Valoraciones',
     'save'                                  => 'Guardar',
     'save_billing_address'                  => 'Guardar esta dirección de facturación',
