@@ -6,7 +6,7 @@ coreAuthCheck(guard:String): Object @field(resolver: "Syscover\\Core\\GraphQL\\S
 
 # Config
 """ Query to get config files from laravel """
-coreConfig(config:[CoreConfigInput]): [Object!]! @field(resolver: "Syscover\\Core\\GraphQL\\Services\\ConfigGraphQLService@resolveConfig")
+coreConfig(config:CoreConfigInput): [Object!]! @field(resolver: "Syscover\\Core\\GraphQL\\Services\\ConfigGraphQLService@resolveConfig")
 
 # Preference
 """ Get preference key/value pair from cache """
