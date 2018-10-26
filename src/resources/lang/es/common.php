@@ -110,5 +110,6 @@ return [
     'validation_zip'                        => 'El :attribute no es válido',
     'view_cart'                             => 'Ver carro',
     'want_purchase_invoice'                 => 'Quiero factura de mi compra',
+    'your_order'                            => 'Su pedido',
     'zip'                                   => 'Código postal',
 ];

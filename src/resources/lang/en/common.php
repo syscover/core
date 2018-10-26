@@ -110,5 +110,6 @@ return [
     'validation_zip'                        => 'The :attribute is not valid',
     'view_cart'                             => 'View cart',
     'want_purchase_invoice'                 => 'I want my purchase invoice',
+    'your_order'                            => 'Your order',
     'zip'                                   => 'Postal code',
 ];
