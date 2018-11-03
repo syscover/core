@@ -54,7 +54,7 @@ abstract class CoreGraphQLService
 
     public function delete($root, array $args)
     {
-        $object = SQLService::deleteRecord($args['id'], $this->model, $args['lang_id'] ?? null, $args['lang_class'] ?? null);
+        $object = SQLService::deleteRecord($args['id'], $this->modelClassName, $args['lang_id'] ?? null, $args['lang_class'] ?? null);
 
         return $object;
     }

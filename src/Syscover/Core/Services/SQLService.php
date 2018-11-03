@@ -145,19 +145,19 @@ class SQLService
     }
 
     /**
-     * @param int       $id
-     * @param string    $modelClassName
-     * @param null      $langId
-     * @param null      $modelLangClassName
-     * @param array     $filters            filters to select and delete records
+     * @param int           $id
+     * @param string        $modelClassName
+     * @param string|null   $langId
+     * @param string|null   $modelLangClassName
+     * @param array         $filters            filters to select and delete records
      * @return mixed
      */
     public static function deleteRecord(
-        $id,
-        $modelClassName,
-        $langId = null,
-        $modelLangClassName = null,
-        $filters = []
+        int $id,
+        string $modelClassName,
+        string $langId = null,
+        string $modelLangClassName = null,
+        array $filters = []
     )
     {
         // get data to do model queries

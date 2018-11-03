@@ -14,4 +14,4 @@ corePreferences(keys:[String]): [CorePreference] @field(resolver: "Syscover\\Cor
 
 # Slug
 """ Query to get slug """
-coreSlug(model:String! slug:String! id:String field:String): String @field(resolver: "Syscover\\Core\\GraphQL\\Services\\SlugGraphQLService@resolveSlug")
+coreSlug(model:String! slug:String! id:String column:String lang_id:String): String @field(resolver: "Syscover\\Core\\GraphQL\\Services\\SlugGraphQLService@resolveSlug")

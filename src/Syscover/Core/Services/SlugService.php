@@ -8,16 +8,18 @@ class SlugService
      * @access  public
      * @param   string          $model
      * @param   string          $slug
-     * @param   string          $field
+     * @param   string          $column
      * @param   integer|string  $id
+     * @param   null|string     $lang_id
      * @return  string          $slug
      */
-    public static function checkSlug($model, $slug, $id = null, $field = 'slug')
+    public static function checkSlug($model, $slug, $id = null, $column = 'slug', $lang_id = null)
     {
         $slug   = str_slug($slug);
         $model  = new $model;
 
-        $query = $model->where($field, $slug);
+        $query = $model->where($column, $slug);
+        if ($lang_id !== null) $query->where('lang_id', $lang_id);
         if ($id !== null) $query->whereNotIn($model->getKeyName(), [$id]);
         $n = $query->count();
 
@@ -27,7 +29,7 @@ class SlugService
                 $suffix++;
                 $slug = $slug . '-' . $suffix;
 
-                $query = $model->where($field, $slug);
+                $query = $model->where($column, $slug);
                 if ($id !== null) $query->whereNotIn($model->getKeyName(), [$id]);
                 $n = $query->count();
             }
