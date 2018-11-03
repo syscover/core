@@ -116,7 +116,7 @@ class SQLService
             if(! isset($sql['command']))
                 throw new ParameterNotFoundException('Parameter command not found in request, please set command parameter in ' . json_encode($sql));
 
-            if($sql['command'] !== "orderBy" && ! isset($sql['value']))
+            if(($sql['command'] === "offset" || $sql['command'] === "limit") && ! isset($sql['value']))
                 throw new ParameterNotFoundException('Parameter value not found in request, please set value parameter in: ' . json_encode($sql));
 
             switch ($sql['command']) {
