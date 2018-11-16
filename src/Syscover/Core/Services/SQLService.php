@@ -17,10 +17,8 @@ class SQLService
      * @param array $sql
      * @param null $filters
      * @return mixed
-     * @throws ParameterNotFoundException
-     * @throws ParameterValueException
      */
-    public static function getQueryFiltered($query, $sql = null, $filters = null)
+    public static function getGroupQueryFiltered($query, $sql = null, $filters = null)
     {
         if(! $sql) $sql = [];
 
@@ -28,16 +26,16 @@ class SQLService
         if(isset($filters) && is_array($filters))
         {
             // filter query
-            $query = SQLService::setQueryFilter($query, $filters);
+            $query = SQLService::setGroupQueryFilter($query, $filters);
 
             // apply query parameters over filter
             $query->where(function ($query) use ($sql) {
-                    SQLService::setQueryFilter($query, $sql);
-                });
+                SQLService::setGroupQueryFilter($query, $sql);
+            });
         }
         else
         {
-            $query = SQLService::setQueryFilter($query, $sql);
+            $query = SQLService::setGroupQueryFilter($query, $sql);
         }
 
         return $query;
@@ -47,13 +45,11 @@ class SQLService
      * @param $query
      * @param null $filters sql to filter total count
      * @return mixed
-     * @throws ParameterNotFoundException
-     * @throws ParameterValueException
      */
-    public static function countPaginateTotalRecords($query, $filters = null)
+    public static function countGroupPaginateTotalRecords($query, $filters = null)
     {
         if(isset($filters))
-            $query = SQLService::setQueryFilter($query, $filters);
+            $query = SQLService::setGroupQueryFilter($query, $filters);
 
         return $query->count();
     }
@@ -153,6 +149,64 @@ class SQLService
         }
     }
 
+    /**
+     * DEPRECATED by getGroupQueryFiltered
+     * Get query apply sql or filters
+     *
+     * @param $query
+     * @param array $sql
+     * @param null $filters
+     * @return mixed
+     * @throws ParameterNotFoundException
+     * @throws ParameterValueException
+     */
+    public static function getQueryFiltered($query, $sql = null, $filters = null)
+    {
+        if(! $sql) $sql = [];
+
+        // filter all data by lang
+        if(isset($filters) && is_array($filters))
+        {
+            // filter query
+            $query = SQLService::setQueryFilter($query, $filters);
+
+            // apply query parameters over filter
+            $query->where(function ($query) use ($sql) {
+                SQLService::setQueryFilter($query, $sql);
+            });
+        }
+        else
+        {
+            $query = SQLService::setQueryFilter($query, $sql);
+        }
+
+        return $query;
+    }
+
+    /**
+     * DEPRECATED by countGroupPaginateTotalRecords
+     * @param $query
+     * @param null $filters sql to filter total count
+     * @return mixed
+     * @throws ParameterNotFoundException
+     * @throws ParameterValueException
+     */
+    public static function countPaginateTotalRecords($query, $filters = null)
+    {
+        if(isset($filters))
+            $query = SQLService::setQueryFilter($query, $filters);
+
+        return $query->count();
+    }
+
+    /**
+     * DEPRECATED by setGroupQueryFilter
+     * @param $query
+     * @param $filters
+     * @return mixed
+     * @throws ParameterNotFoundException
+     * @throws ParameterValueException
+     */
     public static function setQueryFilter($query, $filters)
     {
         // commands without pagination and limit
