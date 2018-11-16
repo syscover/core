@@ -145,8 +145,9 @@ class SQLService
                     }
                 }
             }
-            return $query;
         }
+
+        return $query;
     }
 
     /**
