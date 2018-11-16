@@ -58,6 +58,87 @@ class SQLService
         return $query->count();
     }
 
+    /**
+     * @param $query
+     * @param $filter
+     * @return mixed
+     *
+     * Example of filter parameter
+     *  [
+     *      'filter' => [
+     *          'type'  => 'and',  // operator between groups
+     *          'sql'   => [
+     *              [
+     *                  'type'  => 'and', // operator between sql
+     *                  'sql'   => [
+     *                      [
+     *                          'column' => 'prefix',
+     *                          'operator' => '>',
+     *                          'value' => 40
+     *                      ],
+     *                      [
+     *                          'column' => 'prefix',
+     *                          'operator' => '<',
+     *                          'value' => 50
+     *                      ]
+     *                  ],
+     *              ],
+     *              [
+     *                  'type'  => 'or', // operator between sql
+     *                  'sql'   => [
+     *                      [
+     *                          'column' => 'lang_id',
+     *                          'operator' => '=',
+     *                          'value' => 'es'
+     *                      ],
+     *                      [
+     *                          'column' => 'lang_id',
+     *                          'operator' => '=',
+     *                          'value' => 'en'
+     *                      ]
+     *                  ]
+     *              ]
+     *          ]
+     *      ]
+     *  ];
+     */
+    public static function setGroupQueryFilter($query, $filter)
+    {
+        if(isset($filter['type']))
+        {
+            foreach ($filter['sql'] as $sql)
+            {
+                if(isset($sql['column']))
+                {
+                    if($filter['type'] === 'AND' || $filter['type'] === 'and')
+                    {
+                        $query->where($sql['column'], $sql['operator'], $sql['value']);
+                    }
+                    elseif ($filter['type'] === 'OR' || $filter['type'] === 'or')
+                    {
+                        $query->orWhere($sql['column'], $sql['operator'], $sql['value']);
+                    }
+                }
+                else // is a grouped query
+                {
+                    if($filter['type'] === 'AND' || $filter['type'] === 'and')
+                    {
+                        $query->where(function ($query) use ($sql) {
+                            self::setGroupQueryFilter($query, $sql);
+                        });
+                    }
+                    elseif ($filter['type'] === 'OR' || $filter['type'] === 'or')
+                    {
+                        $query->orWhere(function ($query) use ($sql) {
+                            self::setGroupQueryFilter($query, $sql);
+                        });
+                    }
+                }
+            }
+            return $query;
+        }
+    }
+
     public static function setQueryFilter($query, $filters)
     {
         // commands without pagination and limit
