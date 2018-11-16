@@ -92,9 +92,8 @@ class SQLService
      *                          'value' => 'es'
      *                      ],
      *                      [
-     *                          'column' => 'lang_id',
-     *                          'operator' => '=',
-     *                          'value' => 'en'
+     *                          // raw property
+     *                          'raw' => 'CASE `market_product`.`product_class_tax_id` WHEN 1 THEN (`market_product`.`subtotal` * 1.21) > 8 END'
      *                      ]
      *                  ]
      *              ]
@@ -108,15 +107,30 @@ class SQLService
         {
             foreach ($filter['sql'] as $sql)
             {
-                if(isset($sql['column']))
+                if(isset($sql['column']) || isset($sql['raw']))
                 {
                     if($filter['type'] === 'AND' || $filter['type'] === 'and')
                     {
-                        $query->where($sql['column'], $sql['operator'], $sql['value']);
+                        if(isset($sql['raw']))
+                        {
+                            $query->whereRaw($sql['raw']);
+                        }
+                        else
+                        {
+                            $query->where($sql['column'], $sql['operator'], $sql['value']);
+                        }
+
                     }
                     elseif ($filter['type'] === 'OR' || $filter['type'] === 'or')
                     {
-                        $query->orWhere($sql['column'], $sql['operator'], $sql['value']);
+                        if(isset($sql['raw']))
+                        {
+                            $query->orWhereRaw($sql['raw']);
+                        }
+                        else
+                        {
+                            $query->orWhere($sql['column'], $sql['operator'], $sql['value']);
+                        }
                     }
                 }
                 else // is a grouped query
