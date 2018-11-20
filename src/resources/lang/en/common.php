@@ -110,6 +110,7 @@ return [
     'undefined'                             => 'Undefined',
     'update_account'                        => 'Update account',
     'validation_zip'                        => 'The :attribute is not valid',
+    'view'                                  => 'View|Views',
     'view_cart'                             => 'View cart',
     'want_purchase_invoice'                 => 'I want my purchase invoice',
     'your_order'                            => 'Your order',

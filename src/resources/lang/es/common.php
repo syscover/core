@@ -110,6 +110,7 @@ return [
     'undefined'                             => 'No definido',
     'update_account'                        => 'Actualizar cuenta',
     'validation_zip'                        => 'El :attribute no es válido',
+    'view'                                  => 'Vista|Vistas',
     'view_cart'                             => 'Ver carro',
     'want_purchase_invoice'                 => 'Quiero factura de mi compra',
     'your_order'                            => 'Su pedido',
