@@ -43,6 +43,20 @@ if (! function_exists('carbon')) {
     }
 }
 
+if (! function_exists('object_lang')) {
+    /**
+     * Get object with current language
+     *
+     * @param   \Illuminate\Support\Collection $objects
+     * @param   null $lang_id
+     * @return  mixed
+     */
+    function object_trans(\Illuminate\Support\Collection $objects, $lang_id = null)
+    {
+        return $objects->where('lang_id', $lang_id ?? user_lang())->first();
+    }
+}
+
 if (! function_exists('next_id')) {
     /**
      * Get next id from model
