@@ -4,6 +4,7 @@ return [
     'about'                                 => 'Nosotros',
     'add_to_cart'                           => 'Comprar',
     'adding_to_cart'                        => 'Añadiendo al carro de compra',
+    'adding_to_cart_success'                => 'Tu compra ha sido añadida',
     'address'                               => 'Dirección|Direcciones',
     'alias'                                 => 'Alias',
     'all_rights_reserved'                   => 'Todos los derechos reservados',

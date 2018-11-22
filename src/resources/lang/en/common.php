@@ -4,6 +4,7 @@ return [
     'about'                                 => 'About',
     'add_to_cart'                           => 'Buy',
     'adding_to_cart'                        => 'Adding to the shopping cart',
+    'adding_to_cart_success'                => 'Your purchase has been added',
     'address'                               => 'Address|Addresses',
     'alias'                                 => 'Alias',
     'all_rights_reserved'                   => 'All rights reserved',
