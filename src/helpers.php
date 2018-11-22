@@ -51,7 +51,7 @@ if (! function_exists('object_lang')) {
      * @param   null $lang_id
      * @return  mixed
      */
-    function object_trans(\Illuminate\Support\Collection $objects, $lang_id = null)
+    function object_lang(\Illuminate\Support\Collection $objects, $lang_id = null)
     {
         return $objects->where('lang_id', $lang_id ?? user_lang())->first();
     }
