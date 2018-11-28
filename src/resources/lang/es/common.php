@@ -106,7 +106,7 @@ return [
     'status'                                => 'Estado',
     'tax'                                   => 'Impuesto|Impuestos',
     'tin'                                   => 'CIF',
-    'total'                                 => 'Total',
+    'total'                                 => 'Total|Totales',
     'tracking'                              => 'Seguimiento',
     'type'                                  => 'Tipo|Tipos',
     'undefined'                             => 'No definido',

@@ -106,7 +106,7 @@ return [
     'status'                                => 'Status',
     'tax'                                   => 'Tax|Taxes',
     'tin'                                   => 'TIN',
-    'total'                                 => 'Total',
+    'total'                                 => 'Total|Totals',
     'tracking'                              => 'Tracking',
     'type'                                  => 'Type|Types',
     'undefined'                             => 'Undefined',
