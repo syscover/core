@@ -2,6 +2,7 @@
 
 return [
     'about'                                 => 'About',
+    'accept_terms_conditions'               => 'I accept the <a href=":link1" target="_blank">privacy policy</a> and the <a href=":link2" target="_blank">terms and conditions</a>',
     'add_to_cart'                           => 'Buy',
     'adding_to_cart'                        => 'Adding to the shopping cart',
     'adding_to_cart_success'                => 'Your purchase has been added',

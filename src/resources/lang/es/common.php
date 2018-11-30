@@ -2,6 +2,7 @@
 
 return [
     'about'                                 => 'Nosotros',
+    'accept_terms_conditions'               => 'Acepto la <a href=":link1" target="_blank">política de privacidad</a> y los <a href=":link2" target="_blank">términos y condiciones</a>',
     'add_to_cart'                           => 'Comprar',
     'adding_to_cart'                        => 'Añadiendo al carro de compra',
     'adding_to_cart_success'                => 'Tu compra ha sido añadida',
