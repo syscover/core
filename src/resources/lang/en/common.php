@@ -86,7 +86,7 @@ return [
     'restore_password'                      => 'Restore password',
     'review'                                => 'Review|Reviews',
     'save'                                  => 'Save',
-    'save_invoicing_address'                => 'Save this billing address',
+    'save_invoice_address'                  => 'Save this billing address',
     'save_shipping_address'                 => 'Save this shipping address',
     'save_this_address'                     => 'Save this address as',
     'send'                                  => 'Send',
