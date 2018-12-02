@@ -86,7 +86,7 @@ return [
     'restore_password'                      => 'Restablecer contraseña',
     'review'                                => 'Valoración|Valoraciones',
     'save'                                  => 'Guardar',
-    'save_billing_address'                  => 'Guardar esta dirección de facturación',
+    'save_invoicing_address'                => 'Guardar esta dirección de facturación',
     'save_shipping_address'                 => 'Guardar esta dirección de envío',
     'save_this_address'                     => 'Guardar esta dirección como',
     'send'                                  => 'Enviar',
