@@ -115,6 +115,7 @@ return [
     'update_account'                        => 'Actualizar cuenta',
     'validation_zip'                        => 'El :attribute no es válido',
     'view'                                  => 'Vista|Vistas',
+    'view_all'                              => 'Ver todos',
     'view_cart'                             => 'Ver carro',
     'view_more'                             => 'Ver más',
     'want_purchase_invoice'                 => 'Quiero factura de mi compra',

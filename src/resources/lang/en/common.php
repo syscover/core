@@ -115,6 +115,7 @@ return [
     'update_account'                        => 'Update account',
     'validation_zip'                        => 'The :attribute is not valid',
     'view'                                  => 'View|Views',
+    'view_all'                              => 'View all',
     'view_cart'                             => 'View cart',
     'view_more'                             => 'View more',
     'want_purchase_invoice'                 => 'I want my purchase invoice',
