@@ -303,7 +303,7 @@ class SQLService
      * @return mixed
      */
     public static function deleteRecord(
-        int $id,
+        $id,
         string $modelClassName,
         string $langId = null,
         string $modelLangClassName = null,
