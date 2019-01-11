@@ -25,7 +25,7 @@ if (! function_exists('date_time_string')) {
     function date_time_string($value)
     {
         // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
-        return (new \Carbon\Carbon(preg_replace('/\(.*\)/','', $value), config('app.timezone')))->toDateTimeString();
+        return $value ? (new \Carbon\Carbon(preg_replace('/\(.*\)/','', $value), config('app.timezone')))->toDateTimeString() : null;
     }
 }
 
