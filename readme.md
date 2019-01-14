@@ -17,7 +17,7 @@ composer require syscover/pulsar-core
 Register service provider, on file config/app.php add to providers array**
 ```
 /*
- * Pulsar Application Service Providers...
+ * DH2 Application Service Providers...
  */
 Syscover\Core\CoreServiceProvider::class,
 ```
