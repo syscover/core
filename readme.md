@@ -21,7 +21,6 @@ Register service provider, on file config/app.php add to providers array**
  */
 Syscover\Core\CoreServiceProvider::class,
 ```
-```
 
 **2 - And execute migrations**
 ```
