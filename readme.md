@@ -24,7 +24,7 @@ Syscover\Core\CoreServiceProvider::class,
 
 **2 - Execute publish command**
 ```
-php artisan vendor:publish --provider="Syscover\Admin\AdminServiceProvider"
+php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
 **3 - And execute migrations**
