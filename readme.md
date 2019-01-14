@@ -22,17 +22,22 @@ Register service provider, on file config/app.php add to providers array**
 Syscover\Core\CoreServiceProvider::class,
 ```
 
-**2 - And execute migrations**
+**2 - Execute publish command**
+```
+php artisan vendor:publish --provider="Syscover\Admin\AdminServiceProvider"
+```
+
+**3 - And execute migrations**
 ```
 php artisan migrate
 ```
 
-**3 - Execute command to create encryption keys fot laravel passport**
+**4 - Execute command to create encryption keys fot laravel passport**
 ```
 php artisan passport:install
 ```
 
-**4 - Add Passport::routes method within the boot method of your AuthServiceProvider**
+**5 - Add Passport::routes method within the boot method of your AuthServiceProvider**
 
 This method will register the routes necessary to issue access tokens and revoke access tokens, clients, and personal access tokens
 ```
@@ -49,7 +54,7 @@ public function boot()
 }
 ```
 
-**5 - Don't forget to register CORS in your server, the following example is for apache server**
+**6 - Don't forget to register CORS in your server, the following example is for apache server**
 ```
 Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Headers "authorization, origin, x-requested-with, content-type"
@@ -57,32 +62,32 @@ Header add Access-Control-Expose-Headers "authorization"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 ```
 
-**6 - You may need to extend both the PHP memory on your server as well as the upload limit**
+**7 - You may need to extend both the PHP memory on your server as well as the upload limit**
 ```
 php_value post_max_size 1000M
 php_value upload_max_filesize 1000M
 php_value memory_limit 256M
 ```
 
-**7 - create link to storage folder**
+**8 - create link to storage folder**
 ```
 php artisan storage:link
 ```
 
-**8 - Execute publish command**
+**9 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Nuwave\Lighthouse\Providers\LighthouseServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 
-**9 - Set GraphQl middleware**
+**10 - Set GraphQl middleware**
 
 In config/lighthouse.php add to route => middleware array
 ```
 'middleware' => ['api', 'client'],
 ```
 
-**10 - Consumption of the API from localhost**
+**11 - Consumption of the API from localhost**
 To consume API resources from your own domain you can use the following route.
 ```
 https://yourdomian.com/graphql/localhost
@@ -90,7 +95,7 @@ https://yourdomian.com/graphql/localhost
 You will need to send CSRF token in your requests to verify that you make the requests from laravel.
 
 
-**11 - Add scss**
+**12 - Add scss**
 In file in resources/assets/sass/app.scss you can add utilities scss files
 ```
 // Material
