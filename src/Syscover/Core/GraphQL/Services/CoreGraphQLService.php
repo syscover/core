@@ -4,15 +4,13 @@ use Syscover\Core\Services\SQLService;
 
 abstract class CoreGraphQLService
 {
-    protected $modelClassName;
-    protected $serviceClassName;
     protected $model;
     protected $service;
 
     public function __construct()
     {
-        if (isset($this->modelClassName)) $this->model = new $this->modelClassName;
-        if (isset($this->serviceClassName)) $this->service = new $this->serviceClassName;
+        if (isset($this->model)) $this->model = new $this->model;
+        if (isset($this->service)) $this->service = new $this->service;
     }
 
     public function get($root, array $args)
@@ -60,7 +58,7 @@ abstract class CoreGraphQLService
 
     public function delete($root, array $args)
     {
-        $object = SQLService::deleteRecord($args['id'], $this->modelClassName, $args['lang_id'] ?? null, $args['lang_class'] ?? null);
+        $object = SQLService::deleteRecord($args['id'], get_class($this->model), $args['lang_id'] ?? null, $args['lang_class'] ?? null);
 
         return $object;
     }
