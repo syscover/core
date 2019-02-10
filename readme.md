@@ -87,6 +87,15 @@ In config/lighthouse.php add to route => middleware array
 'middleware' => ['api', 'client'],
 ```
 
+and add the validation handler in error_handlers
+``` 
+'error_handlers' => [
+    ...
+    \Syscover\Core\GraphQL\Execution\ExtensionValidationErrorHandler::class,
+    ...
+],
+``` 
+
 **11 - Consumption of the API from localhost**
 To consume API resources from your own domain you can use the following route.
 ```
