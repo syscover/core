@@ -1,8 +1,10 @@
 <?php namespace Syscover\Core\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Syscover\Core\Traits\ApiResponse;
 
 /**
@@ -24,7 +26,7 @@ abstract class CoreController extends BaseController
     }
 
     /**
-     * Function to list all items
+     * List all items
      *
      * @return  \Illuminate\Http\JsonResponse
      */
@@ -33,22 +35,56 @@ abstract class CoreController extends BaseController
         return $this->successResponse($this->model->all());
     }
 
-    public function show()
+    /**
+     * Get item
+     *
+     * @param   $id
+     * @return  \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
     {
+        $object = $this->model->findOrFail($id);
 
+        return $this->successResponse($object);
     }
 
     /**
-     * Function to store items
+     * Store item
      *
      * @param   Request $request
      * @return  \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $object = $this->service->store($request->all());
+        try {
+            $object = $this->service->store($request->all());
+        }
+        catch (ValidationException $e) {
+            $errors = $e->validator->errors();
+            return $this->errorResponse($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         return $this->successResponse($object, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Update item
+     *
+     * @param   Request $request
+     * @param   $id
+     * @return  \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $object = $this->service->update($request->all(), $id);
+        }
+        catch (ModelNotFoundException $e) {
+            $model = class_basename($e->getModel());
+            return $this->errorResponse('Does not exist any instance of {$model} with the given id', Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->successResponse($object);
     }
 
 

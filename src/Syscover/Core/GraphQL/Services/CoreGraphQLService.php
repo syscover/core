@@ -42,6 +42,12 @@ abstract class CoreGraphQLService
         return $query->first();
     }
 
+    // method to replace create method
+    public function store($root, array $args)
+    {
+        return $this->service->store($args['payload']);
+    }
+
     public function create($root, array $args)
     {
         return $this->service->create($args['payload']);

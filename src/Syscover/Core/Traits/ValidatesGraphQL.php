@@ -3,6 +3,12 @@
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * Trait ValidatesGraphQL
+ *
+ * Trait generated from Illuminate\Foundation\Validation/ValidatesRequests to replace request by dara array
+ * @package Syscover\Core\Traits
+ */
 trait ValidatesGraphQL
 {
     /**
