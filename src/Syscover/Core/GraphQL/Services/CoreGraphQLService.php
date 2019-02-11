@@ -7,12 +7,6 @@ abstract class CoreGraphQLService
     protected $model;
     protected $service;
 
-    public function __construct()
-    {
-        if (isset($this->model)) $this->model = new $this->model;
-        if (isset($this->service)) $this->service = new $this->service;
-    }
-
     public function get($root, array $args)
     {
         $query = $this->model->builder();
