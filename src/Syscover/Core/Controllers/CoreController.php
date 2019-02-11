@@ -5,6 +5,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Syscover\Core\Exceptions\ModelNotChangeException;
 use Syscover\Core\Traits\ApiResponse;
 
 /**
@@ -43,7 +44,13 @@ abstract class CoreController extends BaseController
      */
     public function show($id)
     {
-        $object = $this->model->findOrFail($id);
+        try {
+            $object = $this->model->findOrFail($id);
+        }
+        catch (ModelNotFoundException $e) {
+            $model = class_basename($e->getModel());
+            return $this->errorResponse('Does not exist any instance of ' . $model . ' with the given id', Response::HTTP_NOT_FOUND);
+        }
 
         return $this->successResponse($object);
     }
@@ -79,15 +86,25 @@ abstract class CoreController extends BaseController
         try {
             $object = $this->service->update($request->all(), $id);
         }
+        catch (ValidationException $e) {
+            $errors = $e->validator->errors();
+            return $this->errorResponse($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
         catch (ModelNotFoundException $e) {
             $model = class_basename($e->getModel());
-            return $this->errorResponse('Does not exist any instance of {$model} with the given id', Response::HTTP_NOT_FOUND);
+            return $this->errorResponse('Does not exist any instance of ' . $model . ' with the given id', Response::HTTP_NOT_FOUND);
+        }
+        catch (ModelNotChangeException $e) {
+            return $this->errorResponse($e->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return $this->successResponse($object);
     }
 
+    public function destroy($id)
+    {
 
+    }
 
 
 
