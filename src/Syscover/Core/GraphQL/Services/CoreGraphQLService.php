@@ -47,7 +47,7 @@ abstract class CoreGraphQLService
 
     public function update($root, array $args)
     {
-        return $this->service->update($args['payload']);
+        return $this->service->update($args['payload'], $args['payload']['ix'] ?? $args['payload']['id']);
     }
 
     public function delete($root, array $args)

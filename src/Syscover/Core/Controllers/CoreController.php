@@ -20,12 +20,6 @@ abstract class CoreController extends BaseController
     protected $model;
     protected $service;
 
-    public function __construct()
-    {
-        if (isset($this->model)) $this->model = new $this->model;
-        if (isset($this->service)) $this->service = new $this->service;
-    }
-
     /**
      * List all items
      *
