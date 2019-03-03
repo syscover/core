@@ -33,6 +33,19 @@ class AnyScalar extends ScalarType
         return $value;
     }
 
+    /**
+     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
+     *
+     * E.g.
+     * {
+     *   user(email: "user@example.com")
+     * }
+     *
+     * @param \GraphQL\Language\AST\Node $valueNode
+     * @param array|null $variables
+     * @return string
+     * @throws Error
+     */
     public function parseLiteral($valueNode, array $variables = null)
     {
         if ($valueNode instanceof StringValueNode)
