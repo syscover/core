@@ -2,7 +2,7 @@
 
 use GraphQL\Type\Definition\ScalarType;
 
-class JsonScalar extends ScalarType
+class Json extends ScalarType
 {
     public $name = "Json";
     public $description = "Object scalar type, type that encapsulates for any object";

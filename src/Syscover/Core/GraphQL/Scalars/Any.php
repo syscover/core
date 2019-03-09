@@ -6,7 +6,7 @@ use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
 
-class AnyScalar extends ScalarType
+class Any extends ScalarType
 {
     public $name = "Any";
     public $description = "Any type of application, can to be a Int, String or Boolean";
