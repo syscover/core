@@ -37,10 +37,12 @@ php artisan migrate
 php artisan passport:install
 ```
 
-**5 - Add Passport::routes method within the boot method of your AuthServiceProvider**
+**5 - Add Passport::routes method within the boot method of your app/Providers/AuthServiceProvider**
 
 This method will register the routes necessary to issue access tokens and revoke access tokens, clients, and personal access tokens
 ```
+use Laravel\Passport\Passport;
+
 /**
  * Register any authentication / authorization services.
  *
