@@ -1,9 +1,29 @@
 <?php namespace Syscover\Core\Services;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
-class MySQLService
+class SchemaService
 {
+    public static function hasIndex($tableName, $index)
+    {
+        $response = null;
+
+        if (Schema::hasTable($tableName))
+        {
+            Schema::table($tableName, function (Blueprint $table) use ($index, $tableName, &$response) {
+
+                $sm = Schema::getConnection()->getDoctrineSchemaManager();
+                $indexesFound = $sm->listTableIndexes($tableName);
+
+                $response = array_key_exists($index, $indexesFound);
+            });
+        }
+
+        return $response;
+    }
+    
     public static function renameColumn(
         $tableName,
         $columnFrom,
