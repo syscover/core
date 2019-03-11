@@ -11,7 +11,7 @@ trait CanManageDataLang
      * @param   array   $filters            filters to select and updates records
      * @return	string
      */
-    public static function addDataLang(
+    public static function getDataLang(
         $langId,
         $id = null,
         $filters = []
