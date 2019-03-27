@@ -78,7 +78,7 @@ php artisan storage:link
 
 **9 - Execute publish command**
 ```
-php artisan vendor:publish --provider="Nuwave\Lighthouse\Providers\LighthouseServiceProvider"
+php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvider"
 php artisan vendor:publish --provider="Syscover\Core\CoreServiceProvider"
 ```
 

@@ -111,6 +111,12 @@ class SQLService
                         {
                             $query->whereRaw($sql['raw']);
                         }
+                        elseif (isset($sql['relation']))
+                        {
+                            $query->whereHas($sql['relation'], function ($query) use ($sql) {
+                                $query->where($sql['column'], $sql['operator'], $sql['value']);
+                            });
+                        }
                         else
                         {
                             $query->where($sql['column'], $sql['operator'], $sql['value']);
@@ -122,6 +128,12 @@ class SQLService
                         if(isset($sql['raw']))
                         {
                             $query->orWhereRaw($sql['raw']);
+                        }
+                        elseif (isset($sql['relation']))
+                        {
+                            $query->orWhereHas($sql['relation'], function ($query) use ($sql) {
+                                $query->where($sql['column'], $sql['operator'], $sql['value']);
+                            });
                         }
                         else
                         {
