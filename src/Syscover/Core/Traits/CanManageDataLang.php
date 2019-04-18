@@ -6,15 +6,15 @@ trait CanManageDataLang
      * Function to add lang record from json field
      *
      * @access	public
-     * @param   string  $langId
+     * @param   int     $langId
      * @param   int     $id
      * @param   array   $filters            filters to select and updates records
      * @return	string
      */
     public static function getDataLang(
-        $langId,
+        int $langId,
         $id = null,
-        $filters = []
+        array $filters = []
     )
     {
         // if id is equal to null, is a new object
