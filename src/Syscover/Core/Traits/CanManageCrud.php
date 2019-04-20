@@ -69,7 +69,6 @@ trait CanManageCrud
             ->filterQuery($filters)
             ->delete();
 
-        if($deleteLangDataRecord)
-            $instance::deleteDataLang($langId, $id);
+        if($deleteLangDataRecord) $instance::deleteDataLang($langId, $id);
     }
 }
