@@ -11,7 +11,7 @@ type CorePaginationObject {
 }
 
 type CoreTranslationField {
-    id: Int!
+    id: String!
     value: String!
 }
 
