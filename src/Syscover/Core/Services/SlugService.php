@@ -1,5 +1,7 @@
 <?php namespace Syscover\Core\Services;
 
+use Illuminate\Support\Str;
+
 class SlugService
 {
     /**
@@ -15,7 +17,7 @@ class SlugService
      */
     public static function checkSlug($model, $slug, $id = null, $column = 'slug', $lang_id = null)
     {
-        $slug   = str_slug($slug);
+        $slug   = Str::slug($slug);
         $model  = new $model;
 
         $query = $model->where($column, $slug);
