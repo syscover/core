@@ -8,8 +8,7 @@ class ImageService
     {
         $exif = $image->exif();
         $mime = $image->mime();
-
-        info($mime);
+        
         if ($mime == 'image/jpeg' && ($exif['Orientation'] ?? false))
         {
             if (! empty($exif['Orientation']))
