@@ -12,12 +12,12 @@ input CoreConfigInput {
 input CoreSQLInput {
     """ SQL Command, Where, OrderBy, etc. """
     command: String!
+    """ Column over operate. """
+    column: String
     """ SQL Operator, <, >, ><, etc. """
     operator: String
     """ Value to compare. """
-    value: String
-    """ Column over operate. """
-    column: String
+    value: Any
 }
 
 """ Object that contain key/value to represent preferences of applications """

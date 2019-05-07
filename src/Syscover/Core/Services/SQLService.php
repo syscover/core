@@ -101,11 +101,13 @@ class SQLService
     {
         if(isset($filter['type']))
         {
+            $filter['type'] = strtoupper($filter['type']);
+
             foreach ($filter['sql'] as $sql)
             {
                 if(isset($sql['column']) || isset($sql['raw']))
                 {
-                    if($filter['type'] === 'AND' || $filter['type'] === 'and')
+                    if($filter['type'] === 'AND')
                     {
                         if(isset($sql['raw']))
                         {
@@ -123,7 +125,7 @@ class SQLService
                         }
 
                     }
-                    elseif ($filter['type'] === 'OR' || $filter['type'] === 'or')
+                    elseif ($filter['type'] === 'OR')
                     {
                         if(isset($sql['raw']))
                         {
@@ -143,13 +145,13 @@ class SQLService
                 }
                 else // is a grouped query
                 {
-                    if($filter['type'] === 'AND' || $filter['type'] === 'and')
+                    if($filter['type'] === 'AND')
                     {
                         $query->where(function ($query) use ($sql) {
                             self::setGroupQueryFilter($query, $sql);
                         });
                     }
-                    elseif ($filter['type'] === 'OR' || $filter['type'] === 'or')
+                    elseif ($filter['type'] === 'OR')
                     {
                         $query->orWhere(function ($query) use ($sql) {
                             self::setGroupQueryFilter($query, $sql);
