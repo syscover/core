@@ -1,3 +1,11 @@
+type CoreFile {
+    url: String
+    filename: String!
+    pathname: String!
+    mime: String!
+    size: Int!
+}
+
 type CorePagination {
     total: Int! @field(resolver: "Syscover\\Core\\GraphQL\\Services\\PaginationGraphQL@resolveTotal")
     objects(sql:[CoreSQLInput] filters:[CoreSQLInput]): [Object] @field(resolver: "Syscover\\Core\\GraphQL\\Services\\PaginationGraphQL@resolveObjects")
