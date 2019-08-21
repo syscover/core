@@ -236,7 +236,6 @@ class SQLService
             if(($sql['command'] === "where" || $sql['command'] === "orderBy") && ! isset($sql['operator']))
                 throw new ParameterNotFoundException('Parameter operator not found in request, please set operator parameter in ' . json_encode($sql));
 
-
             switch ($sql['command'])
             {
                 case 'offset':
@@ -252,6 +251,9 @@ class SQLService
                     break;
                 case 'whereIn':
                     $query->whereIn($sql['column'], $sql['value']);
+                    break;
+                case 'whereJsonContains':
+                    $query->whereJsonContains($sql['column'], $sql['value']);
                     break;
 
 
@@ -287,6 +289,7 @@ class SQLService
                 case 'where':
                 case 'orWhere';
                 case 'whereIn';
+                case 'whereJsonContains';
                     // commands not accepted, already
                     // implemented in Syscover\Core\Services\SQLService::setQueryFilter method
                     break;
