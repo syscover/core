@@ -256,7 +256,6 @@ class SQLService
                     $query->whereJsonContains($sql['column'], $sql['value']);
                     break;
 
-
                 default:
                     throw new ParameterValueException('command parameter has a incorrect value, must to be where');
             }
