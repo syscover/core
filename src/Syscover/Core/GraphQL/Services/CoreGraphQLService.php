@@ -40,6 +40,11 @@ abstract class CoreGraphQLService
         return $this->service->store($args['payload']);
     }
 
+    public function clone($root, array $args)
+    {
+        return $this->service->clone($args['payload']);
+    }
+
     public function create($root, array $args)
     {
         return $this->service->create($args['payload']);
